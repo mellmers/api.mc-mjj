@@ -1,0 +1,14 @@
+{
+    "name": "api.timetable",
+    "require": {
+        "silex/silex": "^1.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Moritz Ellmers",
+            "email": "moritz.ellmers@web.de"
+        }
+    ],
+    "minimum-stability": "stable"
+}
