@@ -16,4 +16,6 @@ sources/vendor/
 sources/phpunit.xml
 # code-coverage output
 coverage/
+# composer download
+vendor/
 
