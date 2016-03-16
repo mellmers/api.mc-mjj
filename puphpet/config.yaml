@@ -122,6 +122,7 @@ nginx:
             server_name: api.timetable.vm
             server_aliases:
                 - www.api.timetable.vm
+                - api.timetable.vm
             www_root: /var/www/src/
             listen_port: '80'
             index_files:
@@ -313,7 +314,7 @@ hhvm:
         error_reporting: '-1'
         date.timezone: UTC
 mariadb:
-    install: '1'
+    install: '0'
     settings:
         version: '10.1'
         root_password: '123'
@@ -323,23 +324,23 @@ mariadb:
     databases: {  }
     grants: {  }
 mysql:
-    install: '0'
+    install: '1'
     settings:
         version: '5.5'
-        root_password: '123'
+        root_password: 'timetable'
         override_options: {  }
     adminer: 0
     users:
         mysqlnu_ulwbupifl66r:
-            name: dbuser
-            password: '123'
+            name: timetable
+            password: 'timetable'
     databases:
         mysqlnd_ohd7xotmrsui:
-            name: dbname
+            name: timetable
             sql: ''
     grants:
         mysqlng_edqof0lclg73:
-            user: dbuser
+            user: timetable
             table: '*.*'
             privileges:
                 - ALL

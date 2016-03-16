@@ -4,6 +4,8 @@
  * A class file to connect to database
  */
 class DB_CONNECT {
+
+    private $con = null;
  
     // constructor
     function __construct() {
@@ -23,23 +25,31 @@ class DB_CONNECT {
     function connect() {
         // import database connection variables
         require_once __DIR__ . '/db_config.php';
- 
-        // Connecting to mysql database
-        $con = mysql_connect(DB_SERVER, DB_USER, DB_PASSWORD) or die(mysql_error());
- 
-        // Selecting database
-        $db = mysql_select_db(DB_DATABASE) or die(mysql_error()) or die(mysql_error());
- 
-        // returning connection cursor
-        return $con;
+
+        try {
+            // Connecting to mysql database
+            $this->con = new PDO('mysql:host='.DB_SERVER.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+        } catch (PDOException $e) {
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
+
+        // returning connection
+        return $this->con;
+    }
+
+    /**
+     * Function get con object
+     */
+    function getCon() {
+        return $this->con;
     }
  
     /**
      * Function to close db connection
      */
     function close() {
-        // closing db connection
-        mysql_close();
+        // setting connection null
+        $this->con = null;
     }
- 
 }

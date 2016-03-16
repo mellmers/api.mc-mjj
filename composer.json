@@ -10,5 +10,12 @@
             "email": "moritz.ellmers@web.de"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Timetable\\Api\\": "src/",
+            "Controllers\\": "src/Controllers/",
+            "": "src/"
+        }
+    }
 }
