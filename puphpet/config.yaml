@@ -3,7 +3,7 @@ vagrantfile:
     vm:
         box: puphpet/ubuntu1404-x64
         box_url: puphpet/ubuntu1404-x64
-        hostname: api.mc-mjj.vm
+        hostname: api.project-x.vm
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
@@ -119,10 +119,10 @@ nginx:
     upstreams: {  }
     vhosts:
         nxv_1n8x9j4za1ux:
-            server_name: api.mc-mjj.vm
+            server_name: api.project-x.vm
             server_aliases:
-                - www.api.mc-mjj.vm
-                - api.mc-mjj.vm
+                - www.api.project-x.vm
+                - api.project-x.vm
             www_root: /var/www/src/
             listen_port: '80'
             index_files:
@@ -327,20 +327,20 @@ mysql:
     install: '1'
     settings:
         version: '5.5'
-        root_password: 'mc-mjj'
+        root_password: 'project-x'
         override_options: {  }
     adminer: 0
     users:
         mysqlnu_ulwbupifl66r:
-            name: mc-mjj
-            password: 'mc-mjj'
+            name: project-x
+            password: 'project-x'
     databases:
         mysqlnd_ohd7xotmrsui:
-            name: mc-mjj
+            name: project-x
             sql: ''
     grants:
         mysqlng_edqof0lclg73:
-            user: mc-mjj
+            user: project-x
             table: '*.*'
             privileges:
                 - ALL
