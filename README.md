@@ -1,4 +1,4 @@
-# API for mc-mjj project @ Mobile Computing
+# API for Project-X @ HSBremen - REST-API
 
 ## Benötigte Software
 - [Git](https://git-scm.com/) (Quellcodeverwaltung)
@@ -9,12 +9,12 @@
 - Einen Editor (vorzugsweise [Phpstorm](https://www.jetbrains.com/phpstorm/))
 
 ## Initiales Setup
-1. Klone dieses Repository `git clone git@github.com/mellmers/api.mc-mjj.git`
-2. Wechsel in das Verzeichnis `cd api.mc-mjj`
+1. Klone dieses Repository `git clone git@github.com/mellmers/api.project-x.git`
+2. Wechsel in das Verzeichnis `cd api.project-x`
 3. Starte die VM mit `vagrant up`
 4. Warte bis die VM erstellt wurde, währenddessen folgendes, als neue Zeile, in die Datei `C:\Windows\System32\drivers\etc\hosts` bzw. `/etc/hosts/` eintragen (Als Administrator/root bearbeiten):  
 ```
-192.168.56.222 api.mc-mjj.vm
+192.168.56.222 api.project-x.vm
 ```
 5. Wenn die VM fertig gebaut ist, sieht das in etwa so aus:  
 ```
@@ -32,8 +32,8 @@
  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++       
 ```
 6. Installiere die erforderlichen PHP Pakete: `composer install` (wenn lokale PHP Installation, sonst unter `/var/www/src` per SSH auf der VM)
-7. Browser öffnen und `http://api.mc-mjj.vm/` eingeben.
-8. Das `api.mc-mjj` Verzeichnis im Editor deiner Wahl öffnen.
+7. Browser öffnen und `http://api.project-x.vm/` eingeben.
+8. Das `api.project-x` Verzeichnis im Editor deiner Wahl öffnen.
 
 ## Vor jeder Session
 1. `vagrant up` (dauert jetzt nicht mehr so lange)
@@ -56,4 +56,4 @@ Kein Password
 - nginx
 - PHP 5.6
 - Nodejs 5
-- MySQL 5.5 (user: mc-mjj, pw: mc-mjj)
+- MySQL 5.5 (user: project-x, pw: project-x)
