@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Controllers\UserController;
+use controllers\UserController;
 
 $app = new \Timetable\Api\Application();
 
