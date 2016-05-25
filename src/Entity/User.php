@@ -23,8 +23,17 @@ class User implements \JsonSerializable
      */
     private $username;
 
-    
+    public static function createFromArray(array $row)
+    {
+        $user = new self();
+        if (array_key_exists('id', $row)) {
+            $user->setId($row['id']);
+        }
+        $user->setUsername($row['username']);
 
+        return $user;
+    }
+    
     /**
      * @return array
      */
@@ -34,5 +43,34 @@ class User implements \JsonSerializable
             'id'     => $this->id,
             'username' => $this->username,
         ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 }

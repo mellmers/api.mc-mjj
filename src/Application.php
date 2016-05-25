@@ -3,7 +3,9 @@
 namespace projectx\api;
 
 use projectx\api\database\DatabaseProvider;
+use projectx\api\user\UserServiceProvider;
 use Silex\Application as Silex;
+use Silex\Provider\ServiceControllerServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use JDesrosiers\Silex\Provider\CorsServiceProvider;
 
@@ -15,7 +17,7 @@ class Application extends Silex {
 
         $app = $this;
 
-//        $app->register(new ServiceControllerServiceProvider());
+        $app->register(new ServiceControllerServiceProvider());
 
         $app['base_path'] = __DIR__;
 
@@ -37,8 +39,8 @@ class Application extends Silex {
         // enable database connection
         $app->register(new DatabaseProvider());
 
-        // all about orders
-//        $app->register(new OrderServiceProvider());
+        // all about users
+        $app->register(new UserServiceProvider());
 //        $app->register(new SecurityProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html
