@@ -33,6 +33,19 @@ class UserRoutesProvider implements ControllerProviderInterface
          */
         // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.user:getList');
+        /**
+         * @SWG\Get(
+         *     path="/user/{id}",
+         *     tags={"user"},
+         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/user")
+         *     )
+         * )
+         */
+        $controllers->get('/{userId}', 'service.user:getById');
 
         /**
          * @SWG\Post(
@@ -41,6 +54,7 @@ class UserRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(name="user", in="body", @SWG\Schema(ref="#/definitions/user")),
          *     @SWG\Response(response="201", description="An example resource")
          * )
+         *
          */
         $controllers->post('/', 'service.user:create');
 

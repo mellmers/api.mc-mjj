@@ -5,6 +5,10 @@ namespace projectx\api\user;
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\User;
 
+/**
+ * Class UserRepository
+ * @package projectx\api\user
+ */
 class UserRepository
 {
     /** @var  Connection */
@@ -20,11 +24,17 @@ class UserRepository
         $this->connection = $connection;
     }
 
+    /**
+     * @return string
+     */
     public function getTableName()
     {
         return 'user';
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         $sql = <<<EOS
@@ -43,7 +53,26 @@ EOS;
 
         return $result;
     }
-    
+    public function getById($id)
+    {
+        $sql = <<<EOS
+SELECT o.*
+FROM `{$this->getTableName()}` o
+WHERE o.id = :id
+EOS;
+
+        $users = $this->connection->fetchAll($sql, ['id' => $id]);
+        if (count($users) === 0) {
+            throw new DatabaseException(
+                sprintf('User with id "%d" not exists!', $id)
+            );
+        }
+
+        return User::createFromArray($users[0]);
+    }
+    /**
+     * @param User $user
+     */
     public function create(User $user)
     {
         $data = $user->jsonSerialize();
