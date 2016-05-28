@@ -2,11 +2,12 @@
 -- Host:                         127.0.0.1
 -- Server version:               10.1.13-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win32
--- HeidiSQL Version:             9.3.0.4984
+-- HeidiSQL Version:             9.3.0.5083
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -22,16 +23,17 @@ CREATE TABLE IF NOT EXISTS `gameaccount_type` (
   CONSTRAINT `fk_gameaccount_type_img_type1` FOREIGN KEY (`iconType`) REFERENCES `img_type` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table project-x.gameaccount_type: ~4 rows (approximately)
+-- Dumping data for table project-x.gameaccount_type: ~0 rows (approximately)
 DELETE FROM `gameaccount_type`;
 /*!40000 ALTER TABLE `gameaccount_type` DISABLE KEYS */;
 INSERT INTO `gameaccount_type` (`name`, `icondata`, `iconType`) VALUES
-	('Battle.net', NULL, 'png'),
-	('League of Legends', NULL, 'png'),
-	('Origin', NULL, 'png'),
-	('Steam', NULL, 'png'),
-	('Uplay', NULL, 'png');
+	('battle.net', NULL, 'bmp'),
+	('League of Legends', NULL, 'bmp'),
+	('Origin', NULL, 'bmp'),
+	('Steam', NULL, 'bmp'),
+	('Uplay', NULL, 'bmp');
 /*!40000 ALTER TABLE `gameaccount_type` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
