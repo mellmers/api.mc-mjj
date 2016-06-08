@@ -48,11 +48,12 @@ EOS;
 //        print_r($users);
 
         foreach ($users as $user) {
-            $result[] = User::createFromArray($user);
+            $result['data'][] = User::createFromArray($user);
         }
 
         return $result;
     }
+
     public function getById($id)
     {
         $sql = <<<EOS
@@ -61,6 +62,8 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
+        $result = [];
+
         $users = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($users) === 0) {
             throw new DatabaseException(
@@ -68,8 +71,11 @@ EOS;
             );
         }
 
-        return User::createFromArray($users[0]);
+        $result['data'][] = User::createFromArray($users[0]);
+
+        return $result;
     }
+
     /**
      * @param User $user
      */
