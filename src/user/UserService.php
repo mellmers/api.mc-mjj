@@ -58,7 +58,6 @@ class UserService
     public function create(Request $request)
     {
         $postData = $request->request->all();
-        unset($postData['id']);
 
         $user = User::createFromArray($postData);
 

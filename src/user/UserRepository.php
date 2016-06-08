@@ -25,12 +25,20 @@ class UserRepository
     }
 
     /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return 'user';
+    }
+
+    /**
      * @return array
      */
     public function getAll()
     {
         $sql = <<<EOS
-SELECT *
+SELECT * 
 FROM `{$this->getTableName()}`
 EOS;
 
@@ -46,14 +54,6 @@ EOS;
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return 'user';
-    }
-
     public function getById($id)
     {
         $sql = <<<EOS
@@ -62,6 +62,8 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
+        $result = [];
+
         $users = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($users) === 0) {
             throw new DatabaseException(
@@ -69,9 +71,11 @@ EOS;
             );
         }
 
+        $result['data'][] = User::createFromArray($users[0]);
 
-        return User::createFromArray($users[0]);
+        return $result;
     }
+
     /**
      * @param User $user
      */
