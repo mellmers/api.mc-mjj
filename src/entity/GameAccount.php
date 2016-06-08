@@ -22,6 +22,7 @@ class GameAccount implements \JsonSerializable
      * @SWG\Property(type="string")
      */
     private $gameAccountType;
+
     /**
      * @var string
      * @SWG\Property(type="string")

@@ -2,12 +2,13 @@
 
 namespace projectx\api;
 
+use JDesrosiers\Silex\Provider\CorsServiceProvider;
 use projectx\api\database\DatabaseProvider;
+use projectx\api\gameAccountType\GameAccountTypeServiceProvider;
 use projectx\api\user\UserServiceProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use JDesrosiers\Silex\Provider\CorsServiceProvider;
 
 class Application extends Silex {
 
@@ -42,6 +43,9 @@ class Application extends Silex {
         // all about users
         $app->register(new UserServiceProvider());
 //        $app->register(new SecurityProvider());
+
+        // all about gameAccountType
+        $app->register(new GameAccountTypeServiceProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html
         $this->before(function (Request $request) use ($app) {

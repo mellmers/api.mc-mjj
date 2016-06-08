@@ -25,20 +25,12 @@ class UserRepository
     }
 
     /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return 'user';
-    }
-
-    /**
      * @return array
      */
     public function getAll()
     {
         $sql = <<<EOS
-SELECT * 
+SELECT *
 FROM `{$this->getTableName()}`
 EOS;
 
@@ -48,11 +40,20 @@ EOS;
 //        print_r($users);
 
         foreach ($users as $user) {
-            $result[] = User::createFromArray($user);
+            $result['data'][] = User::createFromArray($user);
         }
 
         return $result;
     }
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return 'user';
+    }
+
     public function getById($id)
     {
         $sql = <<<EOS
@@ -67,6 +68,7 @@ EOS;
                 sprintf('User with id "%d" not exists!', $id)
             );
         }
+
 
         return User::createFromArray($users[0]);
     }
