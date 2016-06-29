@@ -45,7 +45,7 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
          *     )
          * )
          */
-        $controllers->get('/{name}', 'service.gameAccountType:getByName');
+        $controllers->get('/{id}', 'service.gameAccountType:getById');
 
         /**
          * @SWG\Post(

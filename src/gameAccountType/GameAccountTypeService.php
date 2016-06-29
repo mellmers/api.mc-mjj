@@ -42,9 +42,9 @@ class GameAccountTypeService
      * @internal param $name
      *
      */
-    public function getByName($name)
+    public function getById($id)
     {
-        return new JsonResponse($this->gameAccountTypeRepository->getByName($name));
+        return new JsonResponse($this->gameAccountTypeRepository->getById($id));
     }
 
 

@@ -59,18 +59,18 @@ EOS;
      * @return GameAccountType
      * @throws DatabaseException
      */
-    public function getByName($name)
+    public function getById($id)
     {
         $sql = <<<EOS
 SELECT gat.*
 FROM `{$this->getTableName()}` gat
-WHERE gat.name = :name
+WHERE gat.id = :id
 EOS;
 
-        $gameAccountTypes = $this->connection->fetchAll($sql, ['name' => $name]);
+        $gameAccountTypes = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($gameAccountTypes) === 0) {
             throw new DatabaseException(
-                sprintf('GameAccountType with name "%d" not exists!', $name)
+                sprintf('GameAccountType with id "%d" does not exists!', $id)
             );
         }
         $result = [];
