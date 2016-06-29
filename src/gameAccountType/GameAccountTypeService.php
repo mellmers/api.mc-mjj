@@ -39,7 +39,7 @@ class GameAccountTypeService
     /**
      * @return JsonResponse
      * @throws DatabaseException
-     * @internal param $name
+     * @internal param $id
      *
      */
     public function getById($id)

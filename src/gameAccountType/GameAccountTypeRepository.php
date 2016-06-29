@@ -55,7 +55,7 @@ EOS;
     }
 
     /**
-     * @param $name
+     * @param $id
      * @return GameAccountType
      * @throws DatabaseException
      */
