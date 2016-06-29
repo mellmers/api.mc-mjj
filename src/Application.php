@@ -4,8 +4,9 @@ namespace projectx\api;
 
 use JDesrosiers\Silex\Provider\CorsServiceProvider;
 use projectx\api\database\DatabaseProvider;
-use projectx\api\gameAccountType\GameAccountTypeServiceProvider;
+use projectx\api\game\GameServiceProvider;
 use projectx\api\gameAccount\GameAccountServiceProvider;
+use projectx\api\gameAccountType\GameAccountTypeServiceProvider;
 use projectx\api\user\UserServiceProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
@@ -50,6 +51,9 @@ class Application extends Silex {
 
         // all about gameAccount
         $app->register(new GameAccountServiceProvider());
+
+        // all about game
+        $app->register(new GameServiceProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html
         $this->before(function (Request $request) use ($app) {
