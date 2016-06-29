@@ -33,19 +33,25 @@ class Game implements \JsonSerializable
      * @var string
      * @SWG\Property(type="string")
      */
-    private $iconData;
-
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $iconType;
+    private $icon;
 
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $rules;
+
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $genre;
+
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $timelimit;
 
 
     public static function createFromArray(array $row)
@@ -60,14 +66,17 @@ class Game implements \JsonSerializable
         if (array_key_exists('typ', $row)) {
             $gameAccountType->setTyp($row['typ']);
         }
-        if (array_key_exists('imageData', $row)) {
-            $gameAccountType->setIconData($row['imageData']);
-        }
-        if (array_key_exists('imageType', $row)) {
-            $gameAccountType->setIconType($row['imageType']);
+        if (array_key_exists('icon', $row)) {
+            $gameAccountType->setIcon($row['icon']);
         }
         if (array_key_exists('rules', $row)) {
             $gameAccountType->setRules($row['rules']);
+        }
+        if (array_key_exists('genre', $row)) {
+            $gameAccountType->setGenre($row['genre']);
+        }
+        if (array_key_exists('timelimit', $row)) {
+            $gameAccountType->setTimelimit($row['timelimit']);
         }
 
         return $gameAccountType;
@@ -82,8 +91,7 @@ class Game implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'typ' => $this->typ,
-            'imageData' => $this->iconData,
-            'imageType' => $this->iconType,
+            'icon' => $this->icon,
             'rules' => $this->rules,
         ];
     }
@@ -135,38 +143,7 @@ class Game implements \JsonSerializable
     {
         $this->typ = $typ;
     }
-
-    /**
-     * @return string
-     */
-    public function getIconData()
-    {
-        return $this->iconData;
-    }
-
-    /**
-     * @param string $iconData
-     */
-    public function setIconData($iconData)
-    {
-        $this->iconData = $iconData;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIconType()
-    {
-        return $this->iconType;
-    }
-
-    /**
-     * @param string $iconType
-     */
-    public function setIconType($iconType)
-    {
-        $this->iconType = $iconType;
-    }
+    
 
     /**
      * @return string
@@ -183,5 +160,51 @@ class Game implements \JsonSerializable
     {
         $this->rules = $rules;
     }
+    /**
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
 
+    /**
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param string $genre
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimelimit()
+    {
+        return $this->timelimit;
+    }
+
+    /**
+     * @param string $timelimit
+     */
+    public function setTimelimit($timelimit)
+    {
+        $this->timelimit = $timelimit;
+    }
 }

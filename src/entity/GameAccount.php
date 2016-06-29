@@ -32,11 +32,11 @@ class GameAccount implements \JsonSerializable
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();
-        if (array_key_exists('user', $row)) {
-            $gameAccountType->setUserId($row['user']);
+        if (array_key_exists('user_id', $row)) {
+            $gameAccountType->setUserId($row['user_id']);
         }
-        if (array_key_exists('gameAccountType', $row)) {
-            $gameAccountType->setGameAccountType($row['gameAccountType']);
+        if (array_key_exists('_type', $row)) {
+            $gameAccountType->setGameAccountType($row['_type']);
         }
         if (array_key_exists('userIdentifier', $row)) {
             $gameAccountType->setUserIdendtifier($row['userIdentifier']);

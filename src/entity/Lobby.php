@@ -34,18 +34,7 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $winnerTeam;
-
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $imageData;
-
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $imageType;
+    
 
     public static function createFromArray(array $row)
     {
@@ -53,21 +42,16 @@ class Lobby implements \JsonSerializable
         if (array_key_exists('id', $row)) {
             $gameAccountType->setId($row['id']);
         }
-        if (array_key_exists('owner', $row)) {
-            $gameAccountType->setOwnerId($row['owner']);
+        if (array_key_exists('owner_id', $row)) {
+            $gameAccountType->setOwnerId($row['owner_id']);
         }
-        if (array_key_exists('game', $row)) {
-            $gameAccountType->setGameId($row['game']);
+        if (array_key_exists('game_id', $row)) {
+            $gameAccountType->setGameId($row['game_id']);
         }
         if (array_key_exists('winnerTeam', $row)) {
             $gameAccountType->setWinnerTeam($row['winnerTeam']);
         }
-        if (array_key_exists('iamgeData', $row)) {
-            $gameAccountType->setGameId($row['iamgeData']);
-        }
-        if (array_key_exists('iamgeType', $row)) {
-            $gameAccountType->setGameId($row['iamgeType']);
-        }
+
         return $gameAccountType;
     }
 
@@ -78,11 +62,9 @@ class Lobby implements \JsonSerializable
     {
         return [
             'id' => $this->id,
-            'owner' => $this->ownerId,
-            'game' => $this->gameId,
+            'owner_id' => $this->ownerId,
+            'game_id' => $this->gameId,
             'winnerTeam' => $this->winnerTeam,
-            'iamgeData' => $this->imageData,
-            'iamgeType' => $this->imageData,
         ];
     }
 
@@ -148,37 +130,5 @@ class Lobby implements \JsonSerializable
     public function setWinnerTeam($winnerTeam)
     {
         $this->winnerTeam = $winnerTeam;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIamgeData()
-    {
-        return $this->imageData;
-    }
-
-    /**
-     * @param string $iamgeData
-     */
-    public function setIamgeData($imageData)
-    {
-        $this->iamgeData = $imageData;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImageType()
-    {
-        return $this->imageType;
-    }
-
-    /**
-     * @param string $imageType
-     */
-    public function setImageType($imageType)
-    {
-        $this->imageType = $imageType;
     }
 }

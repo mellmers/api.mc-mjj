@@ -21,12 +21,8 @@ class GameAccountType implements \JsonSerializable
      * @var string
      * @SWG\Property(type="string")
      */
-    private $iconData;
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $iconType;
+    private $icon;
+
 
     public static function createFromArray(array $row)
     {
@@ -34,12 +30,10 @@ class GameAccountType implements \JsonSerializable
         if (array_key_exists('name', $row)) {
             $gameAccountType->setName($row['name']);
         }
-        if (array_key_exists('imageData', $row)) {
-            $gameAccountType->setIconData($row['imageData']);
+        if (array_key_exists('icon', $row)) {
+            $gameAccountType->setIconData($row['icon']);
         }
-        if (array_key_exists('imageType', $row)) {
-            $gameAccountType->setIconType($row['imageType']);
-        }
+
         return $gameAccountType;
     }
 
@@ -50,8 +44,7 @@ class GameAccountType implements \JsonSerializable
     {
         return [
             'name' => $this->name,
-            'imageData' => $this->iconData,
-            'imageType' => $this->iconType,
+            'icon' => $this->icon,
         ];
     }
     /**
@@ -73,32 +66,16 @@ class GameAccountType implements \JsonSerializable
     /**
      * @return string
      */
-    public function getIconData()
+    public function getIcon()
     {
-        return $this->iconData;
+        return $this->icon;
     }
 
     /**
-     * @param string $iconData
+     * @param string $icon
      */
-    public function setIconData($iconData)
+    public function setIcon($icon)
     {
-        $this->iconData = $iconData;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIconType()
-    {
-        return $this->iconType;
-    }
-
-    /**
-     * @param string $iconType
-     */
-    public function setIconType($iconType)
-    {
-        $this->iconType = $iconType;
+        $this->iconData = $icon;
     }
 }

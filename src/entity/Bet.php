@@ -40,11 +40,11 @@ class Bet implements \JsonSerializable
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();
-        if (array_key_exists('user', $row)) {
-            $gameAccountType->setUserId($row['user']);
+        if (array_key_exists('user_id', $row)) {
+            $gameAccountType->setUserId($row['user_id']);
         }
-        if (array_key_exists('lobby', $row)) {
-            $gameAccountType->setLobbyId($row['lobby']);
+        if (array_key_exists('lobby_id', $row)) {
+            $gameAccountType->setLobbyId($row['lobby_id']);
         }
         if (array_key_exists('amount', $row)) {
             $gameAccountType->setAmount($row['amount']);
@@ -63,8 +63,8 @@ class Bet implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'user' => $this->userId,
-            'lobby' => $this->lobbyId,
+            'user_id' => $this->userId,
+            'lobby_id' => $this->lobbyId,
             'amount' => $this->amount,
             'team' => $this->team,
         ];
