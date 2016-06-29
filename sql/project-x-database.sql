@@ -182,53 +182,53 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Dumping data for table project-x.bet: ~2 rows (approximately)
 /*!40000 ALTER TABLE `bet` DISABLE KEYS */;
 INSERT INTO `bet` (`user_id`, `lobby_id`, `amount`, `team`) VALUES
-	(0, 0, 500, 0),
-	(1, 0, 500, 1);
+	(1, 1, 500, 0),
+	(2, 1, 500, 1);
 /*!40000 ALTER TABLE `bet` ENABLE KEYS */;
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)
 /*!40000 ALTER TABLE `game` DISABLE KEYS */;
-INSERT INTO `game` (`name`, `typ`, `icon`, `rules`, `genre`, `timelimit`) VALUES
-	('League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
-	('League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
+INSERT INTO `game` (`id`, `name`, `typ`, `icon`, `rules`, `genre`, `timelimit`) VALUES
+	(1, 'League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
+	(2, 'League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
 /*!40000 ALTER TABLE `game` ENABLE KEYS */;
 
 -- Dumping data for table project-x.gameaccount: ~3 rows (approximately)
 /*!40000 ALTER TABLE `gameaccount` DISABLE KEYS */;
 INSERT INTO `gameaccount` (`user_id`, `gameaccount_type_id`, `userIdentifier`) VALUES
-	(0, 0, 'dorbird#2378'),
-	(0, 1, 'BirdTheBest'),
-	(0, 4, 'dor_bird');
+	(1, 1, 'dorbird#2378'),
+	(1, 2, 'BirdTheBest'),
+	(1, 5, 'dor_bird');
 /*!40000 ALTER TABLE `gameaccount` ENABLE KEYS */;
 
 -- Dumping data for table project-x.gameaccount_type: ~5 rows (approximately)
 /*!40000 ALTER TABLE `gameaccount_type` DISABLE KEYS */;
-INSERT INTO `gameaccount_type` (`name`, `icon`) VALUES
-	('Battle.net', NULL),
-	('League of Legends', NULL),
-	('Origin', NULL),
-	('Steam', NULL),
-	('Uplay', NULL);
+INSERT INTO `gameaccount_type` (`id`, `name`, `icon`) VALUES
+	(1, 'Battle.net', NULL),
+	(2, 'League of Legends', NULL),
+	(3, 'Origin', NULL),
+	(4, 'Steam', NULL),
+	(5, 'Uplay', NULL);
 /*!40000 ALTER TABLE `gameaccount_type` ENABLE KEYS */;
 
 -- Dumping data for table project-x.lobby: ~1 rows (approximately)
 /*!40000 ALTER TABLE `lobby` DISABLE KEYS */;
-INSERT INTO `lobby` (`owner_id`, `game_id`, `winnerteam`, `createdAt`, `starttime`, `endtime`) VALUES
-	(0, 1, NULL, '2016-05-27 12:34:54', NULL, NULL);
+INSERT INTO `lobby` (`id`, `owner_id`, `game_id`, `winnerteam`, `createdAt`, `starttime`, `endtime`) VALUES
+	(1, 1, 1, NULL,'2016-05-27 12:34:54', NULL, NULL);
 /*!40000 ALTER TABLE `lobby` ENABLE KEYS */;
 
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`email`, `username`, `trusted`, `password`, `icon`, `coins`) VALUES
-	('jonas@oja.de', 'jonasoja', NULL, 'geheim', NULL, 10000),
-	('max@musterman.de', 'maxmusterman', NULL, 'password', NULL, 0);
+INSERT INTO `user` (`id`, `email`, `username`, `trusted`, `password`, `icon`, `coins`) VALUES
+	(1, 'jonas@oja.de', 'jonasoja', NULL, 'geheim', NULL, 10000),
+	(2, 'max@musterman.de', 'maxmusterman', NULL, 'password', NULL, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `screenshot` DISABLE KEYS */;
-INSERT INTO `screenshot` (`lobby_id`, `source`) VALUES
-	(0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
-    (0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
+INSERT INTO `screenshot` (`id`, `lobby_id`, `source`) VALUES
+	(1, 0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
+    (2, 0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
 /*!40000 ALTER TABLE `screenshot` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
