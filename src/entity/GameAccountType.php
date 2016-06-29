@@ -12,6 +12,12 @@ namespace projectx\api\entity;
 class GameAccountType implements \JsonSerializable
 {
     /**
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
+     */
+    private $id;
+
+    /**
      * @var string
      * @SWG\Property(type="string")
      */
@@ -27,11 +33,14 @@ class GameAccountType implements \JsonSerializable
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();
+        if (array_key_exists('id', $row)) {
+            $gameAccountType->setId($row['id']);
+        }
         if (array_key_exists('name', $row)) {
             $gameAccountType->setName($row['name']);
         }
         if (array_key_exists('icon', $row)) {
-            $gameAccountType->setIconData($row['icon']);
+            $gameAccountType->setIcon($row['icon']);
         }
 
         return $gameAccountType;
@@ -43,10 +52,28 @@ class GameAccountType implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'icon' => $this->icon,
         ];
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return string
      */
@@ -76,6 +103,7 @@ class GameAccountType implements \JsonSerializable
      */
     public function setIcon($icon)
     {
-        $this->iconData = $icon;
+        $this->icon = $icon;
     }
+
 }

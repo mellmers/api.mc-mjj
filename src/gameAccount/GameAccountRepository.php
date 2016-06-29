@@ -59,15 +59,15 @@ EOS;
      * @return GameAccount
      * @throws DatabaseException
      */
-    public function getByIdAndType($id, $type)
+    public function getByIdAndType($id, $type_id)
     {
         $sql = <<<EOS
 SELECT ga.*
 FROM `{$this->getTableName()}` ga
-WHERE ga.user_id = :name AND ga._type = :type
+WHERE ga.user_id = :name AND ga.gameaccount_type_id = :type_id
 EOS;
 
-        $gameAccounts = $this->connection->fetchAll($sql, ['name' => $id,'type'=>$type]);
+        $gameAccounts = $this->connection->fetchAll($sql, ['name' => $id,'type_id'=>$type_id]);
         if (count($gameAccounts) === 0) {
             throw new DatabaseException(
                 sprintf('GameAccount with id "%d" not exists!', $id)

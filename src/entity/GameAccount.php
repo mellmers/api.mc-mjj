@@ -35,8 +35,8 @@ class GameAccount implements \JsonSerializable
         if (array_key_exists('user_id', $row)) {
             $gameAccountType->setUserId($row['user_id']);
         }
-        if (array_key_exists('_type', $row)) {
-            $gameAccountType->setGameAccountType($row['_type']);
+        if (array_key_exists('gameaccount_type_id', $row)) {
+            $gameAccountType->setGameAccountType($row['gameaccount_type_id']);
         }
         if (array_key_exists('userIdentifier', $row)) {
             $gameAccountType->setUserIdendtifier($row['userIdentifier']);
@@ -51,7 +51,7 @@ class GameAccount implements \JsonSerializable
     {
         return [
             'user' => $this->userId,
-            'gameAccountType' => $this->gameAccountType,
+            'gameaccount_type_id' => $this->gameAccountType,
             'userIdentifier' => $this->userIdendtifier,
         ];
     }
