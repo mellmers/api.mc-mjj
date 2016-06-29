@@ -1,3 +1,5 @@
+USE `project-x` ;
+
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
 -- Server version:               10.1.13-MariaDB - mariadb.org binary distribution
@@ -18,9 +20,9 @@ INSERT INTO `bet` (`user_id`, `lobby_id`, `amount`, `team`) VALUES
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)
 /*!40000 ALTER TABLE `game` DISABLE KEYS */;
-INSERT INTO `game` (`id`, `name`, `typ`, `logoData`, `logoType`, `rules`, `genre`, `timelimit`) VALUES
-	(0, 'League of Legends', '5vs5', NULL, 'png', 'Create custom game invite all players', 'moba', '2016-05-27 12:32:37'),
-	(1, 'League of Legends', '1vs1', NULL, 'png', 'Crete custom game and invite enemy', 'moba', '2016-05-27 12:34:13');
+INSERT INTO `game` (`name`, `typ`, `icon`, `rules`, `genre`, `timelimit`) VALUES
+	('League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
+	('League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
 /*!40000 ALTER TABLE `game` ENABLE KEYS */;
 
 -- Dumping data for table project-x.gameaccount: ~3 rows (approximately)
@@ -33,35 +35,33 @@ INSERT INTO `gameaccount` (`user_id`, `_type`, `userIdentifier`) VALUES
 
 -- Dumping data for table project-x.gameaccount_type: ~5 rows (approximately)
 /*!40000 ALTER TABLE `gameaccount_type` DISABLE KEYS */;
-INSERT INTO `gameaccount_type` (`name`, `icondata`, `iconType`) VALUES
-	('Battle.net', NULL, 'png'),
-	('League of Legends', NULL, 'png'),
-	('Origin', NULL, 'png'),
-	('Steam', NULL, 'png'),
-	('Uplay', NULL, 'png');
+INSERT INTO `gameaccount_type` (`name`, `icon`) VALUES
+	('Battle.net', NULL),
+	('League of Legends', NULL),
+	('Origin', NULL),
+	('Steam', NULL),
+	('Uplay', NULL);
 /*!40000 ALTER TABLE `gameaccount_type` ENABLE KEYS */;
-
--- Dumping data for table project-x.img_type: ~4 rows (approximately)
-/*!40000 ALTER TABLE `img_type` DISABLE KEYS */;
-INSERT INTO `img_type` (`name`) VALUES
-	('bmp'),
-	('gif'),
-	('jpg'),
-	('png');
-/*!40000 ALTER TABLE `img_type` ENABLE KEYS */;
 
 -- Dumping data for table project-x.lobby: ~1 rows (approximately)
 /*!40000 ALTER TABLE `lobby` DISABLE KEYS */;
-INSERT INTO `lobby` (`id`, `owner_id`, `game_id`, `winnerteam`, `screenshotData`, `screenshotType`, `createdAt`, `starttime`, `endtime`) VALUES
-	(0, 0, 1, NULL, NULL, 'png', '2016-05-27 12:34:54', NULL, NULL);
+INSERT INTO `lobby` (`owner_id`, `game_id`, `winnerteam`, `screenshot`, `createdAt`, `starttime`, `endtime`) VALUES
+	(0, 1, NULL, NULL, '2016-05-27 12:34:54', NULL, NULL);
 /*!40000 ALTER TABLE `lobby` ENABLE KEYS */;
 
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `email`, `username`, `trusted`, `password`, `iconData`, `iconType`, `coins`) VALUES
-	(0, 'jonas@oja.de', 'jonasoja', NULL, 'geheim', NULL, 'png', 10000),
-	(1, 'max@musterman.de', 'maxmusterman', NULL, 'password', NULL, 'gif', NULL);
+INSERT INTO `user` (`email`, `username`, `trusted`, `password`, `icon`, `coins`) VALUES
+	('jonas@oja.de', 'jonasoja', NULL, 'geheim', NULL, 10000),
+	('max@musterman.de', 'maxmusterman', NULL, 'password', NULL, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- Dumping data for table project-x.user: ~2 rows (approximately)
+/*!40000 ALTER TABLE `screenshot` DISABLE KEYS */;
+INSERT INTO `screenshot` (`lobby_id`, `source`) VALUES
+	(0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
+    (0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
+/*!40000 ALTER TABLE `screenshot` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
