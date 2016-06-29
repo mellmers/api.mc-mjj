@@ -34,6 +34,24 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $winnerTeam;
+
+    /**
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
+     */
+    private $createdAt;
+
+    /**
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
+     */
+    private $starttime;
+
+    /**
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
+     */
+    private $endtime;
     
 
     public static function createFromArray(array $row)
@@ -51,6 +69,15 @@ class Lobby implements \JsonSerializable
         if (array_key_exists('winnerTeam', $row)) {
             $gameAccountType->setWinnerTeam($row['winnerTeam']);
         }
+        if (array_key_exists('createdAt', $row)) {
+            $gameAccountType->setCreatedAt($row['createdAt']);
+        }
+        if (array_key_exists('starttime', $row)) {
+            $gameAccountType->setStarttime($row['starttime']);
+        }
+        if (array_key_exists('endtime', $row)) {
+            $gameAccountType->setEndtime($row['endtime']);
+        }
 
         return $gameAccountType;
     }
@@ -65,6 +92,9 @@ class Lobby implements \JsonSerializable
             'owner_id' => $this->ownerId,
             'game_id' => $this->gameId,
             'winnerTeam' => $this->winnerTeam,
+            'createdAt' => $this->createdAt,
+            'starttime' => $this->starttime,
+            'endtime' => $this->endtime,
         ];
     }
 
@@ -131,4 +161,52 @@ class Lobby implements \JsonSerializable
     {
         $this->winnerTeam = $winnerTeam;
     }
+
+    /**
+     * @return int
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param int $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStarttime()
+    {
+        return $this->starttime;
+    }
+
+    /**
+     * @param int $starttime
+     */
+    public function setStarttime($starttime)
+    {
+        $this->starttime = $starttime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEndtime()
+    {
+        return $this->endtime;
+    }
+
+    /**
+     * @param int $endtime
+     */
+    public function setEndtime($endtime)
+    {
+        $this->endtime = $endtime;
+    }    
 }

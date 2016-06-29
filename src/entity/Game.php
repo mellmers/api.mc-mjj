@@ -93,6 +93,7 @@ class Game implements \JsonSerializable
             'typ' => $this->typ,
             'icon' => $this->icon,
             'rules' => $this->rules,
+            'timelimit' => $this->timelimit,
         ];
     }
 
