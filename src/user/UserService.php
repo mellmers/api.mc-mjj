@@ -33,7 +33,8 @@ class UserService
      */
     public function getList()
     {
-        return new JsonResponse($this->userRepository->getAll());
+        $result['data'][] = $this->userRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -44,7 +45,8 @@ class UserService
      */
     public function getById($userId)
     {
-        return new JsonResponse($this->userRepository->getById($userId));
+        $result['data'][] = $this->userRepository->getById($userId);
+        return new JsonResponse($result);
     }
 
 
@@ -59,7 +61,7 @@ class UserService
     {
         $postData = $request->request->all();
 
-        $user = User::createFromArray($postData);
+        $user['data'][] = User::createFromArray($postData);
 
         $this->userRepository->create($user);
 

@@ -33,7 +33,8 @@ class BetService
      */
     public function getList()
     {
-        return new JsonResponse($this->betRepository->getAll());
+        $result['data'][] = $this->betRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -44,7 +45,8 @@ class BetService
      */
     public function getByIds($userId, $lobbyId)
     {
-        return new JsonResponse($this->betRepository->getByIds($userId, $lobbyId));
+        $result['data'][] = $this->betRepository->getByIds($userId, $lobbyId);
+        return new JsonResponse($result);
     }
 
 
@@ -59,7 +61,7 @@ class BetService
     {
         $postData = $request->request->all();
 
-        $bet = Bet::createFromArray($postData);
+        $bet['data'][] = Bet::createFromArray($postData);
 
         $this->betRepository->create($bet);
 

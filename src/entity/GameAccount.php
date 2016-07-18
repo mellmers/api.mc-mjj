@@ -16,10 +16,21 @@ class GameAccount implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $userId;
+    /**
+     * @var User
+     * @SWG\Property(type="User")
+     */
+    private $user;
 
     /**
      * @var string
      * @SWG\Property(type="string")
+     */
+    private $gameAccountTypeId;
+
+    /**
+     * @var GameAccount
+     * @SWG\Property(type="User")
      */
     private $gameAccountType;
 
@@ -35,8 +46,14 @@ class GameAccount implements \JsonSerializable
         if (array_key_exists('user_id', $row)) {
             $gameAccountType->setUserId($row['user_id']);
         }
+        if (array_key_exists('user', $row)) {
+            $gameAccountType->setUser($row['user']);
+        }
         if (array_key_exists('gameaccount_type_id', $row)) {
-            $gameAccountType->setGameAccountType($row['gameaccount_type_id']);
+            $gameAccountType->setGameAccountTypeId($row['gameaccount_type_id']);
+        }
+        if (array_key_exists('gameaccount_type', $row)) {
+            $gameAccountType->setGameAccountType($row['gameaccount_type']);
         }
         if (array_key_exists('userIdentifier', $row)) {
             $gameAccountType->setUserIdendtifier($row['userIdentifier']);
@@ -50,8 +67,10 @@ class GameAccount implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'user' => $this->userId,
-            'gameaccount_type_id' => $this->gameAccountType,
+            'userId' => $this->userId,
+            'user' => $this->user,
+            'gameaccount_type_id' => $this->gameAccountTypeId,
+            'gameaccount_type' => $this->gameAccountType,
             'userIdentifier' => $this->userIdendtifier,
         ];
     }
@@ -75,17 +94,17 @@ class GameAccount implements \JsonSerializable
     /**
      * @return string
      */
-    public function getGameAccountType()
+    public function getGameAccountTypeId()
     {
-        return $this->gameAccountType;
+        return $this->gameAccountTypeId;
     }
 
     /**
-     * @param string $gameAccountType
+     * @param string $gameAccountTypeId
      */
-    public function setGameAccountType($gameAccountType)
+    public function setGameAccountTypeId($gameAccountTypeId)
     {
-        $this->gameAccountType = $gameAccountType;
+        $this->gameAccountTypeId = $gameAccountTypeId;
     }
 
     /**
@@ -103,4 +122,38 @@ class GameAccount implements \JsonSerializable
     {
         $this->userIdendtifier = $userIdendtifier;
     }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return GameAccount
+     */
+    public function getGameAccountType()
+    {
+        return $this->gameAccountType;
+    }
+
+    /**
+     * @param GameAccount $gameAccountType
+     */
+    public function setGameAccountType($gameAccountType)
+    {
+        $this->gameAccountType = $gameAccountType;
+    }
+
+
 }

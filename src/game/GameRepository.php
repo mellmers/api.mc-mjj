@@ -40,7 +40,7 @@ EOS;
 //        print_r($games);
 
         foreach ($games as $game) {
-            $result['data'][] = Game::createFromArray($game);
+            $result[] = Game::createFromArray($game);
         }
 
         return $result;
@@ -74,7 +74,7 @@ EOS;
             );
         }
         $result = [];
-        $result['data'][] = Game::createFromArray($games[0]);
+        $result[] = Game::createFromArray($games[0]);
         return $result;
     }
 

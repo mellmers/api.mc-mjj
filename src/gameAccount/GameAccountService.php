@@ -33,7 +33,8 @@ class GameAccountService
      */
     public function getList()
     {
-        return new JsonResponse($this->gameAccountRepository->getAll());
+        $result['data'][] = $this->gameAccountRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -43,11 +44,23 @@ class GameAccountService
      * @internal param $type
      *
      */
-    public function getByIdAndType($id,$type)
+    public function getByIdAndType($id, $type)
     {
-        return new JsonResponse($this->gameAccountRepository->getByIdAndType($id,$type));
+        $result['data'][] = $this->gameAccountRepository->getByIdAndType($id, $type);
+        return new JsonResponse($result);
     }
 
+    /**
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $userId
+     *
+     */
+    public function getByUserId($userId)
+    {
+        $result['data'][] = $this->gameAccountRepository->getByUserId($userId);
+        return new JsonResponse($result);
+    }
 
     /**
      * POST /gameAccount
@@ -65,5 +78,7 @@ class GameAccountService
         $this->gameAccountRepository->create($gameAccount);
 
         return new JsonResponse($gameAccount, 201);
+        $result['data'][] = $gameAccount;
+        return new JsonResponse($result, 201);
     }
 }

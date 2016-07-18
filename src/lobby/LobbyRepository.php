@@ -4,6 +4,8 @@ namespace projectx\api\lobby;
 
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\Lobby;
+use projectx\api\game\GameRepository;
+use projectx\api\user\UserRepository;
 
 /**
  * Class LobbyRepository
@@ -13,7 +15,10 @@ class LobbyRepository
 {
     /** @var  Connection */
     private $connection;
-
+    /** @var  UserRepository */
+    private $userRepo;
+    /** @var  GameRepository */
+    private $gameRepo;
     /**
      * LobbyRepository constructor.
      *
@@ -22,6 +27,8 @@ class LobbyRepository
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+        $this->userRepo = new UserRepository($this->connection);
+        $this->gameRepo = new GameRepository($this->connection);
     }
 
     /**
@@ -40,7 +47,9 @@ EOS;
 //        print_r($lobbys);
 
         foreach ($lobbys as $lobby) {
-            $result['data'][] = Lobby::createFromArray($lobby);
+            $lobby = $this->loadUser($lobby);
+            $lobby = $this->loadGame($lobby);
+            $result[] = Lobby::createFromArray($lobby);
         }
 
         return $result;
@@ -52,6 +61,20 @@ EOS;
     public function getTableName()
     {
         return 'lobby';
+    }
+
+    private function loadUser(array $lobby)
+    {
+        $userResult = $this->userRepo->getById($lobby['owner_id']);
+        $lobby['owner'] = $userResult;
+        return $lobby;
+    }
+
+    private function loadGame(array $lobby)
+    {
+        $gameResult = $this->gameRepo->getById($lobby['game_id']);
+        $lobby['game'] = $gameResult;
+        return $lobby;
     }
 
     /**
@@ -74,7 +97,9 @@ EOS;
             );
         }
         $result = [];
-        $result['data'][] = Lobby::createFromArray($lobbys[0]);
+        $lobbys[0] = $this->loadUser($lobbys[0]);
+        $lobbys[0] = $this->loadGame($lobbys[0]);
+        $result = Lobby::createFromArray($lobbys[0]);
         return $result;
     }
 

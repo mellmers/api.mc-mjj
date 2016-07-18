@@ -33,7 +33,8 @@ class GameService
      */
     public function getList()
     {
-        return new JsonResponse($this->gameRepository->getAll());
+        $result['data'][] = $this->gameRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -44,7 +45,8 @@ class GameService
      */
     public function getById($id)
     {
-        return new JsonResponse($this->gameRepository->getById($id));
+        $result['data'][] = $this->gameRepository->getById($id);
+        return new JsonResponse($result);
     }
 
 
@@ -59,10 +61,11 @@ class GameService
     {
         $postData = $request->request->all();
 
-        $game = Game::createFromArray($postData);
+        $game['data'][] = Game::createFromArray($postData);
 
         $this->gameRepository->create($game);
 
         return new JsonResponse($game, 201);
+
     }
 }

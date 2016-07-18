@@ -16,13 +16,21 @@ class Bet implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $userId;
-
+    /**
+     * @var User
+     * @SWG\Property(type="User")
+     */
+    private $user;
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $lobbyId;
-
+    /**
+     * @var Lobby
+     * @SWG\Property(type="integer", format="int32")
+     */
+    private $lobby;
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
@@ -39,22 +47,28 @@ class Bet implements \JsonSerializable
 
     public static function createFromArray(array $row)
     {
-        $gameAccountType = new self();
+        $bet = new self();
         if (array_key_exists('user_id', $row)) {
-            $gameAccountType->setUserId($row['user_id']);
+            $bet->setUserId($row['user_id']);
+        }
+        if (array_key_exists('user', $row)) {
+            $bet->setUser($row['user']);
         }
         if (array_key_exists('lobby_id', $row)) {
-            $gameAccountType->setLobbyId($row['lobby_id']);
+            $bet->setLobbyId($row['lobby_id']);
+        }
+        if (array_key_exists('lobby', $row)) {
+            $bet->setLobby($row['lobby']);
         }
         if (array_key_exists('amount', $row)) {
-            $gameAccountType->setAmount($row['amount']);
+            $bet->setAmount($row['amount']);
         }
         if (array_key_exists('team', $row)) {
-            $gameAccountType->setTeam($row['team']);
+            $bet->setTeam($row['team']);
         }
 
 
-        return $gameAccountType;
+        return $bet;
     }
 
     /**
@@ -64,7 +78,9 @@ class Bet implements \JsonSerializable
     {
         return [
             'user_id' => $this->userId,
+            'user' => $this->user,
             'lobby_id' => $this->lobbyId,
+            'lobby' => $this->lobby,
             'amount' => $this->amount,
             'team' => $this->team,
         ];
@@ -132,6 +148,38 @@ class Bet implements \JsonSerializable
     public function setTeam($team)
     {
         $this->team = $team;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return Lobby
+     */
+    public function getLobby()
+    {
+        return $this->lobby;
+    }
+
+    /**
+     * @param Lobby $lobby
+     */
+    public function setLobby($lobby)
+    {
+        $this->lobby = $lobby;
     }
 
 

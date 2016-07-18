@@ -56,30 +56,30 @@ class Game implements \JsonSerializable
 
     public static function createFromArray(array $row)
     {
-        $gameAccountType = new self();
+        $game = new self();
         if (array_key_exists('id', $row)) {
-            $gameAccountType->setId($row['id']);
+            $game->setId($row['id']);
         }
         if (array_key_exists('name', $row)) {
-            $gameAccountType->setName($row['name']);
+            $game->setName($row['name']);
         }
         if (array_key_exists('typ', $row)) {
-            $gameAccountType->setTyp($row['typ']);
+            $game->setTyp($row['typ']);
         }
         if (array_key_exists('icon', $row)) {
-            $gameAccountType->setIcon($row['icon']);
+            $game->setIcon($row['icon']);
         }
         if (array_key_exists('rules', $row)) {
-            $gameAccountType->setRules($row['rules']);
+            $game->setRules($row['rules']);
         }
         if (array_key_exists('genre', $row)) {
-            $gameAccountType->setGenre($row['genre']);
+            $game->setGenre($row['genre']);
         }
         if (array_key_exists('timelimit', $row)) {
-            $gameAccountType->setTimelimit($row['timelimit']);
+            $game->setTimelimit($row['timelimit']);
         }
 
-        return $gameAccountType;
+        return $game;
     }
 
     /**

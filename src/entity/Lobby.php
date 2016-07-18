@@ -22,13 +22,22 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $ownerId;
+    /**
+     * @var User
+     * @SWG\Property(type="User")
+     */
+    private $owner;
 
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $gameId;
-
+    /**
+     * @var Game
+     * @SWG\Property(type="Game")
+     */
+    private $game;
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
@@ -56,30 +65,36 @@ class Lobby implements \JsonSerializable
 
     public static function createFromArray(array $row)
     {
-        $gameAccountType = new self();
+        $lobby = new self();
         if (array_key_exists('id', $row)) {
-            $gameAccountType->setId($row['id']);
+            $lobby->setId($row['id']);
         }
         if (array_key_exists('owner_id', $row)) {
-            $gameAccountType->setOwnerId($row['owner_id']);
+            $lobby->setOwnerId($row['owner_id']);
+        }
+        if (array_key_exists('owner', $row)) {
+            $lobby->setOwner($row['owner']);
         }
         if (array_key_exists('game_id', $row)) {
-            $gameAccountType->setGameId($row['game_id']);
+            $lobby->setGameId($row['game_id']);
+        }
+        if (array_key_exists('game', $row)) {
+            $lobby->setGame($row['game']);
         }
         if (array_key_exists('winnerTeam', $row)) {
-            $gameAccountType->setWinnerTeam($row['winnerTeam']);
+            $lobby->setWinnerTeam($row['winnerTeam']);
         }
         if (array_key_exists('createdAt', $row)) {
-            $gameAccountType->setCreatedAt($row['createdAt']);
+            $lobby->setCreatedAt($row['createdAt']);
         }
         if (array_key_exists('starttime', $row)) {
-            $gameAccountType->setStarttime($row['starttime']);
+            $lobby->setStarttime($row['starttime']);
         }
         if (array_key_exists('endtime', $row)) {
-            $gameAccountType->setEndtime($row['endtime']);
+            $lobby->setEndtime($row['endtime']);
         }
 
-        return $gameAccountType;
+        return $lobby;
     }
 
     /**
@@ -90,7 +105,9 @@ class Lobby implements \JsonSerializable
         return [
             'id' => $this->id,
             'owner_id' => $this->ownerId,
+            'owner' => $this->owner,
             'game_id' => $this->gameId,
+            'game' => $this->game,
             'winnerTeam' => $this->winnerTeam,
             'createdAt' => $this->createdAt,
             'starttime' => $this->starttime,
@@ -208,5 +225,38 @@ class Lobby implements \JsonSerializable
     public function setEndtime($endtime)
     {
         $this->endtime = $endtime;
-    }    
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+    }
+
 }

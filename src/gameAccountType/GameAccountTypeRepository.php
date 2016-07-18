@@ -40,7 +40,7 @@ EOS;
 //        print_r($gameAccountTypes);
 
         foreach ($gameAccountTypes as $gameAccountType) {
-            $result['data'][] = GameAccountType::createFromArray($gameAccountType);
+            $result[] = GameAccountType::createFromArray($gameAccountType);
         }
 
         return $result;
@@ -74,7 +74,7 @@ EOS;
             );
         }
         $result = [];
-        $result['data'][] = GameAccountType::createFromArray($gameAccountTypes[0]);
+        $result[] = GameAccountType::createFromArray($gameAccountTypes[0]);
         return $result;
     }
 

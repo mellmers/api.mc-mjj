@@ -25,14 +25,6 @@ class UserRepository
     }
 
     /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return 'user';
-    }
-
-    /**
      * @return array
      */
     public function getAll()
@@ -48,10 +40,18 @@ EOS;
 //        print_r($users);
 
         foreach ($users as $user) {
-            $result['data'][] = User::createFromArray($user);
+            $result[] = User::createFromArray($user);
         }
 
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return 'user';
     }
 
     public function getById($id)
@@ -71,7 +71,7 @@ EOS;
             );
         }
 
-        $result['data'][] = User::createFromArray($users[0]);
+        $result[] = User::createFromArray($users[0]);
 
         return $result;
     }

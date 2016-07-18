@@ -33,7 +33,8 @@ class GameAccountTypeService
      */
     public function getList()
     {
-        return new JsonResponse($this->gameAccountTypeRepository->getAll());
+        $result['data'][] = $this->gameAccountTypeRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -44,7 +45,8 @@ class GameAccountTypeService
      */
     public function getById($id)
     {
-        return new JsonResponse($this->gameAccountTypeRepository->getById($id));
+        $result['data'][] = $this->gameAccountTypeRepository->getById($id);
+        return new JsonResponse($result);
     }
 
 

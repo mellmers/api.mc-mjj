@@ -33,7 +33,8 @@ class LobbyService
      */
     public function getList()
     {
-        return new JsonResponse($this->lobbyRepository->getAll());
+        $result['data'][] = $this->lobbyRepository->getAll();
+        return new JsonResponse($result);
     }
 
     /**
@@ -44,7 +45,8 @@ class LobbyService
      */
     public function getById($id)
     {
-        return new JsonResponse($this->lobbyRepository->getById($id));
+        $result['data'][] = $this->lobbyRepository->getById($id);
+        return new JsonResponse($result);
     }
 
 
@@ -59,7 +61,7 @@ class LobbyService
     {
         $postData = $request->request->all();
 
-        $lobby = Lobby::createFromArray($postData);
+        $lobby['data'][] = Lobby::createFromArray($postData);
 
         $this->lobbyRepository->create($lobby);
 
