@@ -33,11 +33,13 @@ class BetRoutesProvider implements ControllerProviderInterface
          */
         // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.bet:getList');
+
         /**
          * @SWG\Get(
-         *     path="/bet/{id}",
+         *     path="/bet/{userId},{lobbyId}",
          *     tags={"bet"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Parameter(ref="#/parameters/userId"),
+         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
@@ -46,6 +48,34 @@ class BetRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->get('/{userId},{lobbyId}', 'service.bet:getByIds');
+
+        /**
+         * @SWG\Get(
+         *     path="/bet/byUserId/{userId}",
+         *     tags={"bet"},
+         *     @SWG\Parameter(ref="#/parameters/userId"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/bet")
+         *     )
+         * )
+         */
+        $controllers->get('/byUserId/{userId}', 'service.bet:getByUserId');
+
+        /**
+         * @SWG\Get(
+         *     path="/bet/byLobbyId/{lobbyId}",
+         *     tags={"bet"},
+         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/bet")
+         *     )
+         * )
+         */
+        $controllers->get('/byLobbyId/{lobbyId}', 'service.bet:getByLobbyId');
 
         /**
          * @SWG\Post(

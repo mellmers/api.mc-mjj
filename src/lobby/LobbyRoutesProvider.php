@@ -33,6 +33,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          */
         // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.lobby:getList');
+
         /**
          * @SWG\Get(
          *     path="/lobby/{id}",
@@ -46,6 +47,34 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->get('/{id}', 'service.lobby:getById');
+
+        /**
+         * @SWG\Get(
+         *     path="/lobby/byOwnerId/{ownerId}",
+         *     tags={"lobby"},
+         *     @SWG\Parameter(ref="#/parameters/ownerId"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/lobby")
+         *     )
+         * )
+         */
+        $controllers->get('/byOwnerId/{ownerId}', 'service.lobby:getByOwnerId');
+
+        /**
+         * @SWG\Get(
+         *     path="/lobby/byGameId/{gameId}",
+         *     tags={"lobby"},
+         *     @SWG\Parameter(ref="#/parameters/gameId"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/lobby")
+         *     )
+         * )
+         */
+        $controllers->get('/byGameId/{gameId}', 'service.lobby:getByGameId');
 
         /**
          * @SWG\Post(

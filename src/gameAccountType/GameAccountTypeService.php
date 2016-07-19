@@ -38,10 +38,11 @@ class GameAccountTypeService
     }
 
     /**
+     * GET /gameAccountType/{id}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $id
-     *
      */
     public function getById($id)
     {

@@ -38,6 +38,8 @@ class BetService
     }
 
     /**
+     * GET /bet/{userId}{lobbyId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $userId
@@ -49,6 +51,31 @@ class BetService
         return new JsonResponse($result);
     }
 
+    /**
+     * GET /bet/byLobbyId/{lobbyId}
+     *
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param Int $lobbyId
+     */
+    public function getByLobbyId($lobbyId)
+    {
+        $result['data'][] = $this->betRepository->getByLobbyId($lobbyId);
+        return new JsonResponse($result);
+    }
+
+    /**
+     * GET /bet/byUserId/{userId}
+     *
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $userId
+     */
+    public function getByUserId($userId)
+    {
+        $result['data'][] = $this->betRepository->getByUserId($userId);
+        return new JsonResponse($result);
+    }
 
     /**
      * POST /bet

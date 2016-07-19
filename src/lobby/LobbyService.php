@@ -38,14 +38,41 @@ class LobbyService
     }
 
     /**
+     * GET /lobby/{id}
+     *
      * @return JsonResponse
      * @throws DatabaseException
-     * @internal param $id
-     *
+     * @internal param $id     *
      */
     public function getById($id)
     {
         $result['data'][] = $this->lobbyRepository->getById($id);
+        return new JsonResponse($result);
+    }
+
+    /**
+     * GET /lobby/byOwnerId/{ownerId}
+     *
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $ownerId
+     */
+    public function getByOwnerId($ownerId)
+    {
+        $result['data'][] = $this->lobbyRepository->getByOwnerId($ownerId);
+        return new JsonResponse($result);
+    }
+
+    /**
+     * GET /lobby/byGameId/{gameId}
+     *
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $gameId
+     */
+    public function getByGameId($gameId)
+    {
+        $result['data'][] = $this->lobbyRepository->getByGameId($gameId);
         return new JsonResponse($result);
     }
 

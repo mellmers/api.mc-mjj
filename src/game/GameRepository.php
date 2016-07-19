@@ -79,6 +79,32 @@ EOS;
     }
 
     /**
+     * @param $genre
+     * @return array
+     * @throws DatabaseException
+     */
+    public function getByGenre($genre)
+    {
+        $sql = <<<EOS
+SELECT g.*
+FROM `{$this->getTableName()}` g
+WHERE g.genre = :genre
+EOS;
+
+        $games = $this->connection->fetchAll($sql, ['genre' => $genre]);
+        if (count($games) === 0) {
+            throw new DatabaseException(
+                sprintf('No games with the genre: ' . $genre)
+            );
+        }
+        $result = [];
+        foreach ($games as $game) {
+            $result[] = Game::createFromArray($game);
+        }
+        return $result;
+    }
+
+    /**
      * @param Game $game
      */
     public function create(Game $game)

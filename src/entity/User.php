@@ -10,7 +10,6 @@ use Swagger\Annotations as SWG;
  */
 class User implements \JsonSerializable
 {
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
@@ -21,13 +20,11 @@ class User implements \JsonSerializable
      * @SWG\Property(type="string")
      */
     private $email;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $username;
-
     /**
      * @var bool
      * @SWG\Property(type="bool")
@@ -43,7 +40,6 @@ class User implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $coins;
-
     /**
      * @var string
      * @SWG\Property(type="string")
