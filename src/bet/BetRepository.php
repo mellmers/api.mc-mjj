@@ -43,16 +43,12 @@ FROM `{$this->getTableName()}`
 EOS;
 
         $bets = $this->connection->fetchAll($sql);
-
         $result = [];
-//        print_r($bets);
-
         foreach ($bets as $bet) {
             $bet = $this->loadUser($bet);
             $bet = $this->loadLobby($bet);
             $result[] = Bet::createFromArray($bet);
         }
-
         return $result;
     }
 
@@ -97,7 +93,7 @@ EOS;
         $sql = <<<EOS
 SELECT b.*
 FROM `{$this->getTableName()}` b
-WHERE b.user_id = :userId AND lobby_id = :lobbyId
+WHERE b.user_id = :userId AND b.lobby_id = :lobbyId
 EOS;
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
@@ -106,10 +102,64 @@ EOS;
                 sprintf('Bet with id "%d" does not exists!', $userId)
             );
         }
-        $result = [];
         $bets[0] = $this->loadUser($bets[0]);
         $bets[0] = $this->loadLobby($bets[0]);
-        $result[] = Bet::createFromArray($bets[0]);
+        return Bet::createFromArray($bets[0]);
+    }
+
+    /**
+     * @param $lobbyId
+     * @return array
+     * @throws DatabaseException
+     */
+    public function getByLobbyId($lobbyId)
+    {
+        $sql = <<<EOS
+SELECT b.*
+FROM `{$this->getTableName()}` b
+WHERE  b.lobby_id = :lobbyId
+EOS;
+
+        $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
+        if (count($bets) === 0) {
+            throw new DatabaseException(
+                sprintf('Lobby with id:' . $lobbyId . " has no bets")
+            );
+        }
+        $result = [];
+        foreach ($bets as $bet) {
+            $bet = $this->loadUser($bet);
+            $bet = $this->loadLobby($bet);
+            $result[] = Bet::createFromArray($bet);
+        }
+        return $result;
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     * @throws DatabaseException
+     */
+    public function getByUserId($userId)
+    {
+        $sql = <<<EOS
+SELECT b.*
+FROM `{$this->getTableName()}` b
+WHERE b.user_id = :userId
+EOS;
+
+        $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
+        if (count($bets) === 0) {
+            throw new DatabaseException(
+                sprintf('User with id ', $userId, "has no bets")
+            );
+        }
+        $result = [];
+        foreach ($bets as $bet) {
+            $bet = $this->loadUser($bet);
+            $bet = $this->loadLobby($bet);
+            $result[] = Bet::createFromArray($bet);
+        }
         return $result;
     }
 

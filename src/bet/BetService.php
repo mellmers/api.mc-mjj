@@ -49,6 +49,27 @@ class BetService
         return new JsonResponse($result);
     }
 
+    /**
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $lobbyId
+     */
+    public function getByLobbyId($lobbyId)
+    {
+        $result['data'][] = $this->betRepository->getByLobbyId($lobbyId);
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $userId
+     */
+    public function getByUserId($userId)
+    {
+        $result['data'][] = $this->betRepository->getByUserId($userId);
+        return new JsonResponse($result);
+    }
 
     /**
      * POST /bet
