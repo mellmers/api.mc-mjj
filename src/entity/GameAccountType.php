@@ -27,7 +27,6 @@ class GameAccountType implements \JsonSerializable
      */
     private $icon;
 
-
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();

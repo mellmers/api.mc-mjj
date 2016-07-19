@@ -44,14 +44,11 @@ EOS;
         $lobbys = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($lobbys);
-
         foreach ($lobbys as $lobby) {
             $lobby = $this->loadUser($lobby);
             $lobby = $this->loadGame($lobby);
             $result[] = Lobby::createFromArray($lobby);
         }
-
         return $result;
     }
 
@@ -63,6 +60,10 @@ EOS;
         return 'lobby';
     }
 
+    /**
+     * @param array $lobby
+     * @return array
+     */
     private function loadUser(array $lobby)
     {
         $userResult = $this->userRepo->getById($lobby['owner_id']);
@@ -70,6 +71,10 @@ EOS;
         return $lobby;
     }
 
+    /**
+     * @param array $lobby
+     * @return array
+     */
     private function loadGame(array $lobby)
     {
         $gameResult = $this->gameRepo->getById($lobby['game_id']);
@@ -96,10 +101,63 @@ EOS;
                 sprintf('Lobby with id "%d" does not exists!', $id)
             );
         }
-        $result = [];
         $lobbys[0] = $this->loadUser($lobbys[0]);
         $lobbys[0] = $this->loadGame($lobbys[0]);
         $result = Lobby::createFromArray($lobbys[0]);
+        return $result;
+    }
+
+    /**
+     * @param $ownerId
+     * @return array|Lobby
+     */
+    public function getByOwnerId($ownerId)
+    {
+        $sql = <<<EOS
+SELECT l.*
+FROM `{$this->getTableName()}` l
+WHERE l.owner_id = :owner_id
+EOS;
+
+        $lobbys = $this->connection->fetchAll($sql, ['owner_id' => $ownerId]);
+        if (count($lobbys) === 0) {
+            throw new DatabaseException(
+                sprintf('Lobbys with owner id: ' . $ownerId)
+            );
+        }
+        $result = [];
+        foreach ($lobbys as $lobby) {
+            $lobby = $this->loadUser($lobby);
+            $lobby = $this->loadGame($lobby);
+            $result[] = Lobby::createFromArray($lobby);
+        }
+        return $result;
+    }
+
+    /**
+     * @param $gameId
+     * @return array|Lobby
+     */
+    public function getByGameId($gameId)
+    {
+        $sql = <<<EOS
+SELECT l.*
+FROM `{$this->getTableName()}` l
+WHERE l.game_id = :game_id
+EOS;
+
+        $lobbys = $this->connection->fetchAll($sql, ['game_id' => $gameId]);
+        if (count($lobbys) === 0) {
+            throw new DatabaseException(
+                sprintf('Lobbys with owner id: ' . $gameId)
+            );
+        }
+        $result = [];
+        foreach ($lobbys as $lobby) {
+            $lobby = $this->loadUser($lobby);
+            $lobby = $this->loadGame($lobby);
+            $result[] = Lobby::createFromArray($lobby);
+        }
         return $result;
     }
 

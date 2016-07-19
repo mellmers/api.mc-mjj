@@ -51,25 +51,21 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $winnerTeam;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $createdAt;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $starttime;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $endtime;
-
 
     public static function createFromArray(array $row)
     {

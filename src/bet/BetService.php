@@ -38,6 +38,8 @@ class BetService
     }
 
     /**
+     * GET /bet/{userId}{lobbyId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $userId
@@ -50,9 +52,11 @@ class BetService
     }
 
     /**
+     * GET /bet/byLobbyId/{lobbyId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
-     * @internal param $lobbyId
+     * @internal param Int $lobbyId
      */
     public function getByLobbyId($lobbyId)
     {
@@ -61,6 +65,8 @@ class BetService
     }
 
     /**
+     * GET /bet/byUserId/{userId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $userId

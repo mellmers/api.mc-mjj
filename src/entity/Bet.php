@@ -46,7 +46,6 @@ class Bet implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $amount;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")

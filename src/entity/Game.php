@@ -47,7 +47,6 @@ class Game implements \JsonSerializable
      */
     private $timelimit;
 
-
     public static function createFromArray(array $row)
     {
         $game = new self();

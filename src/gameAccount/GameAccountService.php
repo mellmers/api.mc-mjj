@@ -38,6 +38,8 @@ class GameAccountService
     }
 
     /**
+     * GET /gameAccount/{id},{type}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $id
@@ -51,6 +53,8 @@ class GameAccountService
     }
 
     /**
+     * GET /gameAccount/byUserId/{userId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $userId
@@ -63,6 +67,8 @@ class GameAccountService
     }
 
     /**
+     * GET /gameAccount/byTypeId/{gameAccountTypeId}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $gameAccountTypeId
@@ -85,12 +91,10 @@ class GameAccountService
     {
         $postData = $request->request->all();
 
-        $gameAccount = GameAccount::createFromArray($postData);
+        $gameAccount['data'][] = GameAccount::createFromArray($postData);
 
         $this->gameAccountRepository->create($gameAccount);
 
         return new JsonResponse($gameAccount, 201);
-        $result['data'][] = $gameAccount;
-        return new JsonResponse($result, 201);
     }
 }

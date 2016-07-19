@@ -38,6 +38,8 @@ class GameService
     }
 
     /**
+     * GET /game/{id}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $id
@@ -50,6 +52,8 @@ class GameService
     }
 
     /**
+     * GET /game/byGenre/{genre}
+     *
      * @return JsonResponse
      * @throws DatabaseException
      * @internal param $genre
