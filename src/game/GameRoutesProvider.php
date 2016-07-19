@@ -33,6 +33,7 @@ class GameRoutesProvider implements ControllerProviderInterface
          */
         // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.game:getList');
+
         /**
          * @SWG\Get(
          *     path="/game/{id}",
@@ -46,6 +47,20 @@ class GameRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->get('/{id}', 'service.game:getById');
+
+        /**
+         * @SWG\Get(
+         *     path="/game/byGenre/{genre}",
+         *     tags={"game"},
+         *     @SWG\Parameter(ref="#/parameters/genre"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="An example resource",
+         *          @SWG\Schema(ref="#/definitions/game")
+         *     )
+         * )
+         */
+        $controllers->get('/byGenre/{genre}', 'service.game:getByGenre');
 
         /**
          * @SWG\Post(

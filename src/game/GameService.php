@@ -49,6 +49,17 @@ class GameService
         return new JsonResponse($result);
     }
 
+    /**
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $genre
+     *
+     */
+    public function getByGenre($genre)
+    {
+        $result['data'][] = $this->gameRepository->getByGenre($genre);
+        return new JsonResponse($result);
+    }
 
     /**
      * POST /game
