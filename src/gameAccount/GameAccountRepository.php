@@ -63,6 +63,10 @@ EOS;
         return 'gameaccount';
     }
 
+    /**
+     * @param array $gameAccount
+     * @return array
+     */
     private function loadUser(array $gameAccount)
     {
         $userResult = $this->userRepo->getById($gameAccount['user_id']);
@@ -70,6 +74,10 @@ EOS;
         return $gameAccount;
     }
 
+    /**
+     * @param array $gameAccount
+     * @return array
+     */
     private function loadGameAccountType(array $gameAccount)
     {
         $gATResult = $this->gATRepo->getById($gameAccount['gameaccount_type_id']);
@@ -103,6 +111,10 @@ EOS;
         return $result;
     }
 
+    /**
+     * @param $userId
+     * @return array
+     */
     public function getByUserId($userId)
     {
         $sql = <<<EOS
@@ -115,6 +127,33 @@ EOS;
         if (count($gameAccounts) === 0) {
             throw new DatabaseException(
                 sprintf('GameAccount with id "%d" not exists!', $userId)
+            );
+        }
+        $result = [];
+        foreach ($gameAccounts as $gameAccount) {
+            $gameAccount = $this->loadUser($gameAccount);
+            $gameAccount = $this->loadGameAccountType($gameAccount);
+            $result[] = GameAccount::createFromArray($gameAccount);
+        }
+        return $result;
+    }
+
+    /**
+     * @param $gameAccountTypeId
+     * @return array
+     */
+    public function getByTypeId($gameAccountTypeId)
+    {
+        $sql = <<<EOS
+SELECT ga.*
+FROM `{$this->getTableName()}` ga
+WHERE ga.gameaccount_type_id = :gameAccountTypeId
+EOS;
+
+        $gameAccounts = $this->connection->fetchAll($sql, ['gameAccountTypeId' => $gameAccountTypeId]);
+        if (count($gameAccounts) === 0) {
+            throw new DatabaseException(
+                sprintf('GameAccounts with the type id: ' . $gameAccountTypeId)
             );
         }
         $result = [];

@@ -63,6 +63,18 @@ class GameAccountService
     }
 
     /**
+     * @return JsonResponse
+     * @throws DatabaseException
+     * @internal param $gameAccountTypeId
+     *
+     */
+    public function getByTypeId($gameAccountTypeId)
+    {
+        $result['data'][] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
+        return new JsonResponse($result);
+    }
+
+    /**
      * POST /gameAccount
      *
      * @param Request $request
