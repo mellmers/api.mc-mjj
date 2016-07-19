@@ -16,37 +16,31 @@ class Game implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $id;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $name;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $typ;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $icon;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $rules;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $genre;
-
     /**
      * @var string
      * @SWG\Property(type="string")

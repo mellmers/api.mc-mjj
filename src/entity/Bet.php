@@ -17,6 +17,11 @@ class Bet implements \JsonSerializable
      */
     private $userId;
     /**
+     * @var String
+     * @SWG\Property(type="string")
+     */
+    private $userPath;
+    /**
      * @var User
      * @SWG\Property(type="User")
      */
@@ -26,6 +31,11 @@ class Bet implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $lobbyId;
+    /**
+     * @var String
+     * @SWG\Property(type="string")
+     */
+    private $lobbyPath;
     /**
      * @var Lobby
      * @SWG\Property(type="integer", format="int32")
@@ -50,12 +60,14 @@ class Bet implements \JsonSerializable
         $bet = new self();
         if (array_key_exists('user_id', $row)) {
             $bet->setUserId($row['user_id']);
+            $bet->setUserPath("/user/" . $row['user_id']);
         }
         if (array_key_exists('user', $row)) {
             $bet->setUser($row['user']);
         }
         if (array_key_exists('lobby_id', $row)) {
             $bet->setLobbyId($row['lobby_id']);
+            $bet->setLobbyPath("/lobby/" . $row['lobby_id']);
         }
         if (array_key_exists('lobby', $row)) {
             $bet->setLobby($row['lobby']);
@@ -78,8 +90,10 @@ class Bet implements \JsonSerializable
     {
         return [
             'user_id' => $this->userId,
+            'user_path' => $this->userPath,
             'user' => $this->user,
             'lobby_id' => $this->lobbyId,
+            'lobby_path' => $this->lobbyPath,
             'lobby' => $this->lobby,
             'amount' => $this->amount,
             'team' => $this->team,
@@ -103,6 +117,38 @@ class Bet implements \JsonSerializable
     }
 
     /**
+     * @return String
+     */
+    public function getUserPath()
+    {
+        return $this->userPath;
+    }
+
+    /**
+     * @param String $userPath
+     */
+    public function setUserPath($userPath)
+    {
+        $this->userPath = $userPath;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
      * @return int
      */
     public function getLobbyId()
@@ -116,6 +162,38 @@ class Bet implements \JsonSerializable
     public function setLobbyId($lobbyId)
     {
         $this->lobbyId = $lobbyId;
+    }
+
+    /**
+     * @return String
+     */
+    public function getLobbyPath()
+    {
+        return $this->lobbyPath;
+    }
+
+    /**
+     * @param String $lobbyPath
+     */
+    public function setLobbyPath($lobbyPath)
+    {
+        $this->lobbyPath = $lobbyPath;
+    }
+
+    /**
+     * @return Lobby
+     */
+    public function getLobby()
+    {
+        return $this->lobby;
+    }
+
+    /**
+     * @param Lobby $lobby
+     */
+    public function setLobby($lobby)
+    {
+        $this->lobby = $lobby;
     }
 
     /**
@@ -149,38 +227,5 @@ class Bet implements \JsonSerializable
     {
         $this->team = $team;
     }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return Lobby
-     */
-    public function getLobby()
-    {
-        return $this->lobby;
-    }
-
-    /**
-     * @param Lobby $lobby
-     */
-    public function setLobby($lobby)
-    {
-        $this->lobby = $lobby;
-    }
-
 
 }

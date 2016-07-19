@@ -16,13 +16,11 @@ class GameAccountType implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $id;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $name;
-
     /**
      * @var string
      * @SWG\Property(type="string")

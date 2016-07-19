@@ -10,7 +10,6 @@ use Swagger\Annotations as SWG;
  */
 class User implements \JsonSerializable
 {
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")

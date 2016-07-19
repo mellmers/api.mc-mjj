@@ -16,23 +16,31 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $id;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $ownerId;
     /**
+     * @var String
+     * @SWG\Property(type="String")
+     */
+    private $ownerPath;
+    /**
      * @var User
      * @SWG\Property(type="User")
      */
     private $owner;
-
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
     private $gameId;
+    /**
+     * @var String
+     * @SWG\Property(type="String")
+     */
+    private $gamePath;
     /**
      * @var Game
      * @SWG\Property(type="Game")
@@ -61,7 +69,7 @@ class Lobby implements \JsonSerializable
      * @SWG\Property(type="integer", format="int32")
      */
     private $endtime;
-    
+
 
     public static function createFromArray(array $row)
     {
@@ -71,12 +79,14 @@ class Lobby implements \JsonSerializable
         }
         if (array_key_exists('owner_id', $row)) {
             $lobby->setOwnerId($row['owner_id']);
+            $lobby->setOwnerPath("/user/" . $row['owner_id']);
         }
         if (array_key_exists('owner', $row)) {
             $lobby->setOwner($row['owner']);
         }
         if (array_key_exists('game_id', $row)) {
             $lobby->setGameId($row['game_id']);
+            $lobby->setGamePath("/game/" . $row['game_id']);
         }
         if (array_key_exists('game', $row)) {
             $lobby->setGame($row['game']);
@@ -105,8 +115,10 @@ class Lobby implements \JsonSerializable
         return [
             'id' => $this->id,
             'owner_id' => $this->ownerId,
+            'owner_path' => $this->ownerPath,
             'owner' => $this->owner,
             'game_id' => $this->gameId,
+            'game_path' => $this->gamePath,
             'game' => $this->game,
             'winnerTeam' => $this->winnerTeam,
             'createdAt' => $this->createdAt,
@@ -148,6 +160,38 @@ class Lobby implements \JsonSerializable
     }
 
     /**
+     * @return String
+     */
+    public function getOwnerPath()
+    {
+        return $this->ownerPath;
+    }
+
+    /**
+     * @param String $ownerPath
+     */
+    public function setOwnerPath($ownerPath)
+    {
+        $this->ownerPath = $ownerPath;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
      * @return int
      */
     public function getGameId()
@@ -161,6 +205,38 @@ class Lobby implements \JsonSerializable
     public function setGameId($gameId)
     {
         $this->gameId = $gameId;
+    }
+
+    /**
+     * @return String
+     */
+    public function getGamePath()
+    {
+        return $this->gamePath;
+    }
+
+    /**
+     * @param String $gamePath
+     */
+    public function setGamePath($gamePath)
+    {
+        $this->gamePath = $gamePath;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
     }
 
     /**
@@ -226,37 +302,4 @@ class Lobby implements \JsonSerializable
     {
         $this->endtime = $endtime;
     }
-
-    /**
-     * @return User
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
-
-    /**
-     * @param User $owner
-     */
-    public function setOwner($owner)
-    {
-        $this->owner = $owner;
-    }
-
-    /**
-     * @return Game
-     */
-    public function getGame()
-    {
-        return $this->game;
-    }
-
-    /**
-     * @param Game $game
-     */
-    public function setGame($game)
-    {
-        $this->game = $game;
-    }
-
 }
