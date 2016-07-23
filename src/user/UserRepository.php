@@ -83,7 +83,7 @@ EOS;
     {
         $data = $user->jsonSerialize();
         unset($data['id']);
-        
+
         $this->connection->insert("`{$this->getTableName()}`", $data);
         $user->setId($this->connection->lastInsertId());
     }

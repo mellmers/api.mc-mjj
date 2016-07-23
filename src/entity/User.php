@@ -49,9 +49,6 @@ class User implements \JsonSerializable
     public static function createFromArray(array $row)
     {
         $user = new self();
-        if (array_key_exists('id', $row)) {
-            $user->setId($row['id']);
-        }
         if (array_key_exists('username', $row)) {
             $user->setUsername($row['username']);
         }
@@ -66,9 +63,6 @@ class User implements \JsonSerializable
         }
         if (array_key_exists('icon', $row)) {
             $user->setIcon($row['icon']);
-        }
-        if (array_key_exists('coins', $row)) {
-            $user->setCoins($row['coins']);
         }
         return $user;
     }

@@ -61,7 +61,7 @@ class UserService
     {
         $postData = $request->request->all();
 
-        $user['data'] = User::createFromArray($postData);
+        $user = User::createFromArray($postData);
 
         $this->userRepository->create($user);
 
