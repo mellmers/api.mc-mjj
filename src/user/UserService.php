@@ -65,9 +65,9 @@ class UserService
 
         $user = User::createFromArray($postData);
 
-        $this->userRepository->create($user);
+        $userFromDatabase = $this->userRepository->create($user);
 
-        $response['data'] = $user;
+        $response['data'] = $userFromDatabase;
 
         return new JsonResponse($response, 201);
     }

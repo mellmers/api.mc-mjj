@@ -2,6 +2,7 @@
 
 namespace projectx\api\entity;
 
+use DateTime;
 use Swagger\Annotations as SWG;
 
 /**
@@ -14,7 +15,12 @@ class User implements \JsonSerializable
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
-    private $id;
+    private $coins;
+    /**
+     * @var int
+     * @SWG\Property(type="int", format="int32")
+     */
+    private $createdAt;
     /**
      * @var string
      * @SWG\Property(type="string")
@@ -24,7 +30,12 @@ class User implements \JsonSerializable
      * @var string
      * @SWG\Property(type="string")
      */
-    private $username;
+    private $id;
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $icon;
     /**
      * @var bool
      * @SWG\Property(type="bool")
@@ -36,33 +47,44 @@ class User implements \JsonSerializable
      */
     private $password;
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
-     */
-    private $coins;
-    /**
      * @var string
      * @SWG\Property(type="string")
      */
-    private $icon;
+    private $username;
 
+    /**
+     * @param array $row
+     * @return User
+     */
     public static function createFromArray(array $row)
     {
         $user = new self();
-        if (array_key_exists('username', $row)) {
-            $user->setUsername($row['username']);
+        if (array_key_exists('coins', $row)) {
+            $user->setCoins($row['coins']);
+        }
+        if (array_key_exists('createdAt', $row)) {
+            $user->setCreatedAt($row['createdAt']);
+        } else {
+            $date = new DateTime();
+            $user->setCreatedAt($date->getTimestamp());
         }
         if (array_key_exists('email', $row)) {
             $user->setEmail($row['email']);
         }
-        if (array_key_exists('trusted', $row)) {
-            $user->setTrusted($row['trusted']);
+        if (array_key_exists('icon', $row)) {
+            $user->setIcon($row['icon']);
+        }
+        if (array_key_exists('id', $row)) {
+            $user->setId($row['id']);
         }
         if (array_key_exists('password', $row)) {
             $user->setPassword($row['password']);
         }
-        if (array_key_exists('icon', $row)) {
-            $user->setIcon($row['icon']);
+        if (array_key_exists('trusted', $row)) {
+            $user->setTrusted($row['trusted']);
+        }
+        if (array_key_exists('username', $row)) {
+            $user->setUsername($row['username']);
         }
         return $user;
     }
@@ -73,18 +95,19 @@ class User implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->id,
-            'username' => $this->username,
-            'email' => $this->email,
-            'trusted' => $this->trusted,
-            'password' => $this->password,
-            'icon' => $this->icon,
             'coins' => $this->coins,
+            'createdAt' => $this->createdAt,
+            'icon' => $this->icon,
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+            'trusted' => $this->trusted,
+            'username' => $this->username,
         ];
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -92,7 +115,7 @@ class User implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
     public function setId($id)
     {
@@ -132,7 +155,7 @@ class User implements \JsonSerializable
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isTrusted()
     {
@@ -140,11 +163,11 @@ class User implements \JsonSerializable
     }
 
     /**
-     * @param boolean $trusted
+     * @param bool $trusted
      */
     public function setTrusted($trusted)
     {
-        $this->trusted = $trusted;
+        $this->trusted = (bool)$trusted;
     }
 
     /**
@@ -176,7 +199,7 @@ class User implements \JsonSerializable
      */
     public function setCoins($coins)
     {
-        $this->coins = $coins;
+        $this->coins = (int)$coins;
     }
 
     /**
@@ -193,5 +216,21 @@ class User implements \JsonSerializable
     public function setIcon($icon)
     {
         $this->icon = $icon;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param int $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = (int)$createdAt;
     }
 }

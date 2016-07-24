@@ -61,6 +61,32 @@ EOS;
     }
 
     /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function create(User $user)
+    {
+        $userMail = $user->getEmail();
+        if(isset($userMail)) {
+            $user->setId(md5($userMail));
+        } else {
+            $this->app->abort(400, 'A user needs a valid email address.');
+        }
+        $data = $user->jsonSerialize();
+        unset($data['coins'], $data['trusted']);
+        foreach($data as $key => $value) {
+            if(empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->insert("`{$this->getTableName()}`", $data);
+
+        return $this->getById($user->getId());
+    }
+
+    /**
      * @param $id
      *
      * @return User
@@ -79,17 +105,5 @@ EOS;
         }
 
         return User::createFromArray($users[0]);
-    }
-
-    /**
-     * @param User $user
-     */
-    public function create(User $user)
-    {
-        $data = $user->jsonSerialize();
-        unset($data['id']);
-
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-        $user->setId($this->connection->lastInsertId());
     }
 }

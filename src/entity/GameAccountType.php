@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jonas
- * Date: 08/06/2016
- * Time: 14:27
- */
 
 namespace projectx\api\entity;
 
@@ -12,8 +6,8 @@ namespace projectx\api\entity;
 class GameAccountType implements \JsonSerializable
 {
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $id;
     /**
@@ -56,7 +50,7 @@ class GameAccountType implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -64,7 +58,7 @@ class GameAccountType implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
     public function setId($id)
     {

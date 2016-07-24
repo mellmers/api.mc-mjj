@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jonas
- * Date: 08/06/2016
- * Time: 14:26
- */
 
 namespace projectx\api\entity;
 
@@ -12,8 +6,8 @@ namespace projectx\api\entity;
 class Game implements \JsonSerializable
 {
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $id;
     /**
@@ -42,8 +36,8 @@ class Game implements \JsonSerializable
      */
     private $genre;
     /**
-     * @var string
-     * @SWG\Property(type="string")
+     * @var int
+     * @SWG\Property(type="int", format="int32")
      */
     private $timelimit;
 
@@ -91,7 +85,7 @@ class Game implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -99,7 +93,7 @@ class Game implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
     public function setId($id)
     {
@@ -187,7 +181,7 @@ class Game implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getTimelimit()
     {
@@ -195,10 +189,10 @@ class Game implements \JsonSerializable
     }
 
     /**
-     * @param string $timelimit
+     * @param int $timelimit
      */
     public function setTimelimit($timelimit)
     {
-        $this->timelimit = $timelimit;
+        $this->timelimit = (int)$timelimit;
     }
 }
