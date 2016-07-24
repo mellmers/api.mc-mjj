@@ -11,7 +11,7 @@ class GameServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['repo.game'] = $app->share(function (Application $app) {
-            return new GameRepository($app['db']);
+            return new GameRepository($app, $app['db']);
         });
 
         $app['service.game'] = $app->share(function (Application $app) {

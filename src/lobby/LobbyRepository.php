@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use projectx\api\entity\Lobby;
 use projectx\api\game\GameRepository;
 use projectx\api\user\UserRepository;
+use Silex\Application;
 
 /**
  * Class LobbyRepository
@@ -13,22 +14,27 @@ use projectx\api\user\UserRepository;
  */
 class LobbyRepository
 {
+    /** @var  Application\ */
+    private $app;
     /** @var  Connection */
     private $connection;
     /** @var  UserRepository */
     private $userRepo;
     /** @var  GameRepository */
     private $gameRepo;
+
     /**
      * LobbyRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($this->connection);
-        $this->gameRepo = new GameRepository($this->connection);
+        $this->userRepo = new UserRepository($app, $connection);
+        $this->gameRepo = new GameRepository($app, $connection);
     }
 
     /**
@@ -41,10 +47,10 @@ SELECT *
 FROM `{$this->getTableName()}`
 EOS;
 
-        $lobbys = $this->connection->fetchAll($sql);
+        $lobbies = $this->connection->fetchAll($sql);
 
         $result = [];
-        foreach ($lobbys as $lobby) {
+        foreach ($lobbies as $lobby) {
             $lobby = $this->loadUser($lobby);
             $lobby = $this->loadGame($lobby);
             $result[] = Lobby::createFromArray($lobby);
@@ -85,7 +91,6 @@ EOS;
     /**
      * @param $id
      * @return Lobby
-     * @throws DatabaseException
      */
     public function getById($id)
     {
@@ -95,20 +100,18 @@ FROM `{$this->getTableName()}` l
 WHERE l.id = :id
 EOS;
 
-        $lobbys = $this->connection->fetchAll($sql, ['id' => $id]);
-        if (count($lobbys) === 0) {
-            throw new DatabaseException(
-                sprintf('Lobby with id "%d" does not exists!', $id)
-            );
+        $lobbies = $this->connection->fetchAll($sql, ['id' => $id]);
+        if (count($lobbies) === 0) {
+            $this->app->abort(400, "Lobby with id $id does not exist.");
         }
-        $lobbys[0] = $this->loadUser($lobbys[0]);
-        $lobbys[0] = $this->loadGame($lobbys[0]);
-        $result = Lobby::createFromArray($lobbys[0]);
-        return $result;
+        $lobbies[0] = $this->loadUser($lobbies[0]);
+        $lobbies[0] = $this->loadGame($lobbies[0]);
+        return Lobby::createFromArray($lobbies[0]);
     }
 
     /**
      * @param $ownerId
+     *
      * @return array|Lobby
      */
     public function getByOwnerId($ownerId)
@@ -119,14 +122,12 @@ FROM `{$this->getTableName()}` l
 WHERE l.owner_id = :owner_id
 EOS;
 
-        $lobbys = $this->connection->fetchAll($sql, ['owner_id' => $ownerId]);
-        if (count($lobbys) === 0) {
-            throw new DatabaseException(
-                sprintf('Lobbys with owner id: ' . $ownerId)
-            );
+        $lobbies = $this->connection->fetchAll($sql, ['owner_id' => $ownerId]);
+        if (count($lobbies) === 0) {
+            $this->app->abort(400, "Lobbies with ownerId $ownerId does not exist.");
         }
         $result = [];
-        foreach ($lobbys as $lobby) {
+        foreach ($lobbies as $lobby) {
             $lobby = $this->loadUser($lobby);
             $lobby = $this->loadGame($lobby);
             $result[] = Lobby::createFromArray($lobby);
@@ -136,6 +137,7 @@ EOS;
 
     /**
      * @param $gameId
+     *
      * @return array|Lobby
      */
     public function getByGameId($gameId)
@@ -146,14 +148,12 @@ FROM `{$this->getTableName()}` l
 WHERE l.game_id = :game_id
 EOS;
 
-        $lobbys = $this->connection->fetchAll($sql, ['game_id' => $gameId]);
-        if (count($lobbys) === 0) {
-            throw new DatabaseException(
-                sprintf('Lobbys with owner id: ' . $gameId)
-            );
+        $lobbies = $this->connection->fetchAll($sql, ['game_id' => $gameId]);
+        if (count($lobbies) === 0) {
+            $this->app->abort(400, "Lobbies with gameId $gameId does not exist.");
         }
         $result = [];
-        foreach ($lobbys as $lobby) {
+        foreach ($lobbies as $lobby) {
             $lobby = $this->loadUser($lobby);
             $lobby = $this->loadGame($lobby);
             $result[] = Lobby::createFromArray($lobby);

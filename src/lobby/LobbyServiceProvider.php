@@ -11,7 +11,7 @@ class LobbyServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['repo.lobby'] = $app->share(function (Application $app) {
-            return new LobbyRepository($app['db']);
+            return new LobbyRepository($app, $app['db']);
         });
 
         $app['service.lobby'] = $app->share(function (Application $app) {

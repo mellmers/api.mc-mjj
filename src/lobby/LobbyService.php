@@ -29,50 +29,50 @@ class LobbyService
     /**
      * GET /lobby
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function getList()
     {
-        $result['data'][] = $this->lobbyRepository->getAll();
+        $result['data'] = $this->lobbyRepository->getAll();
         return new JsonResponse($result);
     }
 
     /**
      * GET /lobby/{id}
      *
+     * @param $id
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $id     *
      */
     public function getById($id)
     {
-        $result['data'][] = $this->lobbyRepository->getById($id);
+        $result['data'] = $this->lobbyRepository->getById($id);
         return new JsonResponse($result);
     }
 
     /**
      * GET /lobby/byOwnerId/{ownerId}
      *
+     * @param $ownerId
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $ownerId
      */
     public function getByOwnerId($ownerId)
     {
-        $result['data'][] = $this->lobbyRepository->getByOwnerId($ownerId);
+        $result['data'] = $this->lobbyRepository->getByOwnerId($ownerId);
         return new JsonResponse($result);
     }
 
     /**
      * GET /lobby/byGameId/{gameId}
      *
+     * @param $gameId
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $gameId
      */
     public function getByGameId($gameId)
     {
-        $result['data'][] = $this->lobbyRepository->getByGameId($gameId);
+        $result['data'] = $this->lobbyRepository->getByGameId($gameId);
         return new JsonResponse($result);
     }
 
@@ -88,7 +88,7 @@ class LobbyService
     {
         $postData = $request->request->all();
 
-        $lobby['data'][] = Lobby::createFromArray($postData);
+        $lobby['data'] = Lobby::createFromArray($postData);
 
         $this->lobbyRepository->create($lobby);
 

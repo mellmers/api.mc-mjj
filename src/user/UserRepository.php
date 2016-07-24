@@ -4,6 +4,7 @@ namespace projectx\api\user;
 
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\User;
+use Silex\Application;
 
 /**
  * Class UserRepository
@@ -11,16 +12,21 @@ use projectx\api\entity\User;
  */
 class UserRepository
 {
+    /** @var  Application */
+    private $app;
+
     /** @var  Connection */
     private $connection;
 
     /**
      * UserRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
     }
 
@@ -54,6 +60,11 @@ EOS;
         return 'user';
     }
 
+    /**
+     * @param $id
+     *
+     * @return User
+     */
     public function getById($id)
     {
         $sql = <<<EOS
@@ -62,18 +73,12 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
-        $result = [];
-
         $users = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($users) === 0) {
-            throw new DatabaseException(
-                sprintf('User with id "%d" not exists!', $id)
-            );
+            $this->app->abort(400, "User with id $id does not exist.");
         }
 
-        $result[] = User::createFromArray($users[0]);
-
-        return $result;
+        return User::createFromArray($users[0]);
     }
 
     /**

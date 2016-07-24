@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use projectx\api\entity\Bet;
 use projectx\api\lobby\LobbyRepository;
 use projectx\api\user\UserRepository;
+use Silex\Application;
 
 /**
  * Class BetRepository
@@ -13,6 +14,8 @@ use projectx\api\user\UserRepository;
  */
 class BetRepository
 {
+    /** @var  Application\*/
+    private $app;
     /** @var  Connection */
     private $connection;
     /** @var  UserRepository */
@@ -23,13 +26,15 @@ class BetRepository
     /**
      * BetRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($this->connection);
-        $this->lobbyRepo = new LobbyRepository($this->connection);
+        $this->userRepo = new UserRepository($app, $connection);
+        $this->lobbyRepo = new LobbyRepository($app, $connection);
     }
 
     /**
@@ -86,7 +91,6 @@ EOS;
      * @param $userId
      * @param $lobbyId
      * @return Bet
-     * @throws DatabaseException
      */
     public function getByIds($userId, $lobbyId)
     {
@@ -98,9 +102,7 @@ EOS;
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
-            throw new DatabaseException(
-                sprintf('Bet with id "%d" does not exists!', $userId)
-            );
+            $this->app->abort(400, "Bet with userId $userId does not exist.");
         }
         $bets[0] = $this->loadUser($bets[0]);
         $bets[0] = $this->loadLobby($bets[0]);
@@ -110,7 +112,6 @@ EOS;
     /**
      * @param $lobbyId
      * @return array
-     * @throws DatabaseException
      */
     public function getByLobbyId($lobbyId)
     {
@@ -122,9 +123,7 @@ EOS;
 
         $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
-            throw new DatabaseException(
-                sprintf('Lobby with id:' . $lobbyId . " has no bets")
-            );
+            $this->app->abort(400, "Lobby with id $lobbyId has no bets.");
         }
         $result = [];
         foreach ($bets as $bet) {
@@ -138,7 +137,6 @@ EOS;
     /**
      * @param $userId
      * @return array
-     * @throws DatabaseException
      */
     public function getByUserId($userId)
     {
@@ -150,9 +148,7 @@ EOS;
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($bets) === 0) {
-            throw new DatabaseException(
-                sprintf('User with id ', $userId, "has no bets")
-            );
+            $this->app->abort(400, "User with id $userId has no bets.");
         }
         $result = [];
         foreach ($bets as $bet) {
@@ -170,6 +166,6 @@ EOS;
     {
         $data = $bet->jsonSerialize();
         $this->connection->insert("`{$this->getTableName()}`", $data);
-        $bet->setId($this->connection->lastInsertId());
+        //$bet->setId($this->connection->lastInsertId());
     }
 }

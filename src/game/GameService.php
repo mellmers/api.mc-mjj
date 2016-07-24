@@ -29,39 +29,37 @@ class GameService
     /**
      * GET /game
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function getList()
     {
-        $result['data'][] = $this->gameRepository->getAll();
+        $result['data'] = $this->gameRepository->getAll();
         return new JsonResponse($result);
     }
 
     /**
      * GET /game/{id}
      *
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $id
+     * @param $id
      *
+     * @return JsonResponse
      */
     public function getById($id)
     {
-        $result['data'][] = $this->gameRepository->getById($id);
+        $result['data'] = $this->gameRepository->getById($id);
         return new JsonResponse($result);
     }
 
     /**
      * GET /game/byGenre/{genre}
      *
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $genre
+     * @param $genre
      *
+     * @return JsonResponse
      */
     public function getByGenre($genre)
     {
-        $result['data'][] = $this->gameRepository->getByGenre($genre);
+        $result['data'] = $this->gameRepository->getByGenre($genre);
         return new JsonResponse($result);
     }
 
@@ -76,7 +74,7 @@ class GameService
     {
         $postData = $request->request->all();
 
-        $game['data'][] = Game::createFromArray($postData);
+        $game['data'] = Game::createFromArray($postData);
 
         $this->gameRepository->create($game);
 

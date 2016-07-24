@@ -4,6 +4,7 @@ namespace projectx\api\game;
 
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\Game;
+use Silex\Application;
 
 /**
  * Class GameRepository
@@ -11,16 +12,21 @@ use projectx\api\entity\Game;
  */
 class GameRepository
 {
+    /** @var  Application */
+    private $app;
+
     /** @var  Connection */
     private $connection;
 
     /**
      * GameRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
     }
 
@@ -37,7 +43,6 @@ EOS;
         $games = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($games);
 
         foreach ($games as $game) {
             $result[] = Game::createFromArray($game);
@@ -56,8 +61,7 @@ EOS;
 
     /**
      * @param $id
-     * @return Game
-     * @throws DatabaseException
+     * @return array
      */
     public function getById($id)
     {
@@ -69,11 +73,8 @@ EOS;
 
         $games = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($games) === 0) {
-            throw new DatabaseException(
-                sprintf('Game with id "%d" does not exists!', $id)
-            );
+            $this->app->abort(400, "Game with id $id does not exist!");
         }
-        $result = [];
         $result[] = Game::createFromArray($games[0]);
         return $result;
     }
@@ -81,7 +82,6 @@ EOS;
     /**
      * @param $genre
      * @return array
-     * @throws DatabaseException
      */
     public function getByGenre($genre)
     {
@@ -93,9 +93,7 @@ EOS;
 
         $games = $this->connection->fetchAll($sql, ['genre' => $genre]);
         if (count($games) === 0) {
-            throw new DatabaseException(
-                sprintf('No games with the genre: ' . $genre)
-            );
+            $this->app->abort(400, 'No games with the genre: ' . $genre);
         }
         $result = [];
         foreach ($games as $game) {

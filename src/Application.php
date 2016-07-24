@@ -12,6 +12,7 @@ use projectx\api\lobby\LobbyServiceProvider;
 use projectx\api\user\UserServiceProvider;
 use Silex\Application as Silex;
 use Silex\Provider\ServiceControllerServiceProvider;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class Application extends Silex {
@@ -21,6 +22,8 @@ class Application extends Silex {
         parent::__construct();
 
         $app = $this;
+
+        //$app['debug'] = true;
 
         $app->register(new ServiceControllerServiceProvider());
 
@@ -37,6 +40,15 @@ class Application extends Silex {
                 'swaggerui.path' => '/docs/swagger',
                 'swaggerui.docs' => '/docs/swagger.json',
             ]);*/
+
+        // error handling calling with $app->abort($code, $message)
+        $app->error(function (\Exception $e, $code) use ($app) {
+            if($app['debug']) {
+                return false;
+            }
+            $response['error'] = $e->getMessage();
+            return new JsonResponse($response, $code);
+        });
 
         // enable cross origin requests!
         $app->register(new CorsServiceProvider());

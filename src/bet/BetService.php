@@ -29,51 +29,51 @@ class BetService
     /**
      * GET /bet
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function getList()
     {
-        $result['data'][] = $this->betRepository->getAll();
+        $result['data'] = $this->betRepository->getAll();
         return new JsonResponse($result);
     }
 
     /**
      * GET /bet/{userId}{lobbyId}
      *
+     * @param $userId
+     * @param $lobbyId
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $userId
-     * @internal param $lobbyId
      */
     public function getByIds($userId, $lobbyId)
     {
-        $result['data'][] = $this->betRepository->getByIds($userId, $lobbyId);
+        $result['data'] = $this->betRepository->getByIds($userId, $lobbyId);
         return new JsonResponse($result);
     }
 
     /**
      * GET /bet/byLobbyId/{lobbyId}
      *
+     * @param $lobbyId
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param Int $lobbyId
      */
     public function getByLobbyId($lobbyId)
     {
-        $result['data'][] = $this->betRepository->getByLobbyId($lobbyId);
+        $result['data'] = $this->betRepository->getByLobbyId($lobbyId);
         return new JsonResponse($result);
     }
 
     /**
      * GET /bet/byUserId/{userId}
      *
+     * @param $userId
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $userId
      */
     public function getByUserId($userId)
     {
-        $result['data'][] = $this->betRepository->getByUserId($userId);
+        $result['data'] = $this->betRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
@@ -88,7 +88,7 @@ class BetService
     {
         $postData = $request->request->all();
 
-        $bet['data'][] = Bet::createFromArray($postData);
+        $bet['data'] = Bet::createFromArray($postData);
 
         $this->betRepository->create($bet);
 

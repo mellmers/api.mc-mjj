@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use projectx\api\entity\GameAccount;
 use projectx\api\gameAccountType\GameAccountTypeRepository;
 use projectx\api\user\UserRepository;
+use Silex\Application;
 
 /**
  * Class GameAccountRepository
@@ -13,6 +14,8 @@ use projectx\api\user\UserRepository;
  */
 class GameAccountRepository
 {
+    /** @var  Application\ */
+    private $app;
     /** @var  Connection */
     private $connection;
     /** @var  UserRepository */
@@ -23,13 +26,15 @@ class GameAccountRepository
     /**
      * GameAccountRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($this->connection);
-        $this->gATRepo = new GameAccountTypeRepository($this->connection);
+        $this->userRepo = new UserRepository($app, $connection);
+        $this->gATRepo = new GameAccountTypeRepository($app, $connection);
     }
 
     /**
@@ -86,9 +91,9 @@ EOS;
     }
 
     /**
-     * @param $name
+     * @param $id
+     * @param $type_id
      * @return GameAccount
-     * @throws DatabaseException
      */
     public function getByIdAndType($id, $type_id)
     {
@@ -100,15 +105,11 @@ EOS;
 
         $gameAccounts = $this->connection->fetchAll($sql, ['name' => $id, 'type_id' => $type_id]);
         if (count($gameAccounts) === 0) {
-            throw new DatabaseException(
-                sprintf('GameAccount with id "%d" not exists!', $id)
-            );
+            $this->app->abort(400, "GameAccount with id $id and type $type_id does not exist.");
         }
-        $result = [];
         $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
         $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);
-        $result[] = GameAccount::createFromArray($gameAccounts[0]);
-        return $result;
+        return GameAccount::createFromArray($gameAccounts[0]);
     }
 
     /**
@@ -125,9 +126,7 @@ EOS;
 
         $gameAccounts = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($gameAccounts) === 0) {
-            throw new DatabaseException(
-                sprintf('GameAccount with id "%d" not exists!', $userId)
-            );
+            $this->app->abort(400, "User with id $userId has no GameAccounts.");
         }
         $result = [];
         foreach ($gameAccounts as $gameAccount) {
@@ -152,9 +151,7 @@ EOS;
 
         $gameAccounts = $this->connection->fetchAll($sql, ['gameAccountTypeId' => $gameAccountTypeId]);
         if (count($gameAccounts) === 0) {
-            throw new DatabaseException(
-                sprintf('GameAccounts with the type id: ' . $gameAccountTypeId)
-            );
+            $this->app->abort(400, "GameAccounts type id $gameAccountTypeId has no GameAccounts.");
         }
         $result = [];
         foreach ($gameAccounts as $gameAccount) {
@@ -174,6 +171,5 @@ EOS;
         $this->connection->insert("`{$this->getTableName()}`", $data);
         $gameAccount->setUserId($this->connection->lastInsertId());
     }
-
 
 }

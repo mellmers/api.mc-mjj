@@ -29,54 +29,51 @@ class GameAccountService
     /**
      * GET /gameAccount
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function getList()
     {
-        $result['data'][] = $this->gameAccountRepository->getAll();
+        $result['data'] = $this->gameAccountRepository->getAll();
         return new JsonResponse($result);
     }
 
     /**
      * GET /gameAccount/{id},{type}
      *
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $id
-     * @internal param $type
+     * @param $id
+     * @param $type
      *
+     * @return JsonResponse
      */
     public function getByIdAndType($id, $type)
     {
-        $result['data'][] = $this->gameAccountRepository->getByIdAndType($id, $type);
+        $result['data'] = $this->gameAccountRepository->getByIdAndType($id, $type);
         return new JsonResponse($result);
     }
 
     /**
      * GET /gameAccount/byUserId/{userId}
      *
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $userId
+     * @param $userId
      *
+     * @return JsonResponse
      */
     public function getByUserId($userId)
     {
-        $result['data'][] = $this->gameAccountRepository->getByUserId($userId);
+        $result['data'] = $this->gameAccountRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
     /**
      * GET /gameAccount/byTypeId/{gameAccountTypeId}
      *
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $gameAccountTypeId
+     * @param $gameAccountTypeId
      *
+     * @return JsonResponse
      */
     public function getByTypeId($gameAccountTypeId)
     {
-        $result['data'][] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
+        $result['data'] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
         return new JsonResponse($result);
     }
 
@@ -91,7 +88,7 @@ class GameAccountService
     {
         $postData = $request->request->all();
 
-        $gameAccount['data'][] = GameAccount::createFromArray($postData);
+        $gameAccount['data'] = GameAccount::createFromArray($postData);
 
         $this->gameAccountRepository->create($gameAccount);
 

@@ -29,24 +29,24 @@ class GameAccountTypeService
     /**
      * GET /gameAccountType
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function getList()
     {
-        $result['data'][] = $this->gameAccountTypeRepository->getAll();
+        $result['data'] = $this->gameAccountTypeRepository->getAll();
         return new JsonResponse($result);
     }
 
     /**
      * GET /gameAccountType/{id}
      *
+     * @param $id
+     *
      * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $id
      */
     public function getById($id)
     {
-        $result['data'][] = $this->gameAccountTypeRepository->getById($id);
+        $result['data'] = $this->gameAccountTypeRepository->getById($id);
         return new JsonResponse($result);
     }
 

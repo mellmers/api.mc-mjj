@@ -29,24 +29,26 @@ class UserService
     /**
      * GET /user
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
+     *
      */
     public function getList()
     {
-        $result['data'] = $this->userRepository->getAll();
-        return new JsonResponse($result);
+        $response['data'] = $this->userRepository->getAll();
+        return new JsonResponse($response);
     }
 
     /**
-     * @return JsonResponse
-     * @throws DatabaseException
-     * @internal param $userId
+     * GET /user/(userId)
      *
+     * @param $userId
+     *
+     * @return JsonResponse
      */
     public function getById($userId)
     {
-        $result['data'] = $this->userRepository->getById($userId);
-        return new JsonResponse($result);
+        $response['data'] = $this->userRepository->getById($userId);
+        return new JsonResponse($response);
     }
 
 
@@ -65,6 +67,8 @@ class UserService
 
         $this->userRepository->create($user);
 
-        return new JsonResponse($user, 201);
+        $response['data'] = $user;
+
+        return new JsonResponse($response, 201);
     }
 }
