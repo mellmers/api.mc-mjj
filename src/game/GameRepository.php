@@ -60,7 +60,7 @@ EOS;
     }
 
     /**
-     * @param $id
+     * @param $gameId
      * @return array
      */
     public function getById($id)

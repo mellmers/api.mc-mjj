@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class LobbyService
 {
+    /**
+     * @SWG\Parameter(name="lobbyId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="gameId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="userId", in="path", type="integer", description="")
+     */
 
     /** @var  LobbyRepository */
     private $lobbyRepository;
@@ -38,28 +43,28 @@ class LobbyService
     }
 
     /**
-     * GET /lobby/{id}
+     * GET /lobby/{lobbyId}
      *
-     * @param $id
+     * @param $lobbyId
      *
      * @return JsonResponse
      */
-    public function getById($id)
+    public function getById($lobbyId)
     {
-        $result['data'] = $this->lobbyRepository->getById($id);
+        $result['data'] = $this->lobbyRepository->getById($lobbyId);
         return new JsonResponse($result);
     }
 
     /**
      * GET /lobby/byOwnerId/{ownerId}
      *
-     * @param $ownerId
+     * @param $userId
      *
      * @return JsonResponse
      */
-    public function getByOwnerId($ownerId)
+    public function getByOwnerId($userId)
     {
-        $result['data'] = $this->lobbyRepository->getByOwnerId($ownerId);
+        $result['data'] = $this->lobbyRepository->getByOwnerId($userId);
         return new JsonResponse($result);
     }
 

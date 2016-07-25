@@ -5,6 +5,7 @@ namespace projectx\api\gameAccountType;
 use Doctrine\DBAL\Connection;
 use projectx\api\Application;
 use projectx\api\entity\GameAccountType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameAccountTypeRepository
@@ -56,13 +57,13 @@ EOS;
      */
     public function getTableName()
     {
-        return 'gameaccount_type';
+        return 'gameaccounttype';
     }
 
     /**
-     * @param $id
+     * @param $gameAccountTypeId"
      *
-     * @return GameAccountType
+     * @return JsonResponse
      */
     public function getById($id)
     {
@@ -80,7 +81,7 @@ EOS;
     }
 
     /**
-     * @param GameAccountType $gameAccountType
+     * @param JsonResponse
      */
     public function create(GameAccountType $gameAccountType)
     {

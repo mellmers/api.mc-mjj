@@ -72,7 +72,7 @@ EOS;
      */
     private function loadUser(array $lobby)
     {
-        $userResult = $this->userRepo->getById($lobby['owner_id']);
+        $userResult = $this->userRepo->getById($lobby['ownerId']);
         $lobby['owner'] = $userResult;
         return $lobby;
     }
@@ -83,16 +83,16 @@ EOS;
      */
     private function loadGame(array $lobby)
     {
-        $gameResult = $this->gameRepo->getById($lobby['game_id']);
+        $gameResult = $this->gameRepo->getById($lobby['gameId']);
         $lobby['game'] = $gameResult;
         return $lobby;
     }
 
     /**
-     * @param $id
+     * @param $lobbyId
      * @return Lobby
      */
-    public function getById($id)
+    public function getById($lobbyId)
     {
         $sql = <<<EOS
 SELECT l.*
@@ -100,9 +100,9 @@ FROM `{$this->getTableName()}` l
 WHERE l.id = :id
 EOS;
 
-        $lobbies = $this->connection->fetchAll($sql, ['id' => $id]);
+        $lobbies = $this->connection->fetchAll($sql, ['id' => $lobbyId]);
         if (count($lobbies) === 0) {
-            $this->app->abort(400, "Lobby with id $id does not exist.");
+            $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
         }
         $lobbies[0] = $this->loadUser($lobbies[0]);
         $lobbies[0] = $this->loadGame($lobbies[0]);
@@ -110,21 +110,21 @@ EOS;
     }
 
     /**
-     * @param $ownerId
+     * @param $userId
      *
      * @return array|Lobby
      */
-    public function getByOwnerId($ownerId)
+    public function getByOwnerId($userId)
     {
         $sql = <<<EOS
 SELECT l.*
 FROM `{$this->getTableName()}` l
-WHERE l.owner_id = :owner_id
+WHERE l.ownerId = :ownerId
 EOS;
 
-        $lobbies = $this->connection->fetchAll($sql, ['owner_id' => $ownerId]);
+        $lobbies = $this->connection->fetchAll($sql, ['ownerId' => $userId]);
         if (count($lobbies) === 0) {
-            $this->app->abort(400, "Lobbies with ownerId $ownerId does not exist.");
+            $this->app->abort(400, "Lobbies with ownerId $userId does not exist.");
         }
         $result = [];
         foreach ($lobbies as $lobby) {
@@ -145,10 +145,10 @@ EOS;
         $sql = <<<EOS
 SELECT l.*
 FROM `{$this->getTableName()}` l
-WHERE l.game_id = :game_id
+WHERE l.gameId = :gameId
 EOS;
 
-        $lobbies = $this->connection->fetchAll($sql, ['game_id' => $gameId]);
+        $lobbies = $this->connection->fetchAll($sql, ['gameId' => $gameId]);
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with gameId $gameId does not exist.");
         }

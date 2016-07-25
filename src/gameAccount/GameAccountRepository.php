@@ -7,6 +7,7 @@ use projectx\api\Application;
 use projectx\api\entity\GameAccount;
 use projectx\api\gameAccountType\GameAccountTypeRepository;
 use projectx\api\user\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameAccountRepository
@@ -74,7 +75,7 @@ EOS;
      */
     private function loadUser(array $gameAccount)
     {
-        $userResult = $this->userRepo->getById($gameAccount['user_id']);
+        $userResult = $this->userRepo->getById($gameAccount['userId']);
         $gameAccount['user'] = $userResult;
         return $gameAccount;
     }
@@ -85,27 +86,27 @@ EOS;
      */
     private function loadGameAccountType(array $gameAccount)
     {
-        $gATResult = $this->gATRepo->getById($gameAccount['gameaccount_type_id']);
-        $gameAccount['gameaccount_type'] = $gATResult;
+        $gATResult = $this->gATRepo->getById($gameAccount['gameaccountTypeId']);
+        $gameAccount['gameaccountType'] = $gATResult;
         return $gameAccount;
     }
 
     /**
-     * @param $id
-     * @param $type_id
-     * @return GameAccount
+     * @param $userId
+     * @param $gameAccountTypeId
+     * @return JsonResponse
      */
-    public function getByIdAndType($id, $type_id)
+    public function getByIdAndType($userId, $gameaccountTypeId)
     {
         $sql = <<<EOS
 SELECT ga.*
 FROM `{$this->getTableName()}` ga
-WHERE ga.user_id = :name AND ga.gameaccount_type_id = :type_id
+WHERE ga.userId = :userId AND ga.gameaccountTypeId = :gameaccountTypeId
 EOS;
 
-        $gameAccounts = $this->connection->fetchAll($sql, ['name' => $id, 'type_id' => $type_id]);
+        $gameAccounts = $this->connection->fetchAll($sql, ['userId' => $userId, 'gameaccountTypeId' => $gameaccountTypeId]);
         if (count($gameAccounts) === 0) {
-            $this->app->abort(400, "GameAccount with id $id and type $type_id does not exist.");
+            $this->app->abort(400, "GameAccount with id $userId and type $gameaccountTypeId does not exist.");
         }
         $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
         $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);

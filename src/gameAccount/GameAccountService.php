@@ -12,6 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class GameAccountService
 {
+    /**
+     * @SWG\Parameter(name="userId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="gameAccId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="gameAccountTypeId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="type", in="path", type="string", description="")
+     * @SWG\Parameter(name="gameAccount", type="integer", format="int32", in="path")
+     */
 
     /** @var  GameAccountRepository */
     private $gameAccountRepository;
@@ -38,16 +45,16 @@ class GameAccountService
     }
 
     /**
-     * GET /gameAccount/{id},{type}
+     * GET /gameAccount/{userId},{gameAccountTypeId}
      *
-     * @param $id
-     * @param $type
+     * @param $userId
+     * @param $gameAccountTypeId
      *
      * @return JsonResponse
      */
-    public function getByIdAndType($id, $type)
+    public function getByIdAndType($userId, $gameAccountTypeId)
     {
-        $result['data'] = $this->gameAccountRepository->getByIdAndType($id, $type);
+        $result['data'] = $this->gameAccountRepository->getByIdAndType($userId, $gameAccountTypeId);
         return new JsonResponse($result);
     }
 

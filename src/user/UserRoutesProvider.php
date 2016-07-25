@@ -20,7 +20,6 @@ class UserRoutesProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * @SWG\Parameter(name="id", type="integer", format="int32", in="path")
          * @SWG\Tag(name="user", description="All about users")
          */
 
@@ -35,9 +34,9 @@ class UserRoutesProvider implements ControllerProviderInterface
         $controllers->get('/', 'service.user:getList');
         /**
          * @SWG\Get(
-         *     path="/user/{id}",
+         *     path="/user/{userId}",
          *     tags={"user"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",

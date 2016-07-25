@@ -71,7 +71,7 @@ EOS;
      */
     private function loadUser(array $bet)
     {
-        $userResult = $this->userRepo->getById($bet['user_id']);
+        $userResult = $this->userRepo->getById($bet['userId']);
         $bet['user'] = $userResult;
         return $bet;
     }
@@ -82,7 +82,7 @@ EOS;
      */
     private function loadLobby(array $bet)
     {
-        $lobbyResult = $this->lobbyRepo->getById($bet['lobby_id']);
+        $lobbyResult = $this->lobbyRepo->getById($bet['lobbyId']);
         $bet['lobby'] = $lobbyResult;
         return $bet;
     }
@@ -97,7 +97,7 @@ EOS;
         $sql = <<<EOS
 SELECT b.*
 FROM `{$this->getTableName()}` b
-WHERE b.user_id = :userId AND b.lobby_id = :lobbyId
+WHERE b.userId = :userId AND b.lobbyId = :lobbyId
 EOS;
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
@@ -118,7 +118,7 @@ EOS;
         $sql = <<<EOS
 SELECT b.*
 FROM `{$this->getTableName()}` b
-WHERE  b.lobby_id = :lobbyId
+WHERE  b.lobbyId = :lobbyId
 EOS;
 
         $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
@@ -143,7 +143,7 @@ EOS;
         $sql = <<<EOS
 SELECT b.*
 FROM `{$this->getTableName()}` b
-WHERE b.user_id = :userId
+WHERE b.userId = :userId
 EOS;
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);

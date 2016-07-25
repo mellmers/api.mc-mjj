@@ -13,52 +13,56 @@ class Bet implements \JsonSerializable
 {
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $userId;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $userPath;
     /**
      * @var User
-     * @SWG\Property(type="User")
      */
     private $user;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $lobbyId;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $lobbyPath;
     /**
      * @var Lobby
-     * @SWG\Property(type="Lobby")
      */
     private $lobby;
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $amount;
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $team;
 
 
+    /*
+     *these need to be inside of a SWG/Definition tag
+     * we gonna do that later
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="User")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="Lobby")
+     * @SWG\Property(type="integer", format="int32")
+     * @SWG\Property(type="integer", format="int32")
+     */
 
     public static function createFromArray(array $row)
     {
         $bet = new self();
         if (array_key_exists('userId', $row)) {
-            $bet->setUserId($row['user_id']);
+            $bet->setUserId($row['userId']);
             $bet->setUserPath('/user/' . $row['userId']);
         }
         if (array_key_exists('user', $row)) {
