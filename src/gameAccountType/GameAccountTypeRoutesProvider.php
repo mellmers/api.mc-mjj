@@ -20,7 +20,6 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * @SWG\Parameter(name="gameAccountType", type="integer", format="int32", in="path")
          * @SWG\Tag(name="gameAccountType", description="All about gameAccountTypes")
          */
 
@@ -37,7 +36,7 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/gameAccountType/{id}",
          *     tags={"gameAccountType"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",

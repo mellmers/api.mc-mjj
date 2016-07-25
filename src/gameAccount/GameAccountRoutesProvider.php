@@ -20,7 +20,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * @SWG\Parameter(name="gameAccount", ="integer", format="int32", in="path")
+         * 
          * @SWG\Tag(name="gameAccount", description="All about gameAccounts")
          */
 
@@ -37,12 +37,18 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/gameAccount/{id},{type}",
          *     tags={"gameAccount"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
-         *     @SWG\Parameter(ref="#/parameters/type"),
+         *     @SWG\Parameter(ref="#/parameters/gameAccId"),
+         *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/gameAccount")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -56,7 +62,13 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/gameAccount")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -70,7 +82,13 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/gameAccount")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -80,7 +98,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          * @SWG\Post(
          *     tags={"gameAccount"},
          *     path="/gameAccount/",
-         *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/definitions/gameAccount")),
+         *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/parameters/gameAccount")),
          *     @SWG\Response(response="201", description="An example resource")
          * )
          *

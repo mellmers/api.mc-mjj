@@ -38,7 +38,7 @@ class GameRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/game/{id}",
          *     tags={"game"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Parameter(ref="#/parameters/gameId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",

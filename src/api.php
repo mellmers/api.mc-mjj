@@ -8,7 +8,7 @@
  *     @SWG\Info(
  *         version="1.0.0",
  *         title="Project-X",
- *         @SWG\Contact(name="wordnik api team", url="http://developer.wordnik.com"),
+ *         @SWG\Contact(name="project X team", url="http://developer.projectX.com"),
  *         @SWG\License(name="Creative Commons 4.0 International", url="http://creativecommons.org/licenses/by/4.0/")
  *     ),
  *     @SWG\Definition(

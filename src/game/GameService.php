@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class GameService
 {
+    /**
+     * @SWG\Parameter(name="gameId", in="path", type="integer", description="")
+     * @SWG\Parameter(name="genre", in="path", type="string", description="")
+     */
 
     /** @var  GameRepository */
     private $gameRepository;
@@ -38,9 +42,9 @@ class GameService
     }
 
     /**
-     * GET /game/{id}
+     * GET /game/{gameId}
      *
-     * @param $id
+     * @param $gameId
      *
      * @return JsonResponse
      */

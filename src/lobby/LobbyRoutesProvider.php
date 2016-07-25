@@ -20,7 +20,6 @@ class LobbyRoutesProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         /**
-         * @SWG\Parameter(name="lobby", type="integer", format="int32", in="path")
          * @SWG\Tag(name="lobby", description="All about lobbys")
          */
 
@@ -38,11 +37,17 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/lobby/{id}",
          *     tags={"lobby"},
-         *     @SWG\Parameter(ref="#/parameters/id"),
+         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/lobby")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -52,11 +57,17 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/lobby/byOwnerId/{ownerId}",
          *     tags={"lobby"},
-         *     @SWG\Parameter(ref="#/parameters/ownerId"),
+         *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/lobby")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -70,7 +81,13 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     @SWG\Response(
          *         response="200",
          *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/lobby")
+         *          @SWG\Schema(
+         *              @SWG\Property(
+         *                      property="status",
+         *                      type="string",
+         *                      default="success"
+         *                  )
+         *          )
          *     )
          * )
          */
@@ -80,7 +97,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * @SWG\Post(
          *     tags={"lobby"},
          *     path="/lobby/",
-         *     @SWG\Parameter(name="lobby", in="body", @SWG\Schema(ref="#/definitions/lobby")),
+         *     @SWG\Parameter(ref="#/parameters/gameId"),
          *     @SWG\Response(response="201", description="An example resource")
          * )
          *

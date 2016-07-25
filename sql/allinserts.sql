@@ -13,7 +13,7 @@ USE `project-x` ;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 -- Dumping data for table project-x.bet: ~2 rows (approximately)
 /*!40000 ALTER TABLE `bet` DISABLE KEYS */;
-INSERT INTO `bet` (`user_id`, `lobby_id`, `amount`, `team`) VALUES
+INSERT INTO `bet` (`userid`, `lobbyid`, `amount`, `team`) VALUES
 	(0, 0, 500, 0),
 	(1, 0, 500, 1);
 /*!40000 ALTER TABLE `bet` ENABLE KEYS */;

@@ -7,39 +7,43 @@ class GameAccount implements \JsonSerializable
 {
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $userId;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $userPath;
     /**
      * @var User
-     * @SWG\Property(type="User")
      */
     private $user;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $gameAccountTypeId;
     /**
      * @var String
-     * @SWG\Property(type="string")
      */
     private $gameAccountTypePath;
     /**
      * @var GameAccount
-     * @SWG\Property(type="User")
      */
     private $gameAccountType;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $userIdentifier;
+
+    /* these need to be inside of a SWG/Definition tag
+     * we gonna do that later
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="User")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="User")
+     * @SWG\Property(type="string")
+     */
 
     public static function createFromArray(array $row)
     {

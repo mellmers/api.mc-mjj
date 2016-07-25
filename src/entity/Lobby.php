@@ -7,59 +7,62 @@ class Lobby implements \JsonSerializable
 {
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $id;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $ownerId;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $ownerPath;
     /**
      * @var User
-     * @SWG\Property(type="User")
      */
     private $owner;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $gameId;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $gamePath;
     /**
      * @var Game
-     * @SWG\Property(type="Game")
      */
     private $game;
     /**
      * @var Game
-     * @SWG\Property(type="Game")
      */
     private $winnerTeam;
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $createdAt;
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $starttime;
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $endtime;
+
+    /*
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="User")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="Game")
+     * @SWG\Property(type="Game")
+     * @SWG\Property(type="integer", format="int32")
+     * @SWG\Property(type="integer", format="int32")
+     * @SWG\Property(type="integer", format="int32")
+     */
 
     public static function createFromArray(array $row)
     {

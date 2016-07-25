@@ -89,7 +89,7 @@ EOS;
     }
 
     /**
-     * @param $id
+     * @param $lobbyId
      * @return Lobby
      */
     public function getById($id)
@@ -110,7 +110,7 @@ EOS;
     }
 
     /**
-     * @param $ownerId
+     * @param $userId
      *
      * @return array|Lobby
      */

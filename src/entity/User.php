@@ -13,44 +13,47 @@ class User implements \JsonSerializable
 {
     /**
      * @var int
-     * @SWG\Property(type="integer", format="int32")
      */
     private $coins;
     /**
      * @var int
-     * @SWG\Property(type="int", format="int32")
      */
     private $createdAt;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $email;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $id;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $icon;
     /**
      * @var bool
-     * @SWG\Property(type="bool")
      */
     private $trusted;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $password;
     /**
      * @var string
-     * @SWG\Property(type="string")
      */
     private $username;
+
+    /*
+     * @SWG\Property(type="integer", format="int32")
+     * @SWG\Property(type="int", format="int32")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="bool")
+     * @SWG\Property(type="string")
+     * @SWG\Property(type="string")
+     */
 
     /**
      * @param array $row

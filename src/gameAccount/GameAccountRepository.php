@@ -7,6 +7,7 @@ use projectx\api\entity\GameAccount;
 use projectx\api\gameAccountType\GameAccountTypeRepository;
 use projectx\api\user\UserRepository;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameAccountRepository
@@ -91,9 +92,9 @@ EOS;
     }
 
     /**
-     * @param $id
-     * @param $type_id
-     * @return GameAccount
+     * @param $gameAccId
+     * @param $gameAccountTypeId
+     * @return JsonResponse
      */
     public function getByIdAndType($id, $type_id)
     {

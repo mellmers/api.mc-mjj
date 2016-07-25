@@ -1,0 +1,605 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Project-X",
+        "contact": {
+            "name": "wordnik api team",
+            "url": "http://developer.wordnik.com"
+        },
+        "license": {
+            "name": "Creative Commons 4.0 International",
+            "url": "http://creativecommons.org/licenses/by/4.0/"
+        },
+        "version": "1.0.0"
+    },
+    "host": "127.0.0.1",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/bet/": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "name": "bet",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/bet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/bet/{userId},{lobbyId}": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    },
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/bet"
+                        }
+                    }
+                }
+            }
+        },
+        "/bet/byUserId/{userId}": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/bet"
+                        }
+                    }
+                }
+            }
+        },
+        "/bet/byLobbyId/{lobbyId}": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/bet"
+                        }
+                    }
+                }
+            }
+        },
+        "/game/": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "game"
+                ],
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/game/{id}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    }
+                }
+            }
+        },
+        "/game/byGenre/{genre}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/genre"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    }
+                }
+            }
+        },
+        "/gameAccount/": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "name": "gameAccount",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/parameters/gameAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/gameAccount/{id},{type}": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameAccId"
+                    },
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/gameAccount/byUserId/{userId}": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/gameAccount/byTypeId/{gameAccountTypeId}": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/gameAccountType/": {
+            "get": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "parameters": [
+                    {
+                        "name": "gameAccountType",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/gameAccountType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/gameAccountType/{id}": {
+            "get": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/gameAccountType"
+                        }
+                    }
+                }
+            }
+        },
+        "/lobby/": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameId"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/lobby/{id}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/lobby/byOwnerId/{ownerId}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/lobby/byGameId/{gameId}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "default": "success"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "parameters": {
+        "bet": {
+            "name": "bet",
+            "in": "path",
+            "type": "integer",
+            "format": "int32"
+        },
+        "lobbyId": {
+            "name": "lobbyId",
+            "in": "path",
+            "description": "",
+            "type": "integer"
+        },
+        "userId": {
+            "name": "userId",
+            "in": "path",
+            "description": "",
+            "type": "integer"
+        },
+        "game": {
+            "name": "game",
+            "in": "path",
+            "type": "integer",
+            "format": "int32"
+        },
+        "gameId": {
+            "name": "gameId",
+            "in": "path",
+            "description": "",
+            "type": "integer"
+        },
+        "genre": {
+            "name": "genre",
+            "in": "path",
+            "description": "",
+            "type": "string"
+        },
+        "gameAccId": {
+            "name": "gameAccId",
+            "in": "path",
+            "description": "",
+            "type": "integer"
+        },
+        "gameAccountTypeId": {
+            "name": "gameAccountTypeId",
+            "in": "path",
+            "description": "",
+            "type": "integer"
+        },
+        "type": {
+            "name": "type",
+            "in": "path",
+            "description": "",
+            "type": "string"
+        },
+        "gameAccount": {
+            "name": "gameAccount",
+            "in": "path",
+            "type": "integer",
+            "format": "int32"
+        }
+    },
+    "tags": [
+        {
+            "name": "bet",
+            "description": "All about bets"
+        },
+        {
+            "name": "game",
+            "description": "All about games"
+        },
+        {
+            "name": "gameAccount",
+            "description": "All about gameAccounts"
+        },
+        {
+            "name": "gameAccountType",
+            "description": "All about gameAccountTypes"
+        },
+        {
+            "name": "lobby",
+            "description": "All about lobbys"
+        },
+        {
+            "name": "user",
+            "description": "All about users"
+        }
+    ]
+}
