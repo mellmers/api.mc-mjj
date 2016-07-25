@@ -87,7 +87,7 @@ EOS;
     private function loadGameAccountType(array $gameAccount)
     {
         $gATResult = $this->gATRepo->getById($gameAccount['gameaccountTypeId']);
-        $gameAccount['gameaccount_type'] = $gATResult;
+        $gameAccount['gameaccountType'] = $gATResult;
         return $gameAccount;
     }
 
