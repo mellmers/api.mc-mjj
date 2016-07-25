@@ -4,6 +4,7 @@ namespace projectx\api\gameAccountType;
 
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\GameAccountType;
+use Silex\Application;
 
 /**
  * Class GameAccountTypeRepository
@@ -11,16 +12,21 @@ use projectx\api\entity\GameAccountType;
  */
 class GameAccountTypeRepository
 {
+    /** @var  Application */
+    private $app;
+
     /** @var  Connection */
     private $connection;
 
     /**
      * GameAccountTypeRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
     }
 
@@ -37,10 +43,9 @@ EOS;
         $gameAccountTypes = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($gameAccountTypes);
 
         foreach ($gameAccountTypes as $gameAccountType) {
-            $result['data'][] = GameAccountType::createFromArray($gameAccountType);
+            $result[] = GameAccountType::createFromArray($gameAccountType);
         }
 
         return $result;
@@ -55,27 +60,23 @@ EOS;
     }
 
     /**
-     * @param $name
+     * @param $id
+     *
      * @return GameAccountType
-     * @throws DatabaseException
      */
-    public function getByName($name)
+    public function getById($id)
     {
         $sql = <<<EOS
 SELECT gat.*
 FROM `{$this->getTableName()}` gat
-WHERE gat.name = :name
+WHERE gat.id = :id
 EOS;
 
-        $gameAccountTypes = $this->connection->fetchAll($sql, ['name' => $name]);
+        $gameAccountTypes = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($gameAccountTypes) === 0) {
-            throw new DatabaseException(
-                sprintf('GameAccountType with name "%d" not exists!', $name)
-            );
+            $this->app->abort(400, "GameAccountType with id $id does not exist!");
         }
-        $result = [];
-        $result['data'][] = GameAccountType::createFromArray($gameAccountTypes[0]);
-        return $result;
+        return GameAccountType::createFromArray($gameAccountTypes[0]);
     }
 
     /**

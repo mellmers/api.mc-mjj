@@ -11,7 +11,7 @@ class UserServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['repo.user'] = $app->share(function (Application $app) {
-            return new UserRepository($app['db']);
+            return new UserRepository($app, $app['db']);
         });
 
         $app['service.user'] = $app->share(function (Application $app) {

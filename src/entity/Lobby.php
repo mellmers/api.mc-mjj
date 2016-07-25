@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jonas
- * Date: 08/06/2016
- * Time: 14:26
- */
 
 namespace projectx\api\entity;
 
@@ -12,63 +6,95 @@ namespace projectx\api\entity;
 class Lobby implements \JsonSerializable
 {
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $id;
-
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $ownerId;
-
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $ownerPath;
+    /**
+     * @var User
+     * @SWG\Property(type="User")
+     */
+    private $owner;
+    /**
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $gameId;
-
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $gamePath;
+    /**
+     * @var Game
+     * @SWG\Property(type="Game")
+     */
+    private $game;
+    /**
+     * @var Game
+     * @SWG\Property(type="Game")
+     */
+    private $winnerTeam;
     /**
      * @var int
      * @SWG\Property(type="integer", format="int32")
      */
-    private $winnerTeam;
-
+    private $createdAt;
     /**
-     * @var string
-     * @SWG\Property(type="string")
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
      */
-    private $imageData;
-
+    private $starttime;
     /**
-     * @var string
-     * @SWG\Property(type="string")
+     * @var int
+     * @SWG\Property(type="integer", format="int32")
      */
-    private $imageType;
+    private $endtime;
 
     public static function createFromArray(array $row)
     {
-        $gameAccountType = new self();
+        $lobby = new self();
         if (array_key_exists('id', $row)) {
-            $gameAccountType->setId($row['id']);
+            $lobby->setId($row['id']);
+        }
+        if (array_key_exists('ownerId', $row)) {
+            $lobby->setOwnerId($row['ownerId']);
+            $lobby->setOwnerPath('/user/' . $row['ownerId']);
         }
         if (array_key_exists('owner', $row)) {
-            $gameAccountType->setOwnerId($row['owner']);
+            $lobby->setOwner($row['owner']);
+        }
+        if (array_key_exists('gameId', $row)) {
+            $lobby->setGameId($row['gameId']);
+            $lobby->setGamePath('/game/' . $row['gameId']);
         }
         if (array_key_exists('game', $row)) {
-            $gameAccountType->setGameId($row['game']);
+            $lobby->setGame($row['game']);
         }
         if (array_key_exists('winnerTeam', $row)) {
-            $gameAccountType->setWinnerTeam($row['winnerTeam']);
+            $lobby->setWinnerTeam($row['winnerTeam']);
         }
-        if (array_key_exists('iamgeData', $row)) {
-            $gameAccountType->setGameId($row['iamgeData']);
+        if (array_key_exists('createdAt', $row)) {
+            $lobby->setCreatedAt($row['createdAt']);
         }
-        if (array_key_exists('iamgeType', $row)) {
-            $gameAccountType->setGameId($row['iamgeType']);
+        if (array_key_exists('starttime', $row)) {
+            $lobby->setStarttime($row['starttime']);
         }
-        return $gameAccountType;
+        if (array_key_exists('endtime', $row)) {
+            $lobby->setEndtime($row['endtime']);
+        }
+
+        return $lobby;
     }
 
     /**
@@ -78,16 +104,21 @@ class Lobby implements \JsonSerializable
     {
         return [
             'id' => $this->id,
-            'owner' => $this->ownerId,
-            'game' => $this->gameId,
+            'owner_id' => $this->ownerId,
+            'owner_path' => $this->ownerPath,
+            'owner' => $this->owner,
+            'game_id' => $this->gameId,
+            'game_path' => $this->gamePath,
+            'game' => $this->game,
             'winnerTeam' => $this->winnerTeam,
-            'iamgeData' => $this->imageData,
-            'iamgeType' => $this->imageData,
+            'createdAt' => $this->createdAt,
+            'starttime' => $this->starttime,
+            'endtime' => $this->endtime,
         ];
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -95,7 +126,7 @@ class Lobby implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
     public function setId($id)
     {
@@ -103,7 +134,7 @@ class Lobby implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getOwnerId()
     {
@@ -111,7 +142,7 @@ class Lobby implements \JsonSerializable
     }
 
     /**
-     * @param int $ownerId
+     * @param string $ownerId
      */
     public function setOwnerId($ownerId)
     {
@@ -119,7 +150,39 @@ class Lobby implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return string
+     */
+    public function getOwnerPath()
+    {
+        return $this->ownerPath;
+    }
+
+    /**
+     * @param string $ownerPath
+     */
+    public function setOwnerPath($ownerPath)
+    {
+        $this->ownerPath = $ownerPath;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return string
      */
     public function getGameId()
     {
@@ -127,11 +190,43 @@ class Lobby implements \JsonSerializable
     }
 
     /**
-     * @param int $gameId
+     * @param string $gameId
      */
     public function setGameId($gameId)
     {
         $this->gameId = $gameId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGamePath()
+    {
+        return $this->gamePath;
+    }
+
+    /**
+     * @param string $gamePath
+     */
+    public function setGamePath($gamePath)
+    {
+        $this->gamePath = $gamePath;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
     }
 
     /**
@@ -147,38 +242,54 @@ class Lobby implements \JsonSerializable
      */
     public function setWinnerTeam($winnerTeam)
     {
-        $this->winnerTeam = $winnerTeam;
+        $this->winnerTeam = (int)$winnerTeam;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getIamgeData()
+    public function getCreatedAt()
     {
-        return $this->imageData;
+        return $this->createdAt;
     }
 
     /**
-     * @param string $iamgeData
+     * @param int $createdAt
      */
-    public function setIamgeData($imageData)
+    public function setCreatedAt($createdAt)
     {
-        $this->iamgeData = $imageData;
+        $this->createdAt = (int)$createdAt;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getImageType()
+    public function getStarttime()
     {
-        return $this->imageType;
+        return $this->starttime;
     }
 
     /**
-     * @param string $imageType
+     * @param int $starttime
      */
-    public function setImageType($imageType)
+    public function setStarttime($starttime)
     {
-        $this->imageType = $imageType;
+        $this->starttime = (int)$starttime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEndtime()
+    {
+        return $this->endtime;
+    }
+
+    /**
+     * @param int $endtime
+     */
+    public function setEndtime($endtime)
+    {
+        $this->endtime = (int)$endtime;
     }
 }

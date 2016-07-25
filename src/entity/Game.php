@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jonas
- * Date: 08/06/2016
- * Time: 14:26
- */
 
 namespace projectx\api\entity;
 
@@ -12,65 +6,67 @@ namespace projectx\api\entity;
 class Game implements \JsonSerializable
 {
     /**
-     * @var int
-     * @SWG\Property(type="integer", format="int32")
+     * @var string
+     * @SWG\Property(type="string")
      */
     private $id;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $name;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $typ;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
-    private $iconData;
-
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $iconType;
-
+    private $icon;
     /**
      * @var string
      * @SWG\Property(type="string")
      */
     private $rules;
-
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
+    private $genre;
+    /**
+     * @var int
+     * @SWG\Property(type="int", format="int32")
+     */
+    private $timelimit;
 
     public static function createFromArray(array $row)
     {
-        $gameAccountType = new self();
+        $game = new self();
         if (array_key_exists('id', $row)) {
-            $gameAccountType->setId($row['id']);
+            $game->setId($row['id']);
         }
         if (array_key_exists('name', $row)) {
-            $gameAccountType->setName($row['name']);
+            $game->setName($row['name']);
         }
         if (array_key_exists('typ', $row)) {
-            $gameAccountType->setTyp($row['typ']);
+            $game->setTyp($row['typ']);
         }
-        if (array_key_exists('imageData', $row)) {
-            $gameAccountType->setIconData($row['imageData']);
-        }
-        if (array_key_exists('imageType', $row)) {
-            $gameAccountType->setIconType($row['imageType']);
+        if (array_key_exists('icon', $row)) {
+            $game->setIcon($row['icon']);
         }
         if (array_key_exists('rules', $row)) {
-            $gameAccountType->setRules($row['rules']);
+            $game->setRules($row['rules']);
+        }
+        if (array_key_exists('genre', $row)) {
+            $game->setGenre($row['genre']);
+        }
+        if (array_key_exists('timelimit', $row)) {
+            $game->setTimelimit($row['timelimit']);
         }
 
-        return $gameAccountType;
+        return $game;
     }
 
     /**
@@ -82,14 +78,14 @@ class Game implements \JsonSerializable
             'id' => $this->id,
             'name' => $this->name,
             'typ' => $this->typ,
-            'imageData' => $this->iconData,
-            'imageType' => $this->iconType,
+            'icon' => $this->icon,
             'rules' => $this->rules,
+            'timelimit' => $this->timelimit,
         ];
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -97,7 +93,7 @@ class Game implements \JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
     public function setId($id)
     {
@@ -135,38 +131,7 @@ class Game implements \JsonSerializable
     {
         $this->typ = $typ;
     }
-
-    /**
-     * @return string
-     */
-    public function getIconData()
-    {
-        return $this->iconData;
-    }
-
-    /**
-     * @param string $iconData
-     */
-    public function setIconData($iconData)
-    {
-        $this->iconData = $iconData;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIconType()
-    {
-        return $this->iconType;
-    }
-
-    /**
-     * @param string $iconType
-     */
-    public function setIconType($iconType)
-    {
-        $this->iconType = $iconType;
-    }
+    
 
     /**
      * @return string
@@ -183,5 +148,51 @@ class Game implements \JsonSerializable
     {
         $this->rules = $rules;
     }
+    /**
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
 
+    /**
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * @param string $genre
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimelimit()
+    {
+        return $this->timelimit;
+    }
+
+    /**
+     * @param int $timelimit
+     */
+    public function setTimelimit($timelimit)
+    {
+        $this->timelimit = (int)$timelimit;
+    }
 }

@@ -20,7 +20,7 @@ class DatabaseProvider implements ServiceProviderInterface
             [
                 'db.options' => [
                     'driver'   => 'pdo_mysql',
-                    'host'     => 'localhost',
+                    'host'     => '127.0.0.1',
                     'dbname'   => $app['db_name'],
                     'user'     => $app['db_user'],
                     'password' => $app['db_password'],

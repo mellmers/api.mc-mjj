@@ -11,7 +11,7 @@ class GameAccountTypeServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['repo.gameAccountType'] = $app->share(function (Application $app) {
-            return new GameAccountTypeRepository($app['db']);
+            return new GameAccountTypeRepository($app, $app['db']);
         });
 
         $app['service.gameAccountType'] = $app->share(function (Application $app) {

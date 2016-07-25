@@ -3,11 +3,11 @@
 /**
  * @SWG\Swagger(
  *     basePath="/api",
- *     host="petstore.swagger.wordnik.com",
+ *     host="127.0.0.1",
  *     schemes={"http"},
  *     @SWG\Info(
  *         version="1.0.0",
- *         title="Swagger Petstore",
+ *         title="Project-X",
  *         @SWG\Contact(name="wordnik api team", url="http://developer.wordnik.com"),
  *         @SWG\License(name="Creative Commons 4.0 International", url="http://creativecommons.org/licenses/by/4.0/")
  *     ),

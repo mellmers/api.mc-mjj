@@ -4,6 +4,7 @@ namespace projectx\api\user;
 
 use Doctrine\DBAL\Connection;
 use projectx\api\entity\User;
+use Silex\Application;
 
 /**
  * Class UserRepository
@@ -11,25 +12,22 @@ use projectx\api\entity\User;
  */
 class UserRepository
 {
+    /** @var  Application */
+    private $app;
+
     /** @var  Connection */
     private $connection;
 
     /**
      * UserRepository constructor.
      *
+     * @param Application $app
      * @param Connection $connection
      */
-    public function __construct(Connection $connection)
+    public function __construct(Application $app, Connection $connection)
     {
+        $this->app = $app;
         $this->connection = $connection;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTableName()
-    {
-        return 'user';
     }
 
     /**
@@ -48,12 +46,51 @@ EOS;
 //        print_r($users);
 
         foreach ($users as $user) {
-            $result['data'][] = User::createFromArray($user);
+            $result[] = User::createFromArray($user);
         }
 
         return $result;
     }
 
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return 'user';
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function create(User $user)
+    {
+        $userMail = $user->getEmail();
+        if(isset($userMail)) {
+            $user->setId(md5($userMail));
+        } else {
+            $this->app->abort(400, 'A user needs a valid email address.');
+        }
+        $data = $user->jsonSerialize();
+        unset($data['coins'], $data['trusted']);
+        foreach($data as $key => $value) {
+            if(empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->insert("`{$this->getTableName()}`", $data);
+
+        return $this->getById($user->getId());
+    }
+
+    /**
+     * @param $id
+     *
+     * @return User
+     */
     public function getById($id)
     {
         $sql = <<<EOS
@@ -62,29 +99,11 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
-        $result = [];
-
         $users = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($users) === 0) {
-            throw new DatabaseException(
-                sprintf('User with id "%d" not exists!', $id)
-            );
+            $this->app->abort(400, "User with id $id does not exist.");
         }
 
-        $result['data'][] = User::createFromArray($users[0]);
-
-        return $result;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function create(User $user)
-    {
-        $data = $user->jsonSerialize();
-        unset($data['id']);
-        
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-        $user->setId($this->connection->lastInsertId());
+        return User::createFromArray($users[0]);
     }
 }

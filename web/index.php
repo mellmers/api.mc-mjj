@@ -3,7 +3,6 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new projectx\api\Application();
-$app['debug'] = true;
 
 /**
  * Global Controllers

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jonas
- * Date: 08/06/2016
- * Time: 14:27
- */
 
 namespace projectx\api\entity;
 
@@ -15,31 +9,31 @@ class GameAccountType implements \JsonSerializable
      * @var string
      * @SWG\Property(type="string")
      */
+    private $id;
+    /**
+     * @var string
+     * @SWG\Property(type="string")
+     */
     private $name;
-
     /**
      * @var string
      * @SWG\Property(type="string")
      */
-    private $iconData;
-    /**
-     * @var string
-     * @SWG\Property(type="string")
-     */
-    private $iconType;
+    private $icon;
 
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();
+        if (array_key_exists('id', $row)) {
+            $gameAccountType->setId($row['id']);
+        }
         if (array_key_exists('name', $row)) {
             $gameAccountType->setName($row['name']);
         }
-        if (array_key_exists('imageData', $row)) {
-            $gameAccountType->setIconData($row['imageData']);
+        if (array_key_exists('icon', $row)) {
+            $gameAccountType->setIcon($row['icon']);
         }
-        if (array_key_exists('imageType', $row)) {
-            $gameAccountType->setIconType($row['imageType']);
-        }
+
         return $gameAccountType;
     }
 
@@ -49,11 +43,28 @@ class GameAccountType implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'imageData' => $this->iconData,
-            'imageType' => $this->iconType,
+            'icon' => $this->icon,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @return string
      */
@@ -73,32 +84,17 @@ class GameAccountType implements \JsonSerializable
     /**
      * @return string
      */
-    public function getIconData()
+    public function getIcon()
     {
-        return $this->iconData;
+        return $this->icon;
     }
 
     /**
-     * @param string $iconData
+     * @param string $icon
      */
-    public function setIconData($iconData)
+    public function setIcon($icon)
     {
-        $this->iconData = $iconData;
+        $this->icon = $icon;
     }
 
-    /**
-     * @return string
-     */
-    public function getIconType()
-    {
-        return $this->iconType;
-    }
-
-    /**
-     * @param string $iconType
-     */
-    public function setIconType($iconType)
-    {
-        $this->iconType = $iconType;
-    }
 }
