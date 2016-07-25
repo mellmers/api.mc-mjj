@@ -34,7 +34,7 @@ class UserRoutesProvider implements ControllerProviderInterface
         $controllers->get('/', 'service.user:getList');
         /**
          * @SWG\Get(
-         *     path="/user/{id}",
+         *     path="/user/{userId}",
          *     tags={"user"},
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(

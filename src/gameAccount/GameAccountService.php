@@ -45,16 +45,16 @@ class GameAccountService
     }
 
     /**
-     * GET /gameAccount/{id},{type}
+     * GET /gameAccount/{userId},{gameAccountTypeId}
      *
-     * @param $gameAccId
-     * @param $type
+     * @param $userId
+     * @param $gameAccountTypeId
      *
      * @return JsonResponse
      */
-    public function getByIdAndType($id, $type)
+    public function getByIdAndType($userId, $gameAccountTypeId)
     {
-        $result['data'] = $this->gameAccountRepository->getByIdAndType($id, $type);
+        $result['data'] = $this->gameAccountRepository->getByIdAndType($userId, $gameAccountTypeId);
         return new JsonResponse($result);
     }
 

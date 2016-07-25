@@ -57,7 +57,7 @@ class GameAccount implements \JsonSerializable
         }
         if (array_key_exists('gameaccountTypeId', $row)) {
             $gameAccountType->setGameAccountTypeId($row['gameaccountTypeId']);
-            $gameAccountType->setGameAccountTypePath('/gameaccounttype/' . $row['gameaccountTypeId']);
+            $gameAccountType->setGameAccountTypePath('/gameAccountType/' . $row['gameaccountTypeId']);
         }
         if (array_key_exists('gameaccountType', $row)) {
             $gameAccountType->setGameAccountType($row['gameaccountType']);

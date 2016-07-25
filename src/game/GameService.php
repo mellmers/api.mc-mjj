@@ -48,9 +48,9 @@ class GameService
      *
      * @return JsonResponse
      */
-    public function getById($id)
+    public function getById($gameId)
     {
-        $result['data'] = $this->gameRepository->getById($id);
+        $result['data'] = $this->gameRepository->getById($gameId);
         return new JsonResponse($result);
     }
 

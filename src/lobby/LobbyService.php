@@ -43,15 +43,15 @@ class LobbyService
     }
 
     /**
-     * GET /lobby/{id}
+     * GET /lobby/{lobbyId}
      *
      * @param $lobbyId
      *
      * @return JsonResponse
      */
-    public function getById($id)
+    public function getById($lobbyId)
     {
-        $result['data'] = $this->lobbyRepository->getById($id);
+        $result['data'] = $this->lobbyRepository->getById($lobbyId);
         return new JsonResponse($result);
     }
 
@@ -62,9 +62,9 @@ class LobbyService
      *
      * @return JsonResponse
      */
-    public function getByOwnerId($ownerId)
+    public function getByOwnerId($userId)
     {
-        $result['data'] = $this->lobbyRepository->getByOwnerId($ownerId);
+        $result['data'] = $this->lobbyRepository->getByOwnerId($userId);
         return new JsonResponse($result);
     }
 

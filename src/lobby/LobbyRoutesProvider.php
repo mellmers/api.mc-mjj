@@ -35,7 +35,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/lobby/{id}",
+         *     path="/lobby/{lobbyId}",
          *     tags={"lobby"},
          *     @SWG\Parameter(ref="#/parameters/lobbyId"),
          *     @SWG\Response(
@@ -51,11 +51,11 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     )
          * )
          */
-        $controllers->get('/{id}', 'service.lobby:getById');
+        $controllers->get('/{lobbyId}', 'service.lobby:getById');
 
         /**
          * @SWG\Get(
-         *     path="/lobby/byOwnerId/{ownerId}",
+         *     path="/lobby/byOwnerId/{userId}",
          *     tags={"lobby"},
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
@@ -71,7 +71,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     )
          * )
          */
-        $controllers->get('/byOwnerId/{ownerId}', 'service.lobby:getByOwnerId');
+        $controllers->get('/byOwnerId/{userId}', 'service.lobby:getByOwnerId');
 
         /**
          * @SWG\Get(
