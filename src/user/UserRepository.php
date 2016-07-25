@@ -2,9 +2,10 @@
 
 namespace projectx\api\user;
 
+use DateTime;
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\User;
-use Silex\Application;
 
 /**
  * Class UserRepository
@@ -38,6 +39,7 @@ class UserRepository
         $sql = <<<EOS
 SELECT * 
 FROM `{$this->getTableName()}`
+ORDER BY createdAt
 EOS;
 
         $users = $this->connection->fetchAll($sql);
@@ -67,12 +69,9 @@ EOS;
      */
     public function create(User $user)
     {
-        $userMail = $user->getEmail();
-        if(isset($userMail)) {
-            $user->setId(md5($userMail));
-        } else {
-            $this->app->abort(400, 'A user needs a valid email address.');
-        }
+        $user->setId(Application::generateGUIDv4());
+        $date = new DateTime();
+        $user->setCreatedAt($date->getTimestamp());
         $data = $user->jsonSerialize();
         unset($data['coins'], $data['trusted']);
         foreach($data as $key => $value) {

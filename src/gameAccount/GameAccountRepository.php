@@ -3,10 +3,10 @@
 namespace projectx\api\gameAccount;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\GameAccount;
 use projectx\api\gameAccountType\GameAccountTypeRepository;
 use projectx\api\user\UserRepository;
-use Silex\Application;
 
 /**
  * Class GameAccountRepository
@@ -14,7 +14,7 @@ use Silex\Application;
  */
 class GameAccountRepository
 {
-    /** @var  Application\ */
+    /** @var  Application */
     private $app;
     /** @var  Connection */
     private $connection;

@@ -3,10 +3,10 @@
 namespace projectx\api\lobby;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\Lobby;
 use projectx\api\game\GameRepository;
 use projectx\api\user\UserRepository;
-use Silex\Application;
 
 /**
  * Class LobbyRepository
@@ -14,7 +14,7 @@ use Silex\Application;
  */
 class LobbyRepository
 {
-    /** @var  Application\ */
+    /** @var  Application */
     private $app;
     /** @var  Connection */
     private $connection;
@@ -166,8 +166,8 @@ EOS;
      */
     public function create(Lobby $lobby)
     {
+        $lobby->setId(Application::generateGUIDv4());
         $data = $lobby->jsonSerialize();
         $this->connection->insert("`{$this->getTableName()}`", $data);
-        $lobby->setId($this->connection->lastInsertId());
     }
 }

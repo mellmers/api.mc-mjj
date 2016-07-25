@@ -3,8 +3,8 @@
 namespace projectx\api\gameAccountType;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\GameAccountType;
-use Silex\Application;
 
 /**
  * Class GameAccountTypeRepository
@@ -84,6 +84,7 @@ EOS;
      */
     public function create(GameAccountType $gameAccountType)
     {
+        $gameAccountType->setId(Application::generateGUIDv4());
         $data = $gameAccountType->jsonSerialize();
         $this->connection->insert("`{$this->getTableName()}`", $data);
         $gameAccountType->setName($this->connection->lastInsertId());

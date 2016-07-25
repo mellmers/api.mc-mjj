@@ -3,8 +3,8 @@
 namespace projectx\api\game;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\Game;
-use Silex\Application;
 
 /**
  * Class GameRepository
@@ -107,6 +107,7 @@ EOS;
      */
     public function create(Game $game)
     {
+        $game->setId(Application::generateGUIDv4());
         $data = $game->jsonSerialize();
         $this->connection->insert("`{$this->getTableName()}`", $data);
         $game->setName($this->connection->lastInsertId());

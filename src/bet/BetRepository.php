@@ -3,10 +3,10 @@
 namespace projectx\api\bet;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\Bet;
 use projectx\api\lobby\LobbyRepository;
 use projectx\api\user\UserRepository;
-use Silex\Application;
 
 /**
  * Class BetRepository
@@ -14,7 +14,7 @@ use Silex\Application;
  */
 class BetRepository
 {
-    /** @var  Application\*/
+    /** @var  Application*/
     private $app;
     /** @var  Connection */
     private $connection;

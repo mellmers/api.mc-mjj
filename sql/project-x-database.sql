@@ -189,53 +189,53 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Dumping data for table project-x.bet: ~2 rows (approximately)
 /*!40000 ALTER TABLE `bet` DISABLE KEYS */;
 INSERT INTO `bet` (`userId`, `lobbyId`, `amount`, `team`) VALUES
-	('e46f9777eccf37189d5e3e7c4173b0e3', 1, 500, 0),
-	('8b2ca685515eb967ccf945070ed0207f', 1, 500, 1);
+	('1a91241e-2a8b-44b2-89fa-114d4879e2e9', 1, 500, 0),
+	('6867c741-413c-4f0a-a0a2-6e62f5a21b23', 1, 500, 1);
 /*!40000 ALTER TABLE `bet` ENABLE KEYS */;
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)
 /*!40000 ALTER TABLE `game` DISABLE KEYS */;
 INSERT INTO `game` (`id`, `name`, `typ`, `icon`, `rules`, `genre`, `timelimit`) VALUES
-	('b6014be3093b7cad6c583b36ac99f657', 'League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
-	('632924b0d6f8b60ad11638baee1913d0', 'League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
+	('f12e4109-d5b1-49c4-afeb-6cfaa922a2ae', 'League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
+	('57800c4f-b55b-40c8-98f0-18233c236685', 'League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
 /*!40000 ALTER TABLE `game` ENABLE KEYS */;
 
 -- Dumping data for table project-x.gameaccount: ~3 rows (approximately)
 /*!40000 ALTER TABLE `gameaccount` DISABLE KEYS */;
 INSERT INTO `gameaccount` (`userId`, `gameaccountTypeId`, `userIdentifier`) VALUES
-	('e46f9777eccf37189d5e3e7c4173b0e3', 'bdc5a38f172670e0931f1d7624a45f8c', 'dorbird#2378'),
-	('e46f9777eccf37189d5e3e7c4173b0e3', 'e1d0bbe910e3eb4d973973a4de3c5ddd', 'BirdTheBest'),
-	('e46f9777eccf37189d5e3e7c4173b0e3', '377be8d9369f1c15015c886a79bcb19b', 'dor_bird');
+	('1a91241e-2a8b-44b2-89fa-114d4879e2e9', '7aeca02b-8b7e-445d-bce3-dd58e4eafcb1', 'dorbird#2378'),
+	('1a91241e-2a8b-44b2-89fa-114d4879e2e9', 'fb1af0c6-3eb1-4ea5-9dff-195968942dde', 'BirdTheBest'),
+	('1a91241e-2a8b-44b2-89fa-114d4879e2e9', 'd4729307-9cbd-45c8-9290-01e7bdbbad92', 'dor_bird');
 /*!40000 ALTER TABLE `gameaccount` ENABLE KEYS */;
 
 -- Dumping data for table project-x.gameaccountType: ~5 rows (approximately)
 /*!40000 ALTER TABLE `gameaccountType` DISABLE KEYS */;
 INSERT INTO `gameaccountType` (`id`, `name`, `icon`) VALUES
-	('bdc5a38f172670e0931f1d7624a45f8c', 'Battle.net', NULL),
-	('e1d0bbe910e3eb4d973973a4de3c5ddd', 'League of Legends', NULL),
-	('3edf8ca26a1ec14dd6e91dd277ae1de6', 'Origin', NULL),
-	('4db4563826bad0eb2f60ee6e42d0ea4b', 'Steam', NULL),
-	('377be8d9369f1c15015c886a79bcb19b', 'Uplay', NULL);
+	('7aeca02b-8b7e-445d-bce3-dd58e4eafcb1', 'Battle.net', NULL),
+	('fb1af0c6-3eb1-4ea5-9dff-195968942dde', 'League of Legends', NULL),
+	('f6237134-68c1-415c-a730-d66de51c7597', 'Origin', NULL),
+	('79cd0dda-7449-4ea7-96a2-2ee3bf71f03e', 'Steam', NULL),
+	('d4729307-9cbd-45c8-9290-01e7bdbbad92', 'Uplay', NULL);
 /*!40000 ALTER TABLE `gameaccountType` ENABLE KEYS */;
 
 -- Dumping data for table project-x.lobby: ~1 rows (approximately)
 /*!40000 ALTER TABLE `lobby` DISABLE KEYS */;
 INSERT INTO `lobby` (`id`, `ownerId`, `gameId`, `winnerteam`, `createdAt`, `starttime`, `endtime`) VALUES
-	('6602d1161f805becdc0ccb110c379ee5', 'e46f9777eccf37189d5e3e7c4173b0e3', 'b6014be3093b7cad6c583b36ac99f657', NULL, 1469389720, NULL, NULL);
+	('6379109b-6e6c-4353-b5f3-ea007e48bfe3', '1a91241e-2a8b-44b2-89fa-114d4879e2e9', 'f12e4109-d5b1-49c4-afeb-6cfaa922a2ae', NULL, 1469389720, NULL, NULL);
 /*!40000 ALTER TABLE `lobby` ENABLE KEYS */;
 
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `createdAt`, `email`, `username`, `trusted`, `password`, `icon`, `coins`) VALUES
-	('e46f9777eccf37189d5e3e7c4173b0e3', 1469389720, 'jonas@oja.de', 'jonasoja', true, 'geheim', NULL, 10000),
-	('8b2ca685515eb967ccf945070ed0207f', 1469389720, 'max@mustermann.de', 'maxmustermann', false, 'password', NULL, 0);
+	('1a91241e-2a8b-44b2-89fa-114d4879e2e9', 1469389720, 'jonas@oja.de', 'jonasoja', true, 'geheim', NULL, 10000),
+	('6867c741-413c-4f0a-a0a2-6e62f5a21b23', 1469389720, 'max@mustermann.de', 'maxmustermann', false, 'password', NULL, 0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `screenshot` DISABLE KEYS */;
 INSERT INTO `screenshot` (`id`, `lobbyId`, `source`) VALUES
-	('3f7c652823db57cee604a66a127ef09f', 0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
-    ('6aaf999daf9853de66fd8ab641b3d372', 0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
+	('0b48bbb7-7ccc-4321-9ecf-02b63cc985f2', 0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
+    ('51f9ad37-a0a0-4f0d-ac49-8b8765cfee3b', 0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
 /*!40000 ALTER TABLE `screenshot` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
