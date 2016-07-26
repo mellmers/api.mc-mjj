@@ -3,8 +3,8 @@
     "info": {
         "title": "Project-X",
         "contact": {
-            "name": "wordnik api team",
-            "url": "http://developer.wordnik.com"
+            "name": "project X team",
+            "url": "http://developer.projectX.com"
         },
         "license": {
             "name": "Creative Commons 4.0 International",
@@ -13,7 +13,7 @@
         "version": "1.0.0"
     },
     "host": "127.0.0.1",
-    "basePath": "/api",
+    "basePath": "/src",
     "schemes": [
         "http"
     ],
@@ -25,7 +25,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all Bets",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Bet"
+                            }
+                        }
                     }
                 }
             },
@@ -35,16 +41,19 @@
                 ],
                 "parameters": [
                     {
-                        "name": "bet",
+                        "name": "betId",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/bet"
+                            "$ref": "#/definitions/Bet"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created Bet",
+                        "schema": {
+                            "$ref": "#/definitions/Bet"
+                        }
                     }
                 }
             }
@@ -64,9 +73,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The Bet with the specified user and lobby",
                         "schema": {
-                            "$ref": "#/definitions/bet"
+                            "$ref": "#/definitions/Bet"
                         }
                     }
                 }
@@ -84,9 +93,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all Bets of a user",
                         "schema": {
-                            "$ref": "#/definitions/bet"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Bet"
+                            }
                         }
                     }
                 }
@@ -104,9 +116,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all Bets of a lobby",
                         "schema": {
-                            "$ref": "#/definitions/bet"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Bet"
+                            }
                         }
                     }
                 }
@@ -119,7 +134,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all Games",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Game"
+                            }
+                        }
                     }
                 }
             },
@@ -132,13 +153,16 @@
                         "name": "game",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/game"
+                            "$ref": "#/definitions/Game"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created Game",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
                     }
                 }
             }
@@ -155,9 +179,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The Game with the specified ID",
                         "schema": {
-                            "$ref": "#/definitions/game"
+                            "$ref": "#/definitions/Game"
                         }
                     }
                 }
@@ -175,9 +199,12 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all Games with specified genre",
                         "schema": {
-                            "$ref": "#/definitions/game"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Game"
+                            }
                         }
                     }
                 }
@@ -190,7 +217,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all GameAccounts",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/GameAccount"
+                            }
+                        }
                     }
                 }
             },
@@ -203,13 +236,16 @@
                         "name": "gameAccount",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/parameters/gameAccount"
+                            "$ref": "#/definitions/GameAccount"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created Game Account",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccount"
+                        }
                     }
                 }
             }
@@ -229,14 +265,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The Game Account with the specified ID and Type",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
-                            }
+                            "$ref": "#/definitions/GameAccount"
                         }
                     }
                 }
@@ -254,13 +285,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all GameAccounts of a User",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/GameAccount"
                             }
                         }
                     }
@@ -279,13 +308,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all GameAccounts of a Type",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/GameAccount"
                             }
                         }
                     }
@@ -299,7 +326,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all Game Account Type",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/GameAccountType"
+                            }
+                        }
                     }
                 }
             },
@@ -312,13 +345,16 @@
                         "name": "gameAccountType",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/gameAccountType"
+                            "$ref": "#/definitions/GameAccountType"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created GameAccountType",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccountType"
+                        }
                     }
                 }
             }
@@ -328,16 +364,11 @@
                 "tags": [
                     "gameAccountType"
                 ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/gameAccountTypeId"
-                    }
-                ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The GameAccountType with the specified ID",
                         "schema": {
-                            "$ref": "#/definitions/gameAccountType"
+                            "$ref": "#/definitions/GameAccountType"
                         }
                     }
                 }
@@ -350,7 +381,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all Lobbies",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lobby"
+                            }
+                        }
                     }
                 }
             },
@@ -364,8 +401,11 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created Lobby",
+                        "schema": {
+                            "$ref": "#/definitions/Lobby"
+                        }
                     }
                 }
             }
@@ -382,14 +422,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The Lobby with the specified ID",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
-                            }
+                            "$ref": "#/definitions/Lobby"
                         }
                     }
                 }
@@ -407,13 +442,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all Lobbies of a User",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lobby"
                             }
                         }
                     }
@@ -432,13 +465,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "A List of all Lobbies of a Game",
                         "schema": {
-                            "properties": {
-                                "status": {
-                                    "type": "string",
-                                    "default": "success"
-                                }
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lobby"
                             }
                         }
                     }
@@ -452,7 +483,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource"
+                        "description": "A List of all Users",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
                     }
                 }
             },
@@ -460,18 +497,22 @@
                 "tags": [
                     "user"
                 ],
+                "description": "Creates an user",
                 "parameters": [
                     {
                         "name": "user",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/user"
+                            "$ref": "#/definitions/User"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "An example resource"
+                    "200": {
+                        "description": "The created User",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
                     }
                 }
             }
@@ -488,9 +529,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An example resource",
+                        "description": "The User with the specified ID",
                         "schema": {
-                            "$ref": "#/definitions/user"
+                            "$ref": "#/definitions/User"
                         }
                     }
                 }
@@ -512,14 +553,119 @@
                     "type": "string"
                 }
             }
+        },
+        "User": {
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "trusted": {
+                    "type": "boolean"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "coins": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "Bet": {
+            "properties": {
+                "userid": {
+                    "type": "integer"
+                },
+                "lobbyid": {
+                    "type": "integer"
+                },
+                "amount": {
+                    "type": "integer"
+                },
+                "team": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Game": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "typ": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "rules": {
+                    "type": "string"
+                },
+                "genre": {
+                    "type": "string"
+                },
+                "timelimit": {
+                    "type": "integer"
+                }
+            }
+        },
+        "GameAccount": {
+            "properties": {
+                "useridentifier": {
+                    "type": "string"
+                },
+                "gameaccounttypeid": {
+                    "type": "integer"
+                }
+            }
+        },
+        "GameAccountType": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                }
+            }
+        },
+        "Lobby": {
+            "properties": {
+                "ownerId": {
+                    "type": "string"
+                },
+                "gameId": {
+                    "type": "string"
+                },
+                "winnerteam": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "boolean"
+                },
+                "starttime": {
+                    "type": "string"
+                },
+                "endtime": {
+                    "type": "integer"
+                }
+            }
         }
     },
     "parameters": {
-        "bet": {
-            "name": "bet",
+        "gameId": {
+            "name": "gameId",
             "in": "path",
-            "type": "integer",
-            "format": "int32"
+            "description": "",
+            "type": "integer"
         },
         "lobbyId": {
             "name": "lobbyId",
@@ -533,24 +679,6 @@
             "description": "",
             "type": "integer"
         },
-        "game": {
-            "name": "game",
-            "in": "path",
-            "type": "integer",
-            "format": "int32"
-        },
-        "gameId": {
-            "name": "gameId",
-            "in": "path",
-            "description": "",
-            "type": "integer"
-        },
-        "genre": {
-            "name": "genre",
-            "in": "path",
-            "description": "",
-            "type": "string"
-        },
         "gameAccId": {
             "name": "gameAccId",
             "in": "path",
@@ -563,43 +691,35 @@
             "description": "",
             "type": "integer"
         },
+        "gameAccount": {
+            "name": "gameAccount",
+            "in": "path",
+            "type": "integer",
+            "format": "int32"
+        },
+        "betId": {
+            "name": "betId",
+            "in": "path",
+            "type": "integer",
+            "format": "int32"
+        },
         "type": {
             "name": "type",
             "in": "path",
             "description": "",
             "type": "string"
         },
-        "gameAccount": {
-            "name": "gameAccount",
+        "genre": {
+            "name": "genre",
             "in": "path",
-            "type": "integer",
-            "format": "int32"
+            "description": "",
+            "type": "string"
         }
     },
     "tags": [
         {
-            "name": "bet",
-            "description": "All about bets"
-        },
-        {
-            "name": "game",
-            "description": "All about games"
-        },
-        {
-            "name": "gameAccount",
-            "description": "All about gameAccounts"
-        },
-        {
-            "name": "gameAccountType",
-            "description": "All about gameAccountTypes"
-        },
-        {
             "name": "lobby",
             "description": "All about lobbys"
-        },
-        {
-            "name": "user",
-            "description": "All about users"
         }
     ]
 }

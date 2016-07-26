@@ -19,34 +19,34 @@ class GameRoutesProvider implements ControllerProviderInterface
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        /**
-         * @SWG\Parameter(name="game", type="integer", format="int32", in="path")
-         * @SWG\Tag(name="game", description="All about games")
-         */
 
         /**
          * @SWG\Get(
          *     path="/game/",
          *     tags={"game"},
-         *     @SWG\Response(response="200", description="An example resource")
+         *     @SWG\Response(
+         *         response="200",
+         *         description="A List of all Games",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Game"))
+         *         )
+         *     )
          * )
          */
-        // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.game:getList');
+
 
         /**
          * @SWG\Get(
          *     path="/game/{id}",
          *     tags={"game"},
          *     @SWG\Parameter(ref="#/parameters/gameId"),
-         *     @SWG\Response(
-         *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/game")
-         *     )
+         *     @SWG\Response(response="200", description="The Game with the specified ID", @SWG\Schema(ref="#/definitions/Game"))
          * )
          */
         $controllers->get('/{id}', 'service.game:getById');
+
 
         /**
          * @SWG\Get(
@@ -55,19 +55,23 @@ class GameRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/genre"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/game")
+         *         description="A List of all Games with specified genre",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Game"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byGenre/{genre}', 'service.game:getByGenre');
 
+
         /**
          * @SWG\Post(
          *     tags={"game"},
          *     path="/game/",
-         *     @SWG\Parameter(name="game", in="body", @SWG\Schema(ref="#/definitions/game")),
-         *     @SWG\Response(response="201", description="An example resource")
+         *     @SWG\Parameter(name="game", in="body", @SWG\Schema(ref="#/definitions/Game")),
+         *     @SWG\Response(response="200", description="The created Game", @SWG\Schema(ref="#/definitions/Game"))
          * )
          *
          */

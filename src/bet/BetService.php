@@ -12,11 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BetService
 {
-    /**
-     * @SWG\Parameter(name="lobbyId", in="path", type="integer", description="")
-     * @SWG\Parameter(name="userId", in="path", type="integer", description="")
-     */
-
     /** @var  BetRepository */
     private $betRepository;
 

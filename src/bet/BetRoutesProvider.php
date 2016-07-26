@@ -19,19 +19,21 @@ class BetRoutesProvider implements ControllerProviderInterface
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        /**
-         * @SWG\Parameter(name="bet", type="integer", format="int32", in="path")
-         * @SWG\Tag(name="bet", description="All about bets")
-         */
 
         /**
          * @SWG\Get(
          *     path="/bet/",
          *     tags={"bet"},
-         *     @SWG\Response(response="200", description="An example resource")
+         *     @SWG\Response(
+         *         response="200",
+         *         description="A List of all Bets",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Bet"))
+         *         )
+         *     )
          * )
          */
-        // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.bet:getList');
 
         /**
@@ -40,14 +42,11 @@ class BetRoutesProvider implements ControllerProviderInterface
          *     tags={"bet"},
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Parameter(ref="#/parameters/lobbyId"),
-         *     @SWG\Response(
-         *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/bet")
-         *     )
+         *     @SWG\Response(response="200", description="The Bet with the specified user and lobby", @SWG\Schema(ref="#/definitions/Bet"))
          * )
          */
         $controllers->get('/{userId},{lobbyId}', 'service.bet:getByIds');
+
 
         /**
          * @SWG\Get(
@@ -56,12 +55,16 @@ class BetRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/bet")
+         *         description="A List of all Bets of a user",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Bet"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byUserId/{userId}', 'service.bet:getByUserId');
+
 
         /**
          * @SWG\Get(
@@ -70,19 +73,23 @@ class BetRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/lobbyId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(ref="#/definitions/bet")
+         *         description="A List of all Bets of a lobby",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Bet"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byLobbyId/{lobbyId}', 'service.bet:getByLobbyId');
+        
 
         /**
          * @SWG\Post(
          *     tags={"bet"},
          *     path="/bet/",
-         *     @SWG\Parameter(name="bet", in="body", @SWG\Schema(ref="#/definitions/bet")),
-         *     @SWG\Response(response="201", description="An example resource")
+         *     @SWG\Parameter(name="betId", in="body", @SWG\Schema(ref="#/definitions/Bet")),
+         *     @SWG\Response(response="200", description="The created Bet", @SWG\Schema(ref="#/definitions/Bet"))
          * )
          *
          */

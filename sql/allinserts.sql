@@ -15,7 +15,7 @@ USE `project-x` ;
 /*!40000 ALTER TABLE `bet` DISABLE KEYS */;
 INSERT INTO `bet` (`userid`, `lobbyid`, `amount`, `team`) VALUES
 	(0, 0, 500, 0),
-	(1, 0, 500, 1);
+	(1, 1, 501, 1);
 /*!40000 ALTER TABLE `bet` ENABLE KEYS */;
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)

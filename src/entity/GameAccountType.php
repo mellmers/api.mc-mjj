@@ -18,12 +18,6 @@ class GameAccountType implements \JsonSerializable
      */
     private $icon;
 
-    /*
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     */
-
     public static function createFromArray(array $row)
     {
         $gameAccountType = new self();

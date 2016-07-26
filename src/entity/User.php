@@ -44,17 +44,6 @@ class User implements \JsonSerializable
      */
     private $username;
 
-    /*
-     * @SWG\Property(type="integer", format="int32")
-     * @SWG\Property(type="int", format="int32")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="bool")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     */
-
     /**
      * @param array $row
      * @return User

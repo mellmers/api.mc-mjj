@@ -2,6 +2,7 @@
 
 namespace projectx\api\game;
 
+use Doctrine\DBAL\Schema\Schema;
 use projectx\api\entity\Game;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,11 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class GameService
 {
-    /**
-     * @SWG\Parameter(name="gameId", in="path", type="integer", description="")
-     * @SWG\Parameter(name="genre", in="path", type="string", description="")
-     */
-
     /** @var  GameRepository */
     private $gameRepository;
 
@@ -24,6 +20,7 @@ class GameService
      * GameService constructor.
      *
      * @param GameRepository $gameRepository
+     * @param
      */
     public function __construct(GameRepository $gameRepository)
     {
