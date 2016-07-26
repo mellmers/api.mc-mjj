@@ -87,11 +87,11 @@ EOS;
     }
 
     /**
-     * @param $id
+     * @param $userId
      *
      * @return User
      */
-    public function getById($id)
+    public function getById($userId)
     {
         $sql = <<<EOS
 SELECT o.*
@@ -99,9 +99,9 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
-        $users = $this->connection->fetchAll($sql, ['id' => $id]);
+        $users = $this->connection->fetchAll($sql, ['id' => $userId]);
         if (count($users) === 0) {
-            $this->app->abort(400, "User with id $id does not exist.");
+            $this->app->abort(400, "User with id $userId does not exist.");
         }
 
         return User::createFromArray($users[0]);

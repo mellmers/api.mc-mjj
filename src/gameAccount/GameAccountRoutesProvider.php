@@ -39,14 +39,14 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/gameAccount/{id},{type}",
+         *     path="/gameAccount/{userId},{gameAccountTypeId}",
          *     tags={"gameAccount"},
-         *     @SWG\Parameter(ref="#/parameters/gameAccId"),
+         *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
          *     @SWG\Response(response="200", description="The Game Account with the specified ID and Type", @SWG\Schema(ref="#/definitions/GameAccount"))
          * )
          */
-        $controllers->get('/{id},{type}', 'service.gameAccount:getByIdAndType');
+        $controllers->get('/{userId},{gameAccountTypeId}', 'service.gameAccount:getByIdAndType');
 
 
         /**

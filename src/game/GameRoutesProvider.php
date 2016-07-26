@@ -39,13 +39,13 @@ class GameRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/game/{id}",
+         *     path="/game/{gameId}",
          *     tags={"game"},
          *     @SWG\Parameter(ref="#/parameters/gameId"),
          *     @SWG\Response(response="200", description="The Game with the specified ID", @SWG\Schema(ref="#/definitions/Game"))
          * )
          */
-        $controllers->get('/{id}', 'service.game:getById');
+        $controllers->get('/{gameId}', 'service.game:getById');
 
 
         /**

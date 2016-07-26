@@ -40,7 +40,7 @@ class UserRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/user/{id}",
+         *     path="/user/{userId}",
          *     tags={"user"},
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(response="200", description="The User with the specified ID", @SWG\Schema(ref="#/definitions/User"))

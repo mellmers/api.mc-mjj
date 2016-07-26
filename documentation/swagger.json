@@ -13,7 +13,7 @@
         "version": "1.0.0"
     },
     "host": "127.0.0.1",
-    "basePath": "/src",
+   "basePath": "/web/index.php",
     "schemes": [
         "http"
     ],
@@ -167,7 +167,7 @@
                 }
             }
         },
-        "/game/{id}": {
+      "/game/{gameId}": {
             "get": {
                 "tags": [
                     "game"
@@ -250,14 +250,14 @@
                 }
             }
         },
-        "/gameAccount/{id},{type}": {
+      "/gameAccount/{userId},{gameAccountTypeId}": {
             "get": {
                 "tags": [
                     "gameAccount"
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/parameters/gameAccId"
+                      "$ref": "#/parameters/userId"
                     },
                     {
                         "$ref": "#/parameters/gameAccountTypeId"
@@ -410,7 +410,7 @@
                 }
             }
         },
-        "/lobby/{id}": {
+      "/lobby/{lobbyId}": {
             "get": {
                 "tags": [
                     "lobby"
@@ -430,7 +430,7 @@
                 }
             }
         },
-        "/lobby/byOwnerId/{ownerId}": {
+      "/lobby/byOwnerId/{userId}": {
             "get": {
                 "tags": [
                     "lobby"
@@ -517,7 +517,7 @@
                 }
             }
         },
-        "/user/{id}": {
+      "/user/{userId}": {
             "get": {
                 "tags": [
                     "user"

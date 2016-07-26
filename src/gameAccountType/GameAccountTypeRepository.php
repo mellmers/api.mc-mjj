@@ -57,7 +57,7 @@ EOS;
      */
     public function getTableName()
     {
-        return 'gameaccount_type';
+        return 'gameaccounttype';
     }
 
     /**

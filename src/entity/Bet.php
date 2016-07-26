@@ -48,7 +48,7 @@ class Bet implements \JsonSerializable
     {
         $bet = new self();
         if (array_key_exists('userId', $row)) {
-            $bet->setUserId($row['user_id']);
+            $bet->setUserId($row['userId']);
             $bet->setUserPath('/user/' . $row['userId']);
         }
         if (array_key_exists('user', $row)) {
