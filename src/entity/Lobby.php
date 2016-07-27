@@ -93,10 +93,10 @@ class Lobby implements \JsonSerializable
     {
         return [
             'id' => $this->id,
-            'owner_id' => $this->ownerId,
+            'ownerId' => $this->ownerId,
             'owner_path' => $this->ownerPath,
             'owner' => $this->owner,
-            'game_id' => $this->gameId,
+            'gameId' => $this->gameId,
             'game_path' => $this->gamePath,
             'game' => $this->game,
             'winnerTeam' => $this->winnerTeam,

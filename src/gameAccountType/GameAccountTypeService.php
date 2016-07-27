@@ -63,8 +63,10 @@ class GameAccountTypeService
 
         $gameAccountType = GameAccountType::createFromArray($postData);
 
-        $this->gameAccountTypeRepository->create($gameAccountType);
+        $gameAccountTypeFromDatabase = $this->gameAccountTypeRepository->create($gameAccountType);
 
-        return new JsonResponse($gameAccountType, 201);
+        $response['data'] = $gameAccountTypeFromDatabase;
+
+        return new JsonResponse($response, 201);
     }
 }

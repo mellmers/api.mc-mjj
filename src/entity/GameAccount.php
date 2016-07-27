@@ -64,10 +64,10 @@ class GameAccount implements \JsonSerializable
     {
         return [
             'userId' => $this->userId,
-            'userPath' => $this->userPath,
+            'user_path' => $this->userPath,
             'user' => $this->user,
             'gameaccountTypeId' => $this->gameAccountTypeId,
-            'gameaccountTypePath' => $this->gameAccountTypePath,
+            'gameaccountType_path' => $this->gameAccountTypePath,
             'gameaccountType' => $this->gameAccountType,
             'userIdentifier' => $this->userIdentifier,
         ];

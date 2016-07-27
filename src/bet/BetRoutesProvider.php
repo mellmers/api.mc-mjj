@@ -86,12 +86,12 @@ class BetRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Post(
+         *     description="Creates an user",
          *     tags={"bet"},
          *     path="/bet/",
-         *     @SWG\Parameter(name="betId", in="body", @SWG\Schema(ref="#/definitions/Bet")),
+         *      @SWG\Parameter(name="bet", in="body", @SWG\Schema(ref="#/definitions/Bet")),
          *     @SWG\Response(response="200", description="The created Bet", @SWG\Schema(ref="#/definitions/Bet"))
-         * )
-         *
+         * )         *
          */
         $controllers->post('/', 'service.bet:create');
 

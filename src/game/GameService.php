@@ -2,7 +2,6 @@
 
 namespace projectx\api\game;
 
-use Doctrine\DBAL\Schema\Schema;
 use projectx\api\entity\Game;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,11 +74,12 @@ class GameService
     {
         $postData = $request->request->all();
 
-        $game['data'] = Game::createFromArray($postData);
+        $game = Game::createFromArray($postData);
 
-        $this->gameRepository->create($game);
+        $gameFromDatabase = $this->gameRepository->create($game);
 
-        return new JsonResponse($game, 201);
+        $response['data'] = $gameFromDatabase;
 
+        return new JsonResponse($response, 201);
     }
 }

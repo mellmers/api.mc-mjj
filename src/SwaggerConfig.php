@@ -36,8 +36,8 @@
  *     ),
  *     @SWG\Definition(
  *         definition="Bet",
- *         @SWG\Property(property="userid", type="integer"),
- *         @SWG\Property(property="lobbyid", type="integer"),
+ *         @SWG\Property(property="userId", type="string"),
+ *         @SWG\Property(property="lobbyId", type="string"),
  *         @SWG\Property(property="amount",  type="integer"),
  *         @SWG\Property(property="team", type="boolean")
  *     ),
@@ -52,8 +52,9 @@
  *     ),
  *     @SWG\Definition(
  *         definition="GameAccount",
- *         @SWG\Property(property="useridentifier", type="string"),
- *         @SWG\Property(property="gameaccounttypeid", type="integer")
+ *         @SWG\Property(property="userId", type="string"),
+ *         @SWG\Property(property="userIdentifier", type="string"),
+ *         @SWG\Property(property="gameaccountTypeId", type="string")
  *     ),
  *     @SWG\Definition(
  *         definition="GameAccountType",
@@ -72,14 +73,19 @@
  * )
  *
  *
+ * @SWG\Tag(name="bet", description="All about bets")
+ * @SWG\Tag(name="game", description="All about games")
+ * @SWG\Tag(name="gameAccount", description="All about gameAccounts")
+ * @SWG\Tag(name="gameAccountType", description="All about gameAccountTypes")
  * @SWG\Tag(name="lobby", description="All about lobbys")
+ * @SWG\Tag(name="user", description="All about Users")
  *
  *
- * @SWG\Parameter(name="gameId", in="path", type="integer", description="")
- * @SWG\Parameter(name="lobbyId", in="path", type="integer", description="")
- * @SWG\Parameter(name="userId", in="path", type="integer", description="")
- * @SWG\Parameter(name="gameAccId", in="path", type="integer", description="")
- * @SWG\Parameter(name="gameAccountTypeId", in="path", type="integer", description="")
+ * @SWG\Parameter(name="gameId", in="path", type="string", description="")
+ * @SWG\Parameter(name="lobbyId", in="path", type="string", description="")
+ * @SWG\Parameter(name="userId", in="path", type="string", description="")
+ * @SWG\Parameter(name="gameAccId", in="path", type="string", description="")
+ * @SWG\Parameter(name="gameAccountTypeId", in="path", type="string", description="")
  * @SWG\Parameter(name="gameAccount", in="path", type="integer", format="int32")
  * @SWG\Parameter(name="betId", type="integer", format="int32", in="path")
  *

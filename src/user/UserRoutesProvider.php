@@ -57,7 +57,6 @@ class UserRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(name="user", in="body", @SWG\Schema(ref="#/definitions/User")),
          *     @SWG\Response(response="200", description="The created User", @SWG\Schema(ref="#/definitions/User"))
          * )
-         *
          */
         $controllers->post('/', 'service.user:create');
 

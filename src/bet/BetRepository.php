@@ -88,28 +88,6 @@ EOS;
     }
 
     /**
-     * @param $userId
-     * @param $lobbyId
-     * @return Bet
-     */
-    public function getByIds($userId, $lobbyId)
-    {
-        $sql = <<<EOS
-SELECT b.*
-FROM `{$this->getTableName()}` b
-WHERE b.userId = :userId AND b.lobbyId = :lobbyId
-EOS;
-
-        $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
-        if (count($bets) === 0) {
-            $this->app->abort(400, "Bet with userId $userId does not exist.");
-        }
-        $bets[0] = $this->loadUser($bets[0]);
-        $bets[0] = $this->loadLobby($bets[0]);
-        return Bet::createFromArray($bets[0]);
-    }
-
-    /**
      * @param $lobbyId
      * @return array
      */
@@ -163,9 +141,47 @@ EOS;
      * @param Bet $bet
      */
     public function create(Bet $bet)
-    {
+    {        //TODO Check if id gen is ok
+        $userId = $bet->getUserId();
+        $lobbyId = $bet->getLobbyId();
+        if (isset($userId) && isset($lobbyId)) {
+
+        } else {
+            $this->app->abort(400, 'A bet needs a lobby id and a user id');
+        }
+
         $data = $bet->jsonSerialize();
+        unset($data['user_path'], $data['user'], $data['lobby_path'], $data['lobby']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
         $this->connection->insert("`{$this->getTableName()}`", $data);
-        //$bet->setId($this->connection->lastInsertId());
+
+        return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
+    }
+
+    /**
+     * @param $userId
+     * @param $lobbyId
+     * @return Bet
+     */
+    public function getByIds($userId, $lobbyId)
+    {
+        $sql = <<<EOS
+SELECT b.*
+FROM `{$this->getTableName()}` b
+WHERE b.userId = :userId AND b.lobbyId = :lobbyId
+EOS;
+
+        $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
+        if (count($bets) === 0) {
+            $this->app->abort(400, "Bet with userId $userId does not exist.");
+        }
+        $bets[0] = $this->loadUser($bets[0]);
+        $bets[0] = $this->loadLobby($bets[0]);
+        return Bet::createFromArray($bets[0]);
     }
 }

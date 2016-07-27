@@ -87,10 +87,12 @@ class GameAccountService
     {
         $postData = $request->request->all();
 
-        $gameAccount['data'] = GameAccount::createFromArray($postData);
+        $gameAccount = GameAccount::createFromArray($postData);
 
-        $this->gameAccountRepository->create($gameAccount);
+        $gameAccountFromDatabase = $this->gameAccountRepository->create($gameAccount);
 
-        return new JsonResponse($gameAccount, 201);
+        $response['data'] = $gameAccountFromDatabase;
+
+        return new JsonResponse($response, 201);
     }
 }

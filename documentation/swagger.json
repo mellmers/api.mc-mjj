@@ -41,7 +41,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "betId",
+                        "name": "bet",
                         "in": "body",
                         "schema": {
                             "$ref": "#/definitions/Bet"
@@ -397,7 +397,11 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/parameters/gameId"
+                        "name": "lobby",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Lobby"
+                        }
                     }
                 ],
                 "responses": {

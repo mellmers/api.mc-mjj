@@ -61,6 +61,31 @@ EOS;
     }
 
     /**
+     * @param JsonResponse
+     */
+    public function create(GameAccountType $gameAccountType)
+    {//TODO Check if id gen is ok
+        $name = $gameAccountType->getName();
+        if (isset($name)) {
+            $gameAccountType->setId(md5($name));
+        } else {
+            $this->app->abort(400, 'A gameaccounttype need a name');
+        }
+
+        $data = $gameAccountType->jsonSerialize();
+        //unset($data['owner_path']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->insert("`{$this->getTableName()}`", $data);
+
+        return $this->getById($gameAccountType->getId());
+    }
+
+    /**
      * @param $gameAccountTypeId"
      *
      * @return JsonResponse
@@ -78,15 +103,5 @@ EOS;
             $this->app->abort(400, "GameAccountType with id $id does not exist!");
         }
         return GameAccountType::createFromArray($gameAccountTypes[0]);
-    }
-
-    /**
-     * @param JsonResponse
-     */
-    public function create(GameAccountType $gameAccountType)
-    {
-        $data = $gameAccountType->jsonSerialize();
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-        $gameAccountType->setName($this->connection->lastInsertId());
     }
 }

@@ -60,26 +60,6 @@ EOS;
     }
 
     /**
-     * @param $gameId
-     * @return array
-     */
-    public function getById($id)
-    {
-        $sql = <<<EOS
-SELECT g.*
-FROM `{$this->getTableName()}` g
-WHERE g.id = :id
-EOS;
-
-        $games = $this->connection->fetchAll($sql, ['id' => $id]);
-        if (count($games) === 0) {
-            $this->app->abort(400, "Game with id $id does not exist!");
-        }
-        $result[] = Game::createFromArray($games[0]);
-        return $result;
-    }
-
-    /**
      * @param $genre
      * @return array
      */
@@ -107,8 +87,45 @@ EOS;
      */
     public function create(Game $game)
     {
+        $name = $game->getName();
+        $typ = $game->getTyp();
+        $genre = $game->getGenre();
+        if (isset($name) && isset($typ) && isset($genre)) {
+            $game->setId(md5($name . $typ . $genre));
+        } else {
+            $this->app->abort(400, 'A game need a name');
+        }
+
         $data = $game->jsonSerialize();
+        //unset($data['owner_path']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
         $this->connection->insert("`{$this->getTableName()}`", $data);
-        $game->setName($this->connection->lastInsertId());
+
+        return $this->getById($game->getId());
+    }
+
+    /**
+     * @param $gameId
+     * @return array
+     */
+    public function getById($id)
+    {
+        $sql = <<<EOS
+SELECT g.*
+FROM `{$this->getTableName()}` g
+WHERE g.id = :id
+EOS;
+
+        $games = $this->connection->fetchAll($sql, ['id' => $id]);
+        if (count($games) === 0) {
+            $this->app->abort(400, "Game with id $id does not exist!");
+        }
+        $result[] = Game::createFromArray($games[0]);
+        return $result;
     }
 }

@@ -86,6 +86,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Post(
+         *     description="Creates a Game Account",
          *     tags={"gameAccount"},
          *     path="/gameAccount/",
          *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/definitions/GameAccount")),
