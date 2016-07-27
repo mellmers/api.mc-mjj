@@ -66,7 +66,7 @@ EOS;
     }
 
     /**
-     * @param array $bet
+     * @param array $betId
      * @return array
      */
     private function loadUser(array $bet)
@@ -77,7 +77,7 @@ EOS;
     }
 
     /**
-     * @param array $bet
+     * @param array $betId
      * @return array
      */
     private function loadLobby(array $bet)

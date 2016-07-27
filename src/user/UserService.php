@@ -12,10 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserService
 {
-    /**
-     * @SWG\Parameter(name="userId", in="path", type="integer", description="")
-     */
-
     /** @var  UserRepository */
     private $userRepository;
 

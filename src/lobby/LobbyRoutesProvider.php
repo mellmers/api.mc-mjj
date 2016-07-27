@@ -12,6 +12,10 @@ use Silex\ControllerProviderInterface;
  */
 class LobbyRoutesProvider implements ControllerProviderInterface
 {
+    /**
+     * @SWG\Tag(name="lobby", description="All about lobbys")
+     */
+
 
     /** {@inheritdoc} */
     public function connect(Application $app)
@@ -19,39 +23,34 @@ class LobbyRoutesProvider implements ControllerProviderInterface
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        /**
-         * @SWG\Tag(name="lobby", description="All about lobbys")
-         */
 
         /**
          * @SWG\Get(
          *     path="/lobby/",
          *     tags={"lobby"},
-         *     @SWG\Response(response="200", description="An example resource")
+         *     @SWG\Response(
+         *         response="200",
+         *         description="A List of all Lobbies",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *         )
+         *     )
          * )
          */
-        // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.lobby:getList');
+
 
         /**
          * @SWG\Get(
          *     path="/lobby/{lobbyId}",
          *     tags={"lobby"},
          *     @SWG\Parameter(ref="#/parameters/lobbyId"),
-         *     @SWG\Response(
-         *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
-         *     )
+         *     @SWG\Response(response="200", description="The Lobby with the specified ID", @SWG\Schema(ref="#/definitions/Lobby"))
          * )
          */
         $controllers->get('/{lobbyId}', 'service.lobby:getById');
+
 
         /**
          * @SWG\Get(
@@ -60,18 +59,16 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
+         *         description="A List of all Lobbies of a User",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byOwnerId/{userId}', 'service.lobby:getByOwnerId');
+
 
         /**
          * @SWG\Get(
@@ -80,25 +77,23 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/gameId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
+         *         description="A List of all Lobbies of a Game",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byGameId/{gameId}', 'service.lobby:getByGameId');
+
 
         /**
          * @SWG\Post(
          *     tags={"lobby"},
          *     path="/lobby/",
          *     @SWG\Parameter(ref="#/parameters/gameId"),
-         *     @SWG\Response(response="201", description="An example resource")
+         *     @SWG\Response(response="200", description="The created Lobby", @SWG\Schema(ref="#/definitions/Lobby"))
          * )
          *
          */

@@ -34,18 +34,6 @@ class Game implements \JsonSerializable
      */
     private $timelimit;
 
-
-    /* these need to be inside of a SWG/Definition tag
-     * we gonna do that later
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="int", format="int32")
-     */
-
     public static function createFromArray(array $row)
     {
         $game = new self();

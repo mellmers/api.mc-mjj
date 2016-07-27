@@ -19,40 +19,35 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
         /** @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        /**
-         * 
-         * @SWG\Tag(name="gameAccount", description="All about gameAccounts")
-         */
 
         /**
          * @SWG\Get(
          *     path="/gameAccount/",
          *     tags={"gameAccount"},
-         *     @SWG\Response(response="200", description="An example resource")
+         *     @SWG\Response(
+         *         response="200",
+         *         description="A List of all GameAccounts",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *         )
+         *     )
          * )
          */
-        // see https://github.com/silexphp/Silex/issues/149
         $controllers->get('/', 'service.gameAccount:getList');
+
+
         /**
          * @SWG\Get(
          *     path="/gameAccount/{userId},{gameAccountTypeId}",
          *     tags={"gameAccount"},
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
-         *     @SWG\Response(
-         *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
-         *     )
+         *     @SWG\Response(response="200", description="The Game Account with the specified ID and Type", @SWG\Schema(ref="#/definitions/GameAccount"))
          * )
          */
         $controllers->get('/{userId},{gameAccountTypeId}', 'service.gameAccount:getByIdAndType');
+
 
         /**
          * @SWG\Get(
@@ -61,18 +56,16 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/userId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
+         *         description="A List of all GameAccounts of a User",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *         )
          *     )
          * )
          */
         $controllers->get('/byUserId/{userId}', 'service.gameAccount:getByUserId');
+
 
         /**
          * @SWG\Get(
@@ -81,14 +74,11 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
          *     @SWG\Response(
          *         response="200",
-         *         description="An example resource",
-         *          @SWG\Schema(
-         *              @SWG\Property(
-         *                      property="status",
-         *                      type="string",
-         *                      default="success"
-         *                  )
-         *          )
+         *         description="A List of all GameAccounts of a Type",
+         *         @SWG\Schema(
+         *          type="array",
+         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *         )
          *     )
          * )
          */
@@ -98,8 +88,8 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          * @SWG\Post(
          *     tags={"gameAccount"},
          *     path="/gameAccount/",
-         *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/parameters/gameAccount")),
-         *     @SWG\Response(response="201", description="An example resource")
+         *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/definitions/GameAccount")),
+         *     @SWG\Response(response="200", description="The created Game Account", @SWG\Schema(ref="#/definitions/GameAccount"))
          * )
          *
          */

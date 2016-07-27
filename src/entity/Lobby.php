@@ -50,20 +50,6 @@ class Lobby implements \JsonSerializable
      */
     private $endtime;
 
-    /*
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="User")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="string")
-     * @SWG\Property(type="Game")
-     * @SWG\Property(type="Game")
-     * @SWG\Property(type="integer", format="int32")
-     * @SWG\Property(type="integer", format="int32")
-     * @SWG\Property(type="integer", format="int32")
-     */
-
     public static function createFromArray(array $row)
     {
         $lobby = new self();
