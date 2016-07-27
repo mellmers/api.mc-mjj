@@ -2,7 +2,7 @@
 
 /**
  * @SWG\Swagger(
- *     basePath="/src",
+ *     basePath="/web/index.php",
  *     host="127.0.0.1",
  *     schemes={"http"},
  *     @SWG\Info(
@@ -70,6 +70,10 @@
  *         @SWG\Property(property="endtime", type="integer")
  *     )
  * )
+ *
+ *
+ * @SWG\Tag(name="lobby", description="All about lobbys")
+ *
  *
  * @SWG\Parameter(name="gameId", in="path", type="integer", description="")
  * @SWG\Parameter(name="lobbyId", in="path", type="integer", description="")

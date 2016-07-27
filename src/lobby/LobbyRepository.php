@@ -104,14 +104,16 @@ EOS;
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
         }
-        $lobbies[0] = $this->loadUser($lobbies[0]);
-        $lobbies[0] = $this->loadGame($lobbies[0]);
-        return Lobby::createFromArray($lobbies[0]);
+        else {
+            $lobbies[0] = $this->loadUser($lobbies[0]);
+            $lobbies[0] = $this->loadGame($lobbies[0]);
+            return Lobby::createFromArray($lobbies[0]);
+        }
     }
+
 
     /**
      * @param $userId
-     *
      * @return array|Lobby
      */
     public function getByOwnerId($userId)
@@ -126,13 +128,15 @@ EOS;
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with ownerId $userId does not exist.");
         }
-        $result = [];
-        foreach ($lobbies as $lobby) {
-            $lobby = $this->loadUser($lobby);
-            $lobby = $this->loadGame($lobby);
-            $result[] = Lobby::createFromArray($lobby);
+        else {
+            $result = [];
+            foreach ($lobbies as $lobby) {
+                $lobby = $this->loadUser($lobby);
+                $lobby = $this->loadGame($lobby);
+                $result[] = Lobby::createFromArray($lobby);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -152,13 +156,15 @@ EOS;
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with gameId $gameId does not exist.");
         }
-        $result = [];
-        foreach ($lobbies as $lobby) {
-            $lobby = $this->loadUser($lobby);
-            $lobby = $this->loadGame($lobby);
-            $result[] = Lobby::createFromArray($lobby);
+        else {
+            $result = [];
+            foreach ($lobbies as $lobby) {
+                $lobby = $this->loadUser($lobby);
+                $lobby = $this->loadGame($lobby);
+                $result[] = Lobby::createFromArray($lobby);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**

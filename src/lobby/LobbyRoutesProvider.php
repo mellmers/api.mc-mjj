@@ -12,11 +12,6 @@ use Silex\ControllerProviderInterface;
  */
 class LobbyRoutesProvider implements ControllerProviderInterface
 {
-    /**
-     * @SWG\Tag(name="lobby", description="All about lobbys")
-     */
-
-
     /** {@inheritdoc} */
     public function connect(Application $app)
     {
