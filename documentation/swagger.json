@@ -39,6 +39,7 @@
                 "tags": [
                     "bet"
                 ],
+                "description": "Creates an user",
                 "parameters": [
                     {
                         "name": "bet",
@@ -231,6 +232,7 @@
                 "tags": [
                     "gameAccount"
                 ],
+                "description": "Creates a Game Account",
                 "parameters": [
                     {
                         "name": "gameAccount",
@@ -395,6 +397,7 @@
                 "tags": [
                     "lobby"
                 ],
+                "description": "Creates a Lobby",
                 "parameters": [
                     {
                         "name": "lobby",
@@ -585,11 +588,11 @@
         },
         "Bet": {
             "properties": {
-                "userid": {
-                    "type": "integer"
+                "userId": {
+                    "type": "string"
                 },
-                "lobbyid": {
-                    "type": "integer"
+                "lobbyId": {
+                    "type": "string"
                 },
                 "amount": {
                     "type": "integer"
@@ -623,11 +626,14 @@
         },
         "GameAccount": {
             "properties": {
-                "useridentifier": {
+                "userId": {
                     "type": "string"
                 },
-                "gameaccounttypeid": {
-                    "type": "integer"
+                "userIdentifier": {
+                    "type": "string"
+                },
+                "gameaccountTypeId": {
+                    "type": "string"
                 }
             }
         },
@@ -669,31 +675,31 @@
             "name": "gameId",
             "in": "path",
             "description": "",
-            "type": "integer"
+            "type": "string"
         },
         "lobbyId": {
             "name": "lobbyId",
             "in": "path",
             "description": "",
-            "type": "integer"
+            "type": "string"
         },
         "userId": {
             "name": "userId",
             "in": "path",
             "description": "",
-            "type": "integer"
+            "type": "string"
         },
         "gameAccId": {
             "name": "gameAccId",
             "in": "path",
             "description": "",
-            "type": "integer"
+            "type": "string"
         },
         "gameAccountTypeId": {
             "name": "gameAccountTypeId",
             "in": "path",
             "description": "",
-            "type": "integer"
+            "type": "string"
         },
         "gameAccount": {
             "name": "gameAccount",
@@ -722,8 +728,28 @@
     },
     "tags": [
         {
+            "name": "bet",
+            "description": "All about bets"
+        },
+        {
+            "name": "game",
+            "description": "All about games"
+        },
+        {
+            "name": "gameAccount",
+            "description": "All about gameAccounts"
+        },
+        {
+            "name": "gameAccountType",
+            "description": "All about gameAccountTypes"
+        },
+        {
             "name": "lobby",
             "description": "All about lobbys"
+        },
+        {
+            "name": "user",
+            "description": "All about Users"
         }
     ]
 }
