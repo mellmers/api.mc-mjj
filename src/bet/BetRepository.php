@@ -66,7 +66,7 @@ EOS;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadUser(array $bet)
@@ -77,7 +77,7 @@ EOS;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadLobby(array $bet)
@@ -89,7 +89,7 @@ EOS;
 
     /**
      * @param $lobbyId
-     * @return array
+     * @return Bet[]
      */
     public function getByLobbyId($lobbyId)
     {
@@ -139,6 +139,7 @@ EOS;
 
     /**
      * @param Bet $bet
+     * @return Bet
      */
     public function create(Bet $bet)
     {        //TODO Check if id gen is ok

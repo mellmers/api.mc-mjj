@@ -3,6 +3,7 @@
 namespace projectx\api\lobby;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\bet\BetRepository;
 use projectx\api\entity\Lobby;
 use projectx\api\game\GameRepository;
 use projectx\api\user\UserRepository;
@@ -103,8 +104,7 @@ EOS;
         $lobbies = $this->connection->fetchAll($sql, ['ownerId' => $userId]);
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with ownerId $userId does not exist.");
-        }
-        else {
+        } else {
             $result = [];
             foreach ($lobbies as $lobby) {
                 $lobby = $this->loadUser($lobby);
@@ -131,8 +131,7 @@ EOS;
         $lobbies = $this->connection->fetchAll($sql, ['gameId' => $gameId]);
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with gameId $gameId does not exist.");
-        }
-        else {
+        } else {
             $result = [];
             foreach ($lobbies as $lobby) {
                 $lobby = $this->loadUser($lobby);
@@ -190,5 +189,25 @@ EOS;
             $lobbies[0] = $this->loadGame($lobbies[0]);
             return Lobby::createFromArray($lobbies[0]);
         }
+    }
+
+    /**
+     * @param $lobbyId
+     * @return array
+     */
+    public function getByIdWithAllUsers($lobbyId)
+    {
+        $lobby = $this->getById($lobbyId);
+        $betRepo = new BetRepository($this->app, $this->connection);
+        $betsOfLobby = $betRepo->getByLobbyId($lobbyId);
+        $usersOfLobby = [];
+        foreach ($betsOfLobby as $bet) {
+            $userId = $bet->getUserId();
+            $usersOfLobby[] = $this->userRepo->getById($userId);
+        }
+        $result = [];
+        $result['lobby'] = $lobby;
+        $result['users'] = $usersOfLobby;
+        return $result;
     }
 }
