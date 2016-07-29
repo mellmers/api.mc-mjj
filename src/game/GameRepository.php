@@ -60,29 +60,7 @@ EOS;
     }
 
     /**
-     * @param $id
-     *
-     * @return array
-     */
-    public function getById($id)
-    {
-        $sql = <<<EOS
-SELECT g.*
-FROM `{$this->getTableName()}` g
-WHERE g.id = :id
-EOS;
-
-        $games = $this->connection->fetchAll($sql, ['id' => $id]);
-        if (count($games) === 0) {
-            $this->app->abort(400, "Game with id $id does not exist!");
-        }
-        $result[] = Game::createFromArray($games[0]);
-        return $result;
-    }
-
-    /**
      * @param $genre
-     *
      * @return array
      */
     public function getByGenre($genre)
@@ -109,9 +87,48 @@ EOS;
      */
     public function create(Game $game)
     {
+        if (!isset($game->getName())) {
+            $this->app->abort(400, 'A game need a name');
+        } else if(!isset($game->getTyp())) {
+            $this->app->abort(400, 'A game need a type');
+        } else if(!isset($game->getRules())) {
+            $this->app->abort(400, 'A game need rules');
+        }  else if(!isset($game->getGenre())) {
+            $this->app->abort(400, 'A game need a genre');
+        }  else if(!isset($game->getTimelimit())) {
+            $this->app->abort(400, 'A game need a timelimit');
+        }
+
         $game->setId(Application::generateGUIDv4());
         $data = $game->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
         $this->connection->insert("`{$this->getTableName()}`", $data);
-        $game->setName($this->connection->lastInsertId());
+
+        return $this->getById($game->getId());
+    }
+
+    /**
+     * @param $gameId
+     * @return array
+     */
+    public function getById($id)
+    {
+        $sql = <<<EOS
+SELECT g.*
+FROM `{$this->getTableName()}` g
+WHERE g.id = :id
+EOS;
+
+        $games = $this->connection->fetchAll($sql, ['id' => $id]);
+        if (count($games) === 0) {
+            $this->app->abort(400, "Game with id $id does not exist!");
+        }
+        $result[] = Game::createFromArray($games[0]);
+        return $result;
     }
 }

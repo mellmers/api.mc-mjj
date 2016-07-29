@@ -87,10 +87,12 @@ class BetService
     {
         $postData = $request->request->all();
 
-        $bet['data'] = Bet::createFromArray($postData);
+        $bet = Bet::createFromArray($postData);
 
-        $this->betRepository->create($bet);
+        $betFromDatabase = $this->betRepository->create($bet);
 
-        return new JsonResponse($bet, 201);
+        $response['data'] = $betFromDatabase;
+
+        return new JsonResponse($response, 201);
     }
 }

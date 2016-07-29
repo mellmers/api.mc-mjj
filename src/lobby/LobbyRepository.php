@@ -89,29 +89,7 @@ EOS;
     }
 
     /**
-     * @param $lobbyId
-     * @return Lobby
-     */
-    public function getById($lobbyId)
-    {
-        $sql = <<<EOS
-SELECT l.*
-FROM `{$this->getTableName()}` l
-WHERE l.id = :id
-EOS;
-
-        $lobbies = $this->connection->fetchAll($sql, ['id' => $lobbyId]);
-        if (count($lobbies) === 0) {
-            $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
-        }
-        $lobbies[0] = $this->loadUser($lobbies[0]);
-        $lobbies[0] = $this->loadGame($lobbies[0]);
-        return Lobby::createFromArray($lobbies[0]);
-    }
-
-    /**
      * @param $userId
-     *
      * @return array|Lobby
      */
     public function getByOwnerId($userId)
@@ -126,13 +104,15 @@ EOS;
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with ownerId $userId does not exist.");
         }
-        $result = [];
-        foreach ($lobbies as $lobby) {
-            $lobby = $this->loadUser($lobby);
-            $lobby = $this->loadGame($lobby);
-            $result[] = Lobby::createFromArray($lobby);
+        else {
+            $result = [];
+            foreach ($lobbies as $lobby) {
+                $lobby = $this->loadUser($lobby);
+                $lobby = $this->loadGame($lobby);
+                $result[] = Lobby::createFromArray($lobby);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -152,22 +132,65 @@ EOS;
         if (count($lobbies) === 0) {
             $this->app->abort(400, "Lobbies with gameId $gameId does not exist.");
         }
-        $result = [];
-        foreach ($lobbies as $lobby) {
-            $lobby = $this->loadUser($lobby);
-            $lobby = $this->loadGame($lobby);
-            $result[] = Lobby::createFromArray($lobby);
+        else {
+            $result = [];
+            foreach ($lobbies as $lobby) {
+                $lobby = $this->loadUser($lobby);
+                $lobby = $this->loadGame($lobby);
+                $result[] = Lobby::createFromArray($lobby);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
-     * @param Lobby $lobby
+     * @param array
      */
     public function create(Lobby $lobby)
     {
+        $ownerId = $lobby->getOwnerId();
+        $gameId = $lobby->getGameId();
+        $starttime = $lobby->getStarttime();
+        if (isset($ownerId) && isset($gameId) && isset($starttime)) {
+        } else {
+            $this->app->abort(400, 'A user needs a valid email address.');
+        }
         $lobby->setId(Application::generateGUIDv4());
+        $date = new Date();
+        $lobby->setCreatedAt($date.now());
         $data = $lobby->jsonSerialize();
+        unset($data['owner_path'], $data['owner'], $data['game_path'], $data['game'], $data['starttime'], $data['endtime']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
         $this->connection->insert("`{$this->getTableName()}`", $data);
+
+        return $this->getById($lobby->getId());
+    }
+
+    /**
+     * @param $lobbyId
+     * @return array
+     */
+    public function getById($lobbyId)
+    {
+        $sql = <<<EOS
+SELECT l.*
+FROM `{$this->getTableName()}` l
+WHERE l.id = :id
+EOS;
+
+        $lobbies = $this->connection->fetchAll($sql, ['id' => $lobbyId]);
+        if (count($lobbies) === 0) {
+            $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
+        } else {
+            $lobbies[0] = $this->loadUser($lobbies[0]);
+            $lobbies[0] = $this->loadGame($lobbies[0]);
+            $result[] = Lobby::createFromArray($lobbies[0]);
+            return $result;
+        }
     }
 }

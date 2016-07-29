@@ -25,12 +25,12 @@ class BetRoutesProvider implements ControllerProviderInterface
          *     path="/bet/",
          *     tags={"bet"},
          *     @SWG\Response(
-         *         response="200",
-         *         description="A List of all Bets",
-         *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Bet"))
-         *         )
+         *          response="200",
+         *          description="A List of all Bets",
+         *          @SWG\Schema(
+         *              type="array",
+         *              @SWG\Items(ref="#/definitions/Bet"))
+         *          )
          *     )
          * )
          */
@@ -40,9 +40,19 @@ class BetRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/bet/{userId},{lobbyId}",
          *     tags={"bet"},
-         *     @SWG\Parameter(ref="#/parameters/userId"),
-         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
-         *     @SWG\Response(response="200", description="The Bet with the specified user and lobby", @SWG\Schema(ref="#/definitions/Bet"))
+         *     @SWG\Parameter(
+         *          ref="#/parameters/userId"
+         *     ),
+         *     @SWG\Parameter(
+         *          ref="#/parameters/lobbyId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The Bet with the specified user and lobby",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Bet"
+         *          )
+         *     )
          * )
          */
         $controllers->get('/{userId},{lobbyId}', 'service.bet:getByIds');
@@ -57,8 +67,10 @@ class BetRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Bets of a user",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Bet"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Bet"
+         *              )
          *         )
          *     )
          * )
@@ -75,9 +87,11 @@ class BetRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Bets of a lobby",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Bet"))
-         *         )
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Bet"
+         *              )
+         *          )
          *     )
          * )
          */
@@ -86,12 +100,24 @@ class BetRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Post(
+         *     description="Creates an user",
          *     tags={"bet"},
          *     path="/bet/",
-         *     @SWG\Parameter(name="betId", in="body", @SWG\Schema(ref="#/definitions/Bet")),
-         *     @SWG\Response(response="200", description="The created Bet", @SWG\Schema(ref="#/definitions/Bet"))
+         *     @SWG\Parameter(
+         *          name="bet",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Bet"
+         *          )
+         *      ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Bet",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Bet"
+         *          )
+         *     )
          * )
-         *
          */
         $controllers->post('/', 'service.bet:create');
 

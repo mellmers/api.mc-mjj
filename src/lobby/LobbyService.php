@@ -87,10 +87,12 @@ class LobbyService
     {
         $postData = $request->request->all();
 
-        $lobby['data'] = Lobby::createFromArray($postData);
+        $lobby = Lobby::createFromArray($postData);
 
-        $this->lobbyRepository->create($lobby);
+        $lobbyFromDatabase = $this->lobbyRepository->create($lobby);
 
-        return new JsonResponse($lobby, 201);
+        $response['data'] = $lobbyFromDatabase;
+
+        return new JsonResponse($response, 201);
     }
 }

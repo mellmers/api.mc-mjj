@@ -28,8 +28,10 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all GameAccounts",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/GameAccount"
+         *              )
          *         )
          *     )
          * )
@@ -41,9 +43,19 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/gameAccount/{userId},{gameAccountTypeId}",
          *     tags={"gameAccount"},
-         *     @SWG\Parameter(ref="#/parameters/userId"),
-         *     @SWG\Parameter(ref="#/parameters/gameAccountTypeId"),
-         *     @SWG\Response(response="200", description="The Game Account with the specified ID and Type", @SWG\Schema(ref="#/definitions/GameAccount"))
+         *     @SWG\Parameter(
+         *          ref="#/parameters/userId"
+         *     ),
+         *     @SWG\Parameter(
+         *          ref="#/parameters/gameAccountTypeId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The Game Account with the specified ID and Type",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccount"
+         *          )
+         *     )
          * )
          */
         $controllers->get('/{userId},{gameAccountTypeId}', 'service.gameAccount:getByIdAndType');
@@ -58,8 +70,10 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all GameAccounts of a User",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/GameAccount"
+         *              )
          *         )
          *     )
          * )
@@ -76,8 +90,10 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all GameAccounts of a Type",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/GameAccount"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/GameAccount"
+         *              )
          *         )
          *     )
          * )
@@ -86,10 +102,23 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Post(
+         *     description="Creates a Game Account",
          *     tags={"gameAccount"},
          *     path="/gameAccount/",
-         *     @SWG\Parameter(name="gameAccount", in="body", @SWG\Schema(ref="#/definitions/GameAccount")),
-         *     @SWG\Response(response="200", description="The created Game Account", @SWG\Schema(ref="#/definitions/GameAccount"))
+         *     @SWG\Parameter(
+         *          name="gameAccount",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccount"
+         *          )
+         *      ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Game Account",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccount"
+         *          )
+         *     )
          * )
          *
          */

@@ -28,8 +28,10 @@ class GameRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Games",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Game"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Game"
+         *              )
          *         )
          *     )
          * )
@@ -41,8 +43,16 @@ class GameRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/game/{gameId}",
          *     tags={"game"},
-         *     @SWG\Parameter(ref="#/parameters/gameId"),
-         *     @SWG\Response(response="200", description="The Game with the specified ID", @SWG\Schema(ref="#/definitions/Game"))
+         *     @SWG\Parameter(
+         *          ref="#/parameters/gameId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The Game with the specified ID",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Game")
+         *          )
+         *     )
          * )
          */
         $controllers->get('/{gameId}', 'service.game:getById');
@@ -52,13 +62,17 @@ class GameRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/game/byGenre/{genre}",
          *     tags={"game"},
-         *     @SWG\Parameter(ref="#/parameters/genre"),
+         *     @SWG\Parameter(
+         *          ref="#/parameters/genre"
+         *     ),
          *     @SWG\Response(
          *         response="200",
          *         description="A List of all Games with specified genre",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Game"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Game"
+         *              )
          *         )
          *     )
          * )
@@ -70,10 +84,19 @@ class GameRoutesProvider implements ControllerProviderInterface
          * @SWG\Post(
          *     tags={"game"},
          *     path="/game/",
-         *     @SWG\Parameter(name="game", in="body", @SWG\Schema(ref="#/definitions/Game")),
-         *     @SWG\Response(response="200", description="The created Game", @SWG\Schema(ref="#/definitions/Game"))
+         *     @SWG\Parameter(
+         *          name="game",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Game"
+         *          )
+         *      ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Game",
+         *          @SWG\Schema(ref="#/definitions/Game"))
+         *     )
          * )
-         *
          */
         $controllers->post('/', 'service.game:create');
 

@@ -42,8 +42,16 @@ class UserRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/user/{userId}",
          *     tags={"user"},
-         *     @SWG\Parameter(ref="#/parameters/userId"),
-         *     @SWG\Response(response="200", description="The User with the specified ID", @SWG\Schema(ref="#/definitions/User"))
+         *     @SWG\Parameter(
+         *          ref="#/parameters/userId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The User with the specified ID",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *     )
          * )
          */
         $controllers->get('/{userId}', 'service.user:getById');
@@ -54,10 +62,21 @@ class UserRoutesProvider implements ControllerProviderInterface
          *     description="Creates an user",
          *     tags={"user"},
          *     path="/user/",
-         *     @SWG\Parameter(name="user", in="body", @SWG\Schema(ref="#/definitions/User")),
-         *     @SWG\Response(response="200", description="The created User", @SWG\Schema(ref="#/definitions/User"))
+         *     @SWG\Parameter(
+         *          name="user",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *     )
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created User",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *      )
          * )
-         *
          */
         $controllers->post('/', 'service.user:create');
 
