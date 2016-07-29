@@ -118,6 +118,24 @@ EOS;
     }
 
     /**
+     * @param Game $game
+     * @return Game
+     */
+    public function update(Game $game)
+    {
+        $data = $game->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $game->getId()]);
+
+        return $this->getById($game->getId());
+    }
+
+    /**
      * @param $id
      * @return Game
      */
@@ -139,5 +157,26 @@ EOS;
             $result = Game::createFromArray($games[0]);
         }
         return $result;
+    }
+
+    /**
+     * @param $gameId
+     *
+     * @return Game
+     */
+    public function deleteGame($gameId)
+    {
+        $game = $this->getById($gameId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $gameId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "Game with id $gameId does not exist.");
+        }
+        return $game;
     }
 }

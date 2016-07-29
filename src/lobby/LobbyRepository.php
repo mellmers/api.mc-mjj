@@ -175,6 +175,28 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param Lobby $lobby
+     * @return Lobby
+     */
+    public function update(Lobby $lobby)
+    {
+        $data = $lobby->jsonSerialize();
+        unset($data['owner_path'], $data['owner'], $data['game_path'], $data['game'], $data['starttime'], $data['endtime']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        var_dump($lobby);
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
+        $result = $this->getById($lobby->getId());
+
+        return $result;
+    }
+
     /**
      * @param $lobbyId
      * @return Lobby
@@ -227,6 +249,27 @@ EOS;
             $usersOfLobby[] = $userRepo->getById($userId);
         }
         $lobby->setUsers($usersOfLobby);
+        return $lobby;
+    }
+
+    /**
+     * @param $lobbyId
+     *
+     * @return Lobby
+     */
+    public function deleteLobby($lobbyId)
+    {
+        $lobby = $this->getById($lobbyId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $lobbyId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
+        }
         return $lobby;
     }
 }

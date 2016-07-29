@@ -95,4 +95,40 @@ class BetService
 
         return new JsonResponse($response, 201);
     }
+
+
+    /**
+     * PATCH /bet
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $bet = Bet::createFromArray($postData);
+
+        $betFromDatabase = $this->betRepository->update($bet);
+
+        $response['data'] = $betFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
+
+
+    /**
+     * GET /bet/delete/{userId},{lobbyId}
+     *
+     * @param $userId
+     * @param $lobbyId
+     *
+     * @return JsonResponse
+     */
+    public function deleteBet($userId, $lobbyId)
+    {
+        $result['data'] = $this->betRepository->deleteBet($userId, $lobbyId);
+        return new JsonResponse($result);
+    }
 }

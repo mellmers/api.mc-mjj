@@ -26,6 +26,7 @@
  *     ),
  *     @SWG\Definition(
  *         definition="User",
+ *         @SWG\Property(property="id", type="string"),
  *         @SWG\Property(property="email", type="string"),
  *         @SWG\Property(property="username", type="string"),
  *         @SWG\Property(property="password",  type="string"),
@@ -43,6 +44,7 @@
  *     ),
  *     @SWG\Definition(
  *         definition="Game",
+ *         @SWG\Property(property="id", type="string"),
  *         @SWG\Property(property="name", type="string"),
  *         @SWG\Property(property="typ", type="string"),
  *         @SWG\Property(property="icon",  type="string"),
@@ -58,11 +60,13 @@
  *     ),
  *     @SWG\Definition(
  *         definition="GameAccountType",
+ *         @SWG\Property(property="id", type="string"),
  *         @SWG\Property(property="name", type="string"),
  *         @SWG\Property(property="icon", type="string")
  *     ),
  *     @SWG\Definition(
  *         definition="Lobby",
+ *         @SWG\Property(property="id", type="string"),
  *         @SWG\Property(property="ownerId", type="string"),
  *         @SWG\Property(property="gameId", type="string"),
  *         @SWG\Property(property="winnerteam",  type="string"),

@@ -88,6 +88,18 @@ class LobbyService
         return new JsonResponse($result);
     }
 
+    /**
+     * GET /lobby/delete/{lobbyId}
+     *
+     * @param $lobbyId
+     *
+     * @return JsonResponse
+     */
+    public function deleteLobby($lobbyId)
+    {
+        $result['data'] = $this->lobbyRepository->deleteLobby($lobbyId);
+        return new JsonResponse($result);
+    }
 
     /**
      * POST /lobby
@@ -107,5 +119,25 @@ class LobbyService
         $response['data'][] = $lobbyFromDatabase;
 
         return new JsonResponse($response, 201);
+    }
+
+    /**
+     * PATCH /lobby
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $lobby = Lobby::createFromArray($postData);
+
+        $lobbyFromDatabase = $this->lobbyRepository->update($lobby);
+
+        $response['data'] = $lobbyFromDatabase;
+
+        return new JsonResponse($response, 200);
     }
 }

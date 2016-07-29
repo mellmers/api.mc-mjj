@@ -57,6 +57,29 @@
                         }
                     }
                 }
+            },
+            "patch": {
+                "tags": [
+                    "bet"
+                ],
+                "description": "Updates an user",
+                "parameters": [
+                    {
+                        "name": "bet",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Bet"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The updated Bet",
+                        "schema": {
+                            "$ref": "#/definitions/Bet"
+                        }
+                    }
+                }
             }
         },
         "/bet/{userId},{lobbyId}": {
@@ -128,6 +151,29 @@
                 }
             }
         },
+        "/bet/delete/{userId},{lobbyId}": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    },
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes the bet with the specified owner ID and lobby id",
+                        "schema": {
+                            "$ref": "#/definitions/Bet"
+                        }
+                    }
+                }
+            }
+        },
         "/game/": {
             "get": {
                 "tags": [
@@ -149,6 +195,30 @@
                 "tags": [
                     "game"
                 ],
+                "description": "Creates a Game",
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created Game",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "game"
+                ],
+                "description": "Updates a Game",
                 "parameters": [
                     {
                         "name": "game",
@@ -211,6 +281,26 @@
                 }
             }
         },
+        "/game/delete/{gameId}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The deleted game with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
+                        }
+                    }
+                }
+            }
+        },
         "/gameAccount/": {
             "get": {
                 "tags": [
@@ -233,6 +323,29 @@
                     "gameAccount"
                 ],
                 "description": "Creates a Game Account",
+                "parameters": [
+                    {
+                        "name": "gameAccount",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccount"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created Game Account",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccount"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "description": "Updates a Game Account",
                 "parameters": [
                     {
                         "name": "gameAccount",
@@ -321,6 +434,29 @@
                 }
             }
         },
+        "/gameAccount/delete/{userId},{gameAccountTypeId}": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    },
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes the Game Account with the specified ID and Type",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccount"
+                        }
+                    }
+                }
+            }
+        },
         "/gameAccountType/": {
             "get": {
                 "tags": [
@@ -359,9 +495,46 @@
                         }
                     }
                 }
+            },
+            "patch": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "parameters": [
+                    {
+                        "name": "gameAccountType",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccountType"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created GameAccountType",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccountType"
+                        }
+                    }
+                }
             }
         },
         "/gameAccountType/{id}": {
+            "get": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The GameAccountType with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccountType"
+                        }
+                    }
+                }
+            }
+        },
+        "/gameAccountType/delete/{gameAccountTypeID}": {
             "get": {
                 "tags": [
                     "gameAccountType"
@@ -410,6 +583,29 @@
                 "responses": {
                     "200": {
                         "description": "The created Lobby",
+                        "schema": {
+                            "$ref": "#/definitions/Lobby"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "lobby"
+                ],
+                "description": "Updates a Lobby",
+                "parameters": [
+                    {
+                        "name": "lobby",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/Lobby"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The updated Lobby",
                         "schema": {
                             "$ref": "#/definitions/Lobby"
                         }
@@ -503,6 +699,29 @@
                 }
             }
         },
+        "/lobby/delete/{lobbyId}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes a Lobby wiht given id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lobby"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user/": {
             "get": {
                 "tags": [
@@ -521,6 +740,29 @@
                 }
             },
             "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Creates an user",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The created User",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            },
+            "patch": {
                 "tags": [
                     "user"
                 ],
@@ -563,6 +805,26 @@
                     }
                 }
             }
+        },
+        "/user/delete/{userId}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The deleted User with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -583,6 +845,9 @@
         },
         "User": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "email": {
                     "type": "string"
                 },
@@ -624,6 +889,9 @@
         },
         "Game": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -659,6 +927,9 @@
         },
         "GameAccountType": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -669,6 +940,9 @@
         },
         "Lobby": {
             "properties": {
+                "id": {
+                    "type": "string"
+                },
                 "ownerId": {
                     "type": "string"
                 },

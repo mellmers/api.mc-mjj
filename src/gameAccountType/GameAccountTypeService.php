@@ -69,4 +69,37 @@ class GameAccountTypeService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * PATCH /gameAccountType
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $gameAccountType = GameAccountType::createFromArray($postData);
+
+        $gameAccountTypeFromDatabase = $this->gameAccountTypeRepository->update($gameAccountType);
+
+        $response['data'] = $gameAccountTypeFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
+
+    /**
+     * GET /gameAccountType/delete/{gameAccountTypeID}
+     *
+     * @param $gameAccountTypeId
+     *
+     * @return JsonResponse
+     */
+    public function deleteGameAccountType($gameAccountTypeID)
+    {
+        $result['data'] = $this->gameAccountTypeRepository->deleteGameAccountType($gameAccountTypeID);
+        return new JsonResponse($result);
+    }
 }

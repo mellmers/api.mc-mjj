@@ -103,8 +103,7 @@ EOS;
         $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "Lobby with id $lobbyId has no bets.");
-        }
-        else {
+        } else {
             foreach ($bets as $key) {
                 $bet = Bet::createFromArray($key);
                 $bet = $this->loadUser($bet);
@@ -132,8 +131,7 @@ EOS;
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "User with id $userId has no bets.");
-        }
-        else {
+        } else {
             foreach ($bets as $key) {
                 $bet = Bet::createFromArray($key);
                 $bet = $this->loadUser($bet);
@@ -171,6 +169,28 @@ EOS;
     }
 
     /**
+     * @param Bet $bet
+     *
+     * @return Bet
+     */
+    public function update(Bet $bet)
+    {
+        $data = $bet->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $bet->getUserId(), "lobbyId" => $bet->getLobbyId()]);
+        $result = $this->getByIds($bet->getUserId(), $bet->getLobbyId());
+
+        return $result;
+    }
+
+
+    /**
      * @param $userId
      * @param $lobbyId
      * @return Bet
@@ -196,5 +216,27 @@ EOS;
             $result = $bet;
         }
         return $result;
+    }
+
+    /**
+     * @param $userId
+     * @param $lobbyId
+     *
+     * @return Bet
+     */
+    public function deleteBet($userId, $lobbyId)
+    {
+        $bet = $this->getByIds($userId, $lobbyId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE userId = :userId AND lobbyId = :lobbyId
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "bet with lobbyid $lobbyId and userid $userId does not exist.");
+        }
+        return $bet;
     }
 }

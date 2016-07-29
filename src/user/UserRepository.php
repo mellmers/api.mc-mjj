@@ -95,6 +95,27 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function update(User $user)
+    {
+        $data = $user->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $user->getId()]);
+        $result = $this->getById($user->getId());
+
+        return $result;
+    }
+
     /**
      * @param $userId
      *
@@ -103,9 +124,9 @@ EOS;
     public function getById($userId)
     {
         $sql = <<<EOS
-SELECT o.*
-FROM `{$this->getTableName()}` o
-WHERE o.id = :id
+SELECT u.*
+FROM `{$this->getTableName()}` u
+WHERE u.id = :id
 EOS;
 
         $result = null;
@@ -117,5 +138,26 @@ EOS;
             $result = User::createFromArray($users[0]);
         }
         return $result;
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return User
+     */
+    public function deleteUser($userId)
+    {
+        $user = $this->getById($userId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $userId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "User with id $userId does not exist.");
+        }
+        return $user;
     }
 }

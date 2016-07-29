@@ -83,6 +83,26 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param GameAccountType $gameAccountType
+     * @return GameAccountType
+     */
+    public function update(GameAccountType $gameAccountType)
+    {
+        $data = $gameAccountType->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $gameAccountType->getId()]);
+
+        $result = $this->getById($gameAccountType->getId());
+        return $result;
+    }
+
     /**
      * @param $id
      * @return GameAccountType
@@ -104,5 +124,26 @@ EOS;
             $result = GameAccountType::createFromArray($gameAccountTypes[0]);
         }
         return $result;
+    }
+
+    /**
+     * @param $gameAccountTypeId
+     *
+     * @return GameAccountType
+     */
+    public function deleteGameAccountType($gameAccountTypeId)
+    {
+        $gameAccountType = $this->getById($gameAccountTypeId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $gameAccountTypeId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "GameAccountType with id $gameAccountTypeId does not exist.");
+        }
+        return $gameAccountType;
     }
 }

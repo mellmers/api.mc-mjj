@@ -170,6 +170,28 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param GameAccount $gameAccount
+     * @return GameAccount
+     */
+    public function update(GameAccount $gameAccount)
+    {
+        $result = [];
+        $data = $gameAccount->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['gameaccountTypePath'], $data['gameaccountType']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $gameAccount->getUserId(), "gameAccountTypeId" => $gameAccount->getGameAccountTypeId()]);
+
+        $result = $this->getByIdAndType($gameAccount->getUserId(), $gameAccount->getGameAccountTypeId());
+        return $result;
+    }
+
     /**
      * @param $userId
      * @param $gameaccountTypeId
@@ -195,6 +217,28 @@ EOS;
             $result = $gameAccount;
         }
         return $result;
+    }
+
+    /**
+     * @param $userId
+     * @param $gameaccountTypeId
+     *
+     * @return GameAccount
+     */
+    public function deleteGameAccountType($userId, $gameaccountTypeId)
+    {
+        $gameAccount = $this->getByIdAndType($userId, $gameaccountTypeId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE userId = :userId AND gameaccountTypeId = :gameaccountTypeId
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['userId' => $userId, 'gameaccountTypeId' => $gameaccountTypeId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "GameAccount with id $gameaccountTypeId does not exist.");
+        }
+        return $gameAccount;
     }
 
 }
