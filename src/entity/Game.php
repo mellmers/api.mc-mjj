@@ -72,8 +72,8 @@ class Game implements \JsonSerializable
             'name' => $this->name,
             'type' => $this->type,
             'icon' => $this->icon,
-            'genre' => $this->genre,
             'rules' => $this->rules,
+            'genre' => $this->genre,
             'timelimit' => $this->timelimit,
         ];
     }

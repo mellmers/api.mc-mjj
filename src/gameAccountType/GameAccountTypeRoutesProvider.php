@@ -40,8 +40,11 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
-         *     path="/gameAccountType/{id}",
+         *     path="/gameAccountType/{gameAccountTypeId}",
          *     tags={"gameAccountType"},
+         *     @SWG\Parameter(
+         *          ref="#/parameters/gameAccountTypeId"
+         *     ),
          *     @SWG\Response(
          *          response="200",
          *          description="The GameAccountType with the specified ID",
@@ -51,14 +54,16 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
          *      )
          * )
          */
-        $controllers->get('/{id}', 'service.gameAccountType:getById');
+        $controllers->get('/{gameAccountTypeId}', 'service.gameAccountType:getById');
 
         /**
          * @SWG\Post(
+         *     description="Creates a GameAccountType",
          *     tags={"gameAccountType"},
          *     path="/gameAccountType/",
          *     @SWG\Parameter(
-         *          name="gameAccountType", in="body",
+         *          name="gameAccountType",
+         *          in="body",
          *          @SWG\Schema(
          *              ref="#/definitions/GameAccountType"
          *          )
@@ -94,11 +99,8 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
          *     tags={"gameAccountType"},
          *     path="/gameAccountType/",
          *     @SWG\Parameter(
-         *          name="gameAccountType", in="body",
-         *          @SWG\Schema(
-         *              ref="#/definitions/GameAccountType"
-         *          )
-         *      ),
+         *          ref="#/parameters/gameAccountTypeId"
+         *     ),
          *     @SWG\Response(
          *          response="200",
          *          description="The created GameAccountType",

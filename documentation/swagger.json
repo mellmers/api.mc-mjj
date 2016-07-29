@@ -519,10 +519,15 @@
                 }
             }
         },
-        "/gameAccountType/{id}": {
+        "/gameAccountType/{gameAccountTypeId}": {
             "get": {
                 "tags": [
                     "gameAccountType"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -538,6 +543,11 @@
             "get": {
                 "tags": [
                     "gameAccountType"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
                 ],
                 "responses": {
                     "200": {

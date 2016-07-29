@@ -99,6 +99,8 @@ class GameService
         $gameFromDatabase = $this->gameRepository->update($game);
 
         $response['data'] = $gameFromDatabase;
+
+        return new JsonResponse($response, 200);
     }
 
     /**

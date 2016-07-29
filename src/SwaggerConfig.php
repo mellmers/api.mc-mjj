@@ -71,7 +71,7 @@
  *         @SWG\Property(property="gameId", type="string"),
  *         @SWG\Property(property="winnerTeam",  type="integer"),
  *         @SWG\Property(property="createdAt", type="integer"),
- *         @SWG\Property(property="starttime",  type="string"),
+ *         @SWG\Property(property="starttime",  type="integer"),
  *         @SWG\Property(property="endtime", type="integer"),
  *         @SWG\Property(property="users", type="array")
  *     )
@@ -86,14 +86,14 @@
  * @SWG\Tag(name="user", description="All about users")
  *
  *
- * @SWG\Parameter(name="gameId", in="path", type="string", description="")
- * @SWG\Parameter(name="lobbyId", in="path", type="string", description="")
- * @SWG\Parameter(name="userId", in="path", type="string", description="")
- * @SWG\Parameter(name="gameAccountId", in="path", type="string", description="")
- * @SWG\Parameter(name="gameAccountTypeId", in="path", type="string", description="")
- * @SWG\Parameter(name="gameAccount", in="path", type="Gameaccount", description="")
- * @SWG\Parameter(name="betId", in="path", type="string")
+ * @SWG\Parameter(name="gameId", in="path", type="string", description="a Game id used to find the game object")
+ * @SWG\Parameter(name="lobbyId", in="path", type="string", description="a Lobby id used to find the game Lobby")
+ * @SWG\Parameter(name="userId", in="path", type="string", description="a user id used to find the game user")
+ * @SWG\Parameter(name="gameAccountId", in="path", type="string", description="a gameAccount Id used to find the gameAccount object")
+ * @SWG\Parameter(name="gameAccountTypeId", in="path", type="string", description="a gameAccountType Id used to find the gameAccountType object")
+ * @SWG\Parameter(name="gameAccount", in="path", type="Gameaccount", description="a gameAccount used to find the gameAccount object")
+ * @SWG\Parameter(name="betId", in="path", type="string", description="a bet id used to find the bet object")
  *
- * @SWG\Parameter(name="type", in="path", type="string", description="")
- * @SWG\Parameter(name="genre", in="path", type="string", description="")
+ * @SWG\Parameter(name="type", in="path", type="string", description="a type id used to find the right object")
+ * @SWG\Parameter(name="genre", in="path", type="string", description="a genre string used to find the game object")
  */

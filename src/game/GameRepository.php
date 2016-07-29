@@ -99,7 +99,7 @@ EOS;
             $this->app->abort(400, 'A game need rules');
         }  else if(isEmpty($game->getGenre())) {
             $this->app->abort(400, 'A game need a genre');
-        } else if(isEmpty($game->getTimelimit())) {
+        } else if (isEmpty($game->getTimelimit())) {
             $this->app->abort(400, 'A game need a timelimit in seconds');
         } else {
             $game->setId(Application::generateGUIDv4());
@@ -115,24 +115,6 @@ EOS;
             $result = $this->getById($game->getId());
         }
         return $result;
-    }
-
-    /**
-     * @param Game $game
-     * @return Game
-     */
-    public function update(Game $game)
-    {
-        $data = $game->jsonSerialize();
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
-            }
-        }
-
-        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $game->getId()]);
-
-        return $this->getById($game->getId());
     }
 
     /**
@@ -157,6 +139,24 @@ EOS;
             $result = Game::createFromArray($games[0]);
         }
         return $result;
+    }
+
+    /**
+     * @param Game $game
+     * @return Game
+     */
+    public function update(Game $game)
+    {
+        $data = $game->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $game->getId()]);
+
+        return $this->getById($game->getId());
     }
 
     /**

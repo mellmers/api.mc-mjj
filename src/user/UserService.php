@@ -86,6 +86,8 @@ class UserService
         $userFromDatabase = $this->userRepository->update($user);
 
         $response['data'] = $userFromDatabase;
+
+        return new JsonResponse($response, 200);
     }
 
     /**
