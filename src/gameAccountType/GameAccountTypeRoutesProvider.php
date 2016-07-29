@@ -75,6 +75,21 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
         $controllers->post('/', 'service.gameAccountType:create');
 
         /**
+         * @SWG\Get(
+         *     path="/gameAccountType/delete/{gameAccountTypeID}",
+         *     tags={"gameAccountType"},
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The GameAccountType with the specified ID",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccountType"
+         *          )
+         *      )
+         * )
+         */
+        $controllers->get('/delete/{gameAccountTypeID}', 'service.gameAccountType:deleteGameAccountType');
+
+        /**
          * @SWG\Patch(
          *     tags={"gameAccountType"},
          *     path="/gameAccountType/",

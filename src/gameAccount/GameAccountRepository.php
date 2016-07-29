@@ -216,4 +216,26 @@ EOS;
         return $result;
     }
 
+    /**
+     * @param $userId
+     * @param $gameaccountTypeId
+     *
+     * @return GameAccount
+     */
+    public function deleteGameAccountType($userId, $gameaccountTypeId)
+    {
+        $gameAccount = $this->getByIdAndType($userId, $gameaccountTypeId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE userId = :userId AND gameaccountTypeId = :gameaccountTypeId
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['userId' => $userId, 'gameaccountTypeId' => $gameaccountTypeId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "GameAccount with id $gameaccountTypeId does not exist.");
+        }
+        return $gameAccount;
+    }
+
 }

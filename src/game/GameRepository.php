@@ -154,4 +154,25 @@ EOS;
             return $result;
         }
     }
+
+    /**
+     * @param $gameId
+     *
+     * @return Game
+     */
+    public function deleteGame($gameId)
+    {
+        $game = $this->getById($gameId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $gameId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "Game with id $gameId does not exist.");
+        }
+        return $game;
+    }
 }

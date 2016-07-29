@@ -14,7 +14,7 @@ use projectx\api\user\UserRepository;
  */
 class BetRepository
 {
-    /** @var  Application */
+    /** @var  Application\ */
     private $app;
 
     /** @var  Connection */
@@ -99,8 +99,7 @@ EOS;
         $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "Lobby with id $lobbyId has no bets.");
-        }
-        else {
+        } else {
             $result = [];
             foreach ($bets as $bet) {
                 $bet = $this->loadUser($bet);
@@ -126,8 +125,7 @@ EOS;
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "User with id $userId has no bets.");
-        }
-        else {
+        } else {
             $result = [];
             foreach ($bets as $bet) {
                 $bet = $this->loadUser($bet);
@@ -144,7 +142,7 @@ EOS;
      */
     public function create(Bet $bet)
     {
-        if(empty($bet->getUserId()) && empty($bet->getLobbyId())) {
+        if (empty($bet->getUserId()) && empty($bet->getLobbyId())) {
             $this->app->abort(400, 'A bet needs a lobbyId and a userId');
         } else {
             $data = $bet->jsonSerialize();
@@ -160,7 +158,6 @@ EOS;
             return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
         }
     }
-
 
     /**
      * @param Bet $bet
@@ -182,6 +179,7 @@ EOS;
 
         return $result;
     }
+
 
     /**
      * @param $userId
@@ -205,5 +203,27 @@ EOS;
             $bets[0] = $this->loadLobby($bets[0]);
             return Bet::createFromArray($bets[0]);
         }
+    }
+
+    /**
+     * @param $userId
+     * @param $lobbyId
+     *
+     * @return Bet
+     */
+    public function deleteBet($userId, $lobbyId)
+    {
+        $bet = $this->getByIds($userId, $lobbyId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE userId = :userId AND lobbyId = :lobbyId
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "bet with lobbyid $lobbyId and userid $userId does not exist.");
+        }
+        return $bet;
     }
 }

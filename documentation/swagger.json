@@ -151,6 +151,29 @@
                 }
             }
         },
+        "/bet/delete/{userId},{lobbyId}": {
+            "get": {
+                "tags": [
+                    "bet"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    },
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes the bet with the specified owner ID and lobby id",
+                        "schema": {
+                            "$ref": "#/definitions/Bet"
+                        }
+                    }
+                }
+            }
+        },
         "/game/": {
             "get": {
                 "tags": [
@@ -253,6 +276,26 @@
                             "items": {
                                 "$ref": "#/definitions/Game"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/game/delete/{gameId}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/gameId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The deleted game with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/Game"
                         }
                     }
                 }
@@ -391,6 +434,29 @@
                 }
             }
         },
+        "/gameAccount/delete/{userId},{gameAccountTypeId}": {
+            "get": {
+                "tags": [
+                    "gameAccount"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    },
+                    {
+                        "$ref": "#/parameters/gameAccountTypeId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes the Game Account with the specified ID and Type",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccount"
+                        }
+                    }
+                }
+            }
+        },
         "/gameAccountType/": {
             "get": {
                 "tags": [
@@ -468,6 +534,21 @@
                 }
             }
         },
+        "/gameAccountType/delete/{gameAccountTypeID}": {
+            "get": {
+                "tags": [
+                    "gameAccountType"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The GameAccountType with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/GameAccountType"
+                        }
+                    }
+                }
+            }
+        },
         "/lobby/": {
             "get": {
                 "tags": [
@@ -512,7 +593,7 @@
                 "tags": [
                     "lobby"
                 ],
-                "description": "Creates a Lobby",
+                "description": "Updates a Lobby",
                 "parameters": [
                     {
                         "name": "lobby",
@@ -524,7 +605,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The created Lobby",
+                        "description": "The updated Lobby",
                         "schema": {
                             "$ref": "#/definitions/Lobby"
                         }
@@ -618,6 +699,29 @@
                 }
             }
         },
+        "/lobby/delete/{lobbyId}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deletes a Lobby wiht given id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Lobby"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/user/": {
             "get": {
                 "tags": [
@@ -695,6 +799,26 @@
                 "responses": {
                     "200": {
                         "description": "The User with the specified ID",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/delete/{userId}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The deleted User with the specified ID",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }

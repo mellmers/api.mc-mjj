@@ -248,4 +248,25 @@ EOS;
         $lobby->setUsers($usersOfLobby);
         return $lobby;
     }
+
+    /**
+     * @param $lobbyId
+     *
+     * @return Lobby
+     */
+    public function deleteLobby($lobbyId)
+    {
+        $lobby = $this->getById($lobbyId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $lobbyId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "Lobby with id $lobbyId does not exist.");
+        }
+        return $lobby;
+    }
 }

@@ -50,7 +50,6 @@ class UserService
         return new JsonResponse($response);
     }
 
-
     /**
      * POST /user
      *
@@ -87,7 +86,18 @@ class UserService
         $userFromDatabase = $this->userRepository->update($user);
 
         $response['data'] = $userFromDatabase;
+    }
 
+    /**
+     * GET /user/delete/(userId)
+     *
+     * @param $userId
+     *
+     * @return JsonResponse
+     */
+    public function deleteUser($userId)
+    {
+        $response['data'] = $this->userRepository->deleteUser($userId);
         return new JsonResponse($response, 200);
     }
 }

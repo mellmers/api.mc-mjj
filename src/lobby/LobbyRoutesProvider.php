@@ -138,6 +138,25 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          */
         $controllers->post('/', 'service.lobby:create');
 
+        /**
+         * @SWG\Get(
+         *     path="/lobby/delete/{lobbyId}",
+         *     tags={"lobby"},
+         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
+         *     @SWG\Response(
+         *         response="200",
+         *         description="Deletes a Lobby wiht given id",
+         *         @SWG\Schema(
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Lobby"
+         *              )
+         *         )
+         *     )
+         * )
+         */
+        $controllers->get('/delete/{lobbyId}', 'service.lobby:deleteLobby');
+
 
         /**
          * @SWG\Patch(
