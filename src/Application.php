@@ -56,23 +56,12 @@ class Application extends Silex {
         // enable database connection
         $app->register(new DatabaseProvider());
 
-        // all about users
+        //enable the service provider
         $app->register(new UserServiceProvider());
-//        $app->register(new SecurityProvider());
-
-        // all about gameAccountType
         $app->register(new GameAccountTypeServiceProvider());
-
-        // all about gameAccount
         $app->register(new GameAccountServiceProvider());
-
-        // all about game
         $app->register(new GameServiceProvider());
-
-        // all about lobby
         $app->register(new LobbyServiceProvider());
-
-        // all about bet
         $app->register(new BetServiceProvider());
 
         // http://silex.sensiolabs.org/doc/cookbook/json_request_body.html

@@ -16,12 +16,9 @@ class BetRepository
 {
     /** @var  Application */
     private $app;
+
     /** @var  Connection */
     private $connection;
-    /** @var  UserRepository */
-    private $userRepo;
-    /** @var  LobbyRepository */
-    private $lobbyRepo;
 
     /**
      * BetRepository constructor.
@@ -33,8 +30,6 @@ class BetRepository
     {
         $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($app, $connection);
-        $this->lobbyRepo = new LobbyRepository($app, $connection);
     }
 
     /**
@@ -71,7 +66,8 @@ EOS;
      */
     private function loadUser(array $bet)
     {
-        $userResult = $this->userRepo->getById($bet['userId']);
+        $userRepo = new UserRepository($this->app, $this->connection);
+        $userResult = $userRepo->getById($bet['userId']);
         $bet['user'] = $userResult;
         return $bet;
     }
@@ -82,14 +78,15 @@ EOS;
      */
     private function loadLobby(array $bet)
     {
-        $lobbyResult = $this->lobbyRepo->getById($bet['lobbyId']);
+        $lobbyRepo = new LobbyRepository($this->app, $this->connection);
+        $lobbyResult = $lobbyRepo->getById($bet['lobbyId']);
         $bet['lobby'] = $lobbyResult;
         return $bet;
     }
 
     /**
      * @param $lobbyId
-     * @return array
+     * @return Bet[]
      */
     public function getByLobbyId($lobbyId)
     {
@@ -103,13 +100,15 @@ EOS;
         if (count($bets) === 0) {
             $this->app->abort(400, "Lobby with id $lobbyId has no bets.");
         }
-        $result = [];
-        foreach ($bets as $bet) {
-            $bet = $this->loadUser($bet);
-            $bet = $this->loadLobby($bet);
-            $result[] = Bet::createFromArray($bet);
+        else {
+            $result = [];
+            foreach ($bets as $bet) {
+                $bet = $this->loadUser($bet);
+                $bet = $this->loadLobby($bet);
+                $result[] = Bet::createFromArray($bet);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -128,13 +127,15 @@ EOS;
         if (count($bets) === 0) {
             $this->app->abort(400, "User with id $userId has no bets.");
         }
-        $result = [];
-        foreach ($bets as $bet) {
-            $bet = $this->loadUser($bet);
-            $bet = $this->loadLobby($bet);
-            $result[] = Bet::createFromArray($bet);
+        else {
+            $result = [];
+            foreach ($bets as $bet) {
+                $bet = $this->loadUser($bet);
+                $bet = $this->loadLobby($bet);
+                $result[] = Bet::createFromArray($bet);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -177,8 +178,10 @@ EOS;
         if (count($bets) === 0) {
             $this->app->abort(400, "Bet with userId $userId does not exist.");
         }
-        $bets[0] = $this->loadUser($bets[0]);
-        $bets[0] = $this->loadLobby($bets[0]);
-        return Bet::createFromArray($bets[0]);
+        else {
+            $bets[0] = $this->loadUser($bets[0]);
+            $bets[0] = $this->loadLobby($bets[0]);
+            return Bet::createFromArray($bets[0]);
+        }
     }
 }

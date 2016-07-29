@@ -68,7 +68,8 @@
  *         @SWG\Property(property="winnerteam",  type="string"),
  *         @SWG\Property(property="createdAt", type="boolean"),
  *         @SWG\Property(property="starttime",  type="string"),
- *         @SWG\Property(property="endtime", type="integer")
+ *         @SWG\Property(property="endtime", type="integer"),
+ *         @SWG\Property(property="users", type="integer")
  *     )
  * )
  *

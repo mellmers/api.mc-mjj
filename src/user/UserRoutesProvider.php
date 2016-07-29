@@ -68,7 +68,7 @@ class UserRoutesProvider implements ControllerProviderInterface
          *          @SWG\Schema(
          *              ref="#/definitions/User"
          *          )
-         *     )
+         *     ),
          *     @SWG\Response(
          *          response="200",
          *          description="The created User",

@@ -49,6 +49,10 @@ class Lobby implements \JsonSerializable
      * @var int
      */
     private $endtime;
+    /**
+     * @var User[]
+     */
+    private $users;
 
     public static function createFromArray(array $row)
     {
@@ -82,7 +86,9 @@ class Lobby implements \JsonSerializable
         if (array_key_exists('endtime', $row)) {
             $lobby->setEndtime($row['endtime']);
         }
-
+        if (array_key_exists('users', $row)) {
+            $lobby->setUsers($row['users']);
+        }
         return $lobby;
     }
 
@@ -103,6 +109,7 @@ class Lobby implements \JsonSerializable
             'createdAt' => $this->createdAt,
             'starttime' => $this->starttime,
             'endtime' => $this->endtime,
+            'users' => $this->users,
         ];
     }
 
@@ -281,4 +288,21 @@ class Lobby implements \JsonSerializable
     {
         $this->endtime = (int)$endtime;
     }
+
+    /**
+     * @return User[]
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param User[] $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
 }

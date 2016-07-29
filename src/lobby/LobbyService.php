@@ -50,6 +50,19 @@ class LobbyService
     }
 
     /**
+     * GET /lobby/withAllUsers/{lobbyId}
+     *
+     * @param $lobbyId
+     *
+     * @return JsonResponse
+     */
+    public function getByIdWithAllUsers($lobbyId)
+    {
+        $result['data'] = $this->lobbyRepository->getByIdWithAllUsers($lobbyId);
+        return new JsonResponse($result);
+    }
+
+    /**
      * GET /lobby/byOwnerId/{ownerId}
      *
      * @param $userId

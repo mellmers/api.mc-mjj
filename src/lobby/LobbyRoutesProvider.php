@@ -56,6 +56,23 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          */
         $controllers->get('/{lobbyId}', 'service.lobby:getById');
 
+        /**
+         * @SWG\Get(
+         *     path="/lobby/withAllUsers/{lobbyId}",
+         *     tags={"lobby"},
+         *     @SWG\Parameter(
+         *          ref="#/parameters/lobbyId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The Lobby with the specified ID and all its Users",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          )
+         *      )
+         * )
+         */
+        $controllers->get('/withAllUsers/{lobbyId}', 'service.lobby:getByIdWithAllUsers');
 
         /**
          * @SWG\Get(
@@ -98,7 +115,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
 
 
         /**
-         * @SWG\Post(         *
+         * @SWG\Post(
          *     description="Creates a Lobby",
          *     tags={"lobby"},
          *     path="/lobby/",
@@ -107,7 +124,8 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *          in="body",
          *          @SWG\Schema(
          *              ref="#/definitions/Lobby"
-         *          ),
+         *          )
+         *     ),
          *     @SWG\Response(
          *          response="200",
          *          description="The created Lobby",
