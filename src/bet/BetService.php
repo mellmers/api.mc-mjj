@@ -46,7 +46,7 @@ class BetService
      */
     public function getByIds($userId, $lobbyId)
     {
-        $result['data'] = $this->betRepository->getByIds($userId, $lobbyId);
+        $result['data'][] = $this->betRepository->getByIds($userId, $lobbyId);
         return new JsonResponse($result);
     }
 
@@ -59,7 +59,7 @@ class BetService
      */
     public function getByLobbyId($lobbyId)
     {
-        $result['data'] = $this->betRepository->getByLobbyId($lobbyId);
+        $result['data'][] = $this->betRepository->getByLobbyId($lobbyId);
         return new JsonResponse($result);
     }
 
@@ -72,7 +72,7 @@ class BetService
      */
     public function getByUserId($userId)
     {
-        $result['data'] = $this->betRepository->getByUserId($userId);
+        $result['data'][] = $this->betRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
@@ -91,7 +91,7 @@ class BetService
 
         $betFromDatabase = $this->betRepository->create($bet);
 
-        $response['data'] = $betFromDatabase;
+        $response['data'][] = $betFromDatabase;
 
         return new JsonResponse($response, 201);
     }

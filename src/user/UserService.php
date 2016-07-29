@@ -46,7 +46,7 @@ class UserService
      */
     public function getById($userId)
     {
-        $response['data'] = $this->userRepository->getById($userId);
+        $response['data'][] = $this->userRepository->getById($userId);
         return new JsonResponse($response);
     }
 
@@ -66,7 +66,7 @@ class UserService
 
         $userFromDatabase = $this->userRepository->create($user);
 
-        $response['data'] = $userFromDatabase;
+        $response['data'][] = $userFromDatabase;
 
         return new JsonResponse($response, 201);
     }

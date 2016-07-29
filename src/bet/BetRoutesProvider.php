@@ -36,6 +36,7 @@ class BetRoutesProvider implements ControllerProviderInterface
          */
         $controllers->get('/', 'service.bet:getList');
 
+
         /**
          * @SWG\Get(
          *     path="/bet/{userId},{lobbyId}",
@@ -111,7 +112,7 @@ class BetRoutesProvider implements ControllerProviderInterface
          *          )
          *      ),
          *     @SWG\Response(
-         *          response="200",
+         *          response="201",
          *          description="The created Bet",
          *          @SWG\Schema(
          *              ref="#/definitions/Bet"

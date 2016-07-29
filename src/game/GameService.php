@@ -46,7 +46,7 @@ class GameService
      */
     public function getById($gameId)
     {
-        $result['data'] = $this->gameRepository->getById($gameId);
+        $result['data'][] = $this->gameRepository->getById($gameId);
         return new JsonResponse($result);
     }
 
@@ -59,7 +59,7 @@ class GameService
      */
     public function getByGenre($genre)
     {
-        $result['data'] = $this->gameRepository->getByGenre($genre);
+        $result['data'][] = $this->gameRepository->getByGenre($genre);
         return new JsonResponse($result);
     }
 
@@ -78,7 +78,7 @@ class GameService
 
         $gameFromDatabase = $this->gameRepository->create($game);
 
-        $response['data'] = $gameFromDatabase;
+        $response['data'][] = $gameFromDatabase;
 
         return new JsonResponse($response, 201);
     }

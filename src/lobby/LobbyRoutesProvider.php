@@ -127,7 +127,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *          )
          *     ),
          *     @SWG\Response(
-         *          response="200",
+         *          response="201",
          *          description="The created Lobby",
          *          @SWG\Schema(
          *              ref="#/definitions/Lobby"

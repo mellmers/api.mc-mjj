@@ -45,7 +45,7 @@ class LobbyService
      */
     public function getById($lobbyId)
     {
-        $result['data'] = $this->lobbyRepository->getById($lobbyId);
+        $result['data'][] = $this->lobbyRepository->getById($lobbyId);
         return new JsonResponse($result);
     }
 
@@ -58,7 +58,7 @@ class LobbyService
      */
     public function getByIdWithAllUsers($lobbyId)
     {
-        $result['data'] = $this->lobbyRepository->getByIdWithAllUsers($lobbyId);
+        $result['data'][] = $this->lobbyRepository->getByIdWithAllUsers($lobbyId);
         return new JsonResponse($result);
     }
 
@@ -71,7 +71,7 @@ class LobbyService
      */
     public function getByOwnerId($userId)
     {
-        $result['data'] = $this->lobbyRepository->getByOwnerId($userId);
+        $result['data'][] = $this->lobbyRepository->getByOwnerId($userId);
         return new JsonResponse($result);
     }
 
@@ -84,7 +84,7 @@ class LobbyService
      */
     public function getByGameId($gameId)
     {
-        $result['data'] = $this->lobbyRepository->getByGameId($gameId);
+        $result['data'][] = $this->lobbyRepository->getByGameId($gameId);
         return new JsonResponse($result);
     }
 
@@ -104,7 +104,7 @@ class LobbyService
 
         $lobbyFromDatabase = $this->lobbyRepository->create($lobby);
 
-        $response['data'] = $lobbyFromDatabase;
+        $response['data'][] = $lobbyFromDatabase;
 
         return new JsonResponse($response, 201);
     }

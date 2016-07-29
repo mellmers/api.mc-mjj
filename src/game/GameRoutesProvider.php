@@ -92,7 +92,7 @@ class GameRoutesProvider implements ControllerProviderInterface
          *          )
          *      ),
          *     @SWG\Response(
-         *          response="200",
+         *          response="201",
          *          description="The created Game",
          *          @SWG\Schema(ref="#/definitions/Game"))
          *     )

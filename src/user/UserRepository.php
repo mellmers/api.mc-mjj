@@ -64,11 +64,11 @@ EOS;
     /**
      * @param User $user
      *
-     * @return array
+     * @return User
      */
     public function create(User $user)
     {
-        $result = [];
+        $result = null;
 
         if(empty($user->getUsername())) {
             $this->app->abort(400, 'A User needs a username');
@@ -98,7 +98,7 @@ EOS;
     /**
      * @param $userId
      *
-     * @return array
+     * @return User
      */
     public function getById($userId)
     {
@@ -108,13 +108,13 @@ FROM `{$this->getTableName()}` o
 WHERE o.id = :id
 EOS;
 
-        $result = [];
+        $result = null;
 
         $users = $this->connection->fetchAll($sql, ['id' => $userId]);
         if (count($users) === 0) {
             $this->app->abort(400, "User with id $userId does not exist.");
         } else {
-            $result[] = User::createFromArray($users[0]);
+            $result = User::createFromArray($users[0]);
         }
         return $result;
     }

@@ -113,7 +113,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *          )
          *      ),
          *     @SWG\Response(
-         *          response="200",
+         *          response="201",
          *          description="The created Game Account",
          *          @SWG\Schema(
          *              ref="#/definitions/GameAccount"

@@ -46,7 +46,7 @@ class GameAccountService
      */
     public function getByIdAndType($userId, $gameAccountTypeId)
     {
-        $result['data'] = $this->gameAccountRepository->getByIdAndType($userId, $gameAccountTypeId);
+        $result['data'][] = $this->gameAccountRepository->getByIdAndType($userId, $gameAccountTypeId);
         return new JsonResponse($result);
     }
 
@@ -59,7 +59,7 @@ class GameAccountService
      */
     public function getByUserId($userId)
     {
-        $result['data'] = $this->gameAccountRepository->getByUserId($userId);
+        $result['data'][] = $this->gameAccountRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
@@ -72,7 +72,7 @@ class GameAccountService
      */
     public function getByTypeId($gameAccountTypeId)
     {
-        $result['data'] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
+        $result['data'][] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
         return new JsonResponse($result);
     }
 
@@ -91,7 +91,7 @@ class GameAccountService
 
         $gameAccountFromDatabase = $this->gameAccountRepository->create($gameAccount);
 
-        $response['data'] = $gameAccountFromDatabase;
+        $response['data'][] = $gameAccountFromDatabase;
 
         return new JsonResponse($response, 201);
     }

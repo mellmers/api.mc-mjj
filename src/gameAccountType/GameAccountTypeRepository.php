@@ -40,14 +40,12 @@ SELECT *
 FROM `{$this->getTableName()}`
 EOS;
 
-        $gameAccountTypes = $this->connection->fetchAll($sql);
-
         $result = [];
 
+        $gameAccountTypes = $this->connection->fetchAll($sql);
         foreach ($gameAccountTypes as $gameAccountType) {
             $result[] = GameAccountType::createFromArray($gameAccountType);
         }
-
         return $result;
     }
 
@@ -56,16 +54,16 @@ EOS;
      */
     public function getTableName()
     {
-        return 'gameaccounttype';
+        return 'gameaccountType';
     }
 
     /**
      * @param GameAccountType $gameAccountType
-     * @return array
+     * @return GameAccountType
      */
-    public function create(GameAccountType $gameAccountType)
+    public function create($gameAccountType)
     {
-        $result = [];
+        $result = null;
 
         if (empty($gameAccountType->getName())) {
             $this->app->abort(400, 'A gameaccounttype need a name');
@@ -87,7 +85,7 @@ EOS;
 
     /**
      * @param $id
-     * @return array
+     * @return GameAccountType
      */
     public function getById($id)
     {
@@ -97,13 +95,13 @@ FROM `{$this->getTableName()}` gat
 WHERE gat.id = :id
 EOS;
 
-        $result = [];
+        $result = null;
 
         $gameAccountTypes = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($gameAccountTypes) === 0) {
             $this->app->abort(400, "GameAccountType with id $id does not exist!");
         } else {
-            $result[] = GameAccountType::createFromArray($gameAccountTypes[0]);
+            $result = GameAccountType::createFromArray($gameAccountTypes[0]);
         }
         return $result;
     }

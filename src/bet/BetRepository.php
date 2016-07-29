@@ -42,12 +42,14 @@ SELECT *
 FROM `{$this->getTableName()}`
 EOS;
 
-        $bets = $this->connection->fetchAll($sql);
         $result = [];
-        foreach ($bets as $bet) {
+
+        $bets = $this->connection->fetchAll($sql);
+        foreach ($bets as $key) {
+            $bet = Bet::createFromArray($key);
             $bet = $this->loadUser($bet);
             $bet = $this->loadLobby($bet);
-            $result[] = Bet::createFromArray($bet);
+            $result[] = $bet;
         }
         return $result;
     }
@@ -61,32 +63,32 @@ EOS;
     }
 
     /**
-     * @param array $bet
-     * @return array
+     * @param Bet $bet
+     * @return Bet
      */
-    private function loadUser(array $bet)
+    private function loadUser($bet)
     {
         $userRepo = new UserRepository($this->app, $this->connection);
-        $userResult = $userRepo->getById($bet['userId']);
-        $bet['user'] = $userResult;
+        $user = $userRepo->getById($bet->getUserId());
+        $bet->setUser($user);
         return $bet;
     }
 
     /**
-     * @param array $bet
-     * @return array
+     * @param Bet $bet
+     * @return Bet
      */
-    private function loadLobby(array $bet)
+    private function loadLobby($bet)
     {
         $lobbyRepo = new LobbyRepository($this->app, $this->connection);
-        $lobbyResult = $lobbyRepo->getById($bet['lobbyId']);
-        $bet['lobby'] = $lobbyResult;
+        $lobby = $lobbyRepo->getById($bet->getLobbyId());
+        $bet->setLobby($lobby);
         return $bet;
     }
 
     /**
      * @param $lobbyId
-     * @return Bet[]
+     * @return array
      */
     public function getByLobbyId($lobbyId)
     {
@@ -96,24 +98,26 @@ FROM `{$this->getTableName()}` b
 WHERE  b.lobbyId = :lobbyId
 EOS;
 
+        $result = [];
+
         $bets = $this->connection->fetchAll($sql, ['lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "Lobby with id $lobbyId has no bets.");
         }
         else {
-            $result = [];
-            foreach ($bets as $bet) {
+            foreach ($bets as $key) {
+                $bet = Bet::createFromArray($key);
                 $bet = $this->loadUser($bet);
                 $bet = $this->loadLobby($bet);
-                $result[] = Bet::createFromArray($bet);
+                $result[] = $bet;
             }
-            return $result;
         }
+        return $result;
     }
 
     /**
      * @param $userId
-     * @return array
+     * @return Bet
      */
     public function getByUserId($userId)
     {
@@ -123,19 +127,21 @@ FROM `{$this->getTableName()}` b
 WHERE b.userId = :userId
 EOS;
 
+        $result = null;
+
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "User with id $userId has no bets.");
         }
         else {
-            $result = [];
-            foreach ($bets as $bet) {
+            foreach ($bets as $key) {
+                $bet = Bet::createFromArray($key);
                 $bet = $this->loadUser($bet);
                 $bet = $this->loadLobby($bet);
-                $result[] = Bet::createFromArray($bet);
+                $result = $bet;
             }
-            return $result;
         }
+        return $result;
     }
 
     /**
@@ -144,6 +150,8 @@ EOS;
      */
     public function create(Bet $bet)
     {
+        $result = null;
+
         if(empty($bet->getUserId()) && empty($bet->getLobbyId())) {
             $this->app->abort(400, 'A bet needs a lobbyId and a userId');
         } else {
@@ -157,8 +165,9 @@ EOS;
 
             $this->connection->insert("`{$this->getTableName()}`", $data);
 
-            return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
+            $result = $this->getByIds($bet->getUserId(), $bet->getLobbyId());
         }
+        return $result;
     }
 
     /**
@@ -174,14 +183,18 @@ FROM `{$this->getTableName()}` b
 WHERE b.userId = :userId AND b.lobbyId = :lobbyId
 EOS;
 
+        $result = null;
+
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
         if (count($bets) === 0) {
             $this->app->abort(400, "Bet with userId $userId does not exist.");
         }
         else {
-            $bets[0] = $this->loadUser($bets[0]);
-            $bets[0] = $this->loadLobby($bets[0]);
-            return Bet::createFromArray($bets[0]);
+            $bet = Bet::createFromArray($bets[0]);
+            $bet = $this->loadUser($bet);
+            $bet = $this->loadLobby($bet);
+            $result = $bet;
         }
+        return $result;
     }
 }
