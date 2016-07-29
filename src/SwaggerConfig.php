@@ -69,7 +69,7 @@
  *         @SWG\Property(property="id", type="string"),
  *         @SWG\Property(property="ownerId", type="string"),
  *         @SWG\Property(property="gameId", type="string"),
- *         @SWG\Property(property="winnerteam",  type="string"),
+ *         @SWG\Property(property="winnerTeam",  type="integer"),
  *         @SWG\Property(property="createdAt", type="boolean"),
  *         @SWG\Property(property="starttime",  type="string"),
  *         @SWG\Property(property="endtime", type="integer"),

@@ -190,7 +190,6 @@ EOS;
             }
         }
 
-        var_dump($lobby);
         $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
         $result = $this->getById($lobby->getId());
 

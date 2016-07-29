@@ -238,7 +238,7 @@ class Lobby implements \JsonSerializable
      */
     public function setWinnerTeam($winnerTeam)
     {
-        $this->winnerTeam = (int)$winnerTeam;
+        $this->winnerTeam = intval($winnerTeam);
     }
 
     /**
