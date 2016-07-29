@@ -16,12 +16,9 @@ class BetRepository
 {
     /** @var  Application\*/
     private $app;
+
     /** @var  Connection */
     private $connection;
-    /** @var  UserRepository */
-    private $userRepo;
-    /** @var  LobbyRepository */
-    private $lobbyRepo;
 
     /**
      * BetRepository constructor.
@@ -33,8 +30,6 @@ class BetRepository
     {
         $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($app, $connection);
-        $this->lobbyRepo = new LobbyRepository($app, $connection);
     }
 
     /**
@@ -66,30 +61,32 @@ EOS;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadUser(array $bet)
     {
-        $userResult = $this->userRepo->getById($bet['userId']);
+        $userRepo = new UserRepository($this->app, $this->connection);
+        $userResult = $userRepo->getById($bet['userId']);
         $bet['user'] = $userResult;
         return $bet;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadLobby(array $bet)
     {
-        $lobbyResult = $this->lobbyRepo->getById($bet['lobbyId']);
+        $lobbyRepo = new LobbyRepository($this->app, $this->connection);
+        $lobbyResult = $lobbyRepo->getById($bet['lobbyId']);
         $bet['lobby'] = $lobbyResult;
         return $bet;
     }
 
     /**
      * @param $lobbyId
-     * @return array
+     * @return Bet[]
      */
     public function getByLobbyId($lobbyId)
     {
@@ -143,6 +140,7 @@ EOS;
 
     /**
      * @param Bet $bet
+     * @return Bet
      */
     public function create(Bet $bet)
     {        //TODO Check if id gen is ok
