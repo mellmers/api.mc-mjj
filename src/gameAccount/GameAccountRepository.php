@@ -17,12 +17,9 @@ class GameAccountRepository
 {
     /** @var  Application\ */
     private $app;
+
     /** @var  Connection */
     private $connection;
-    /** @var  UserRepository */
-    private $userRepo;
-    /** @var  GameAccountTypeRepository */
-    private $gATRepo;
 
     /**
      * GameAccountRepository constructor.
@@ -34,8 +31,6 @@ class GameAccountRepository
     {
         $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($app, $connection);
-        $this->gATRepo = new GameAccountTypeRepository($app, $connection);
     }
 
     /**
@@ -75,7 +70,8 @@ EOS;
      */
     private function loadUser(array $gameAccount)
     {
-        $userResult = $this->userRepo->getById($gameAccount['userId']);
+        $userRepo = new UserRepository($this->app, $this->connection);
+        $userResult = $userRepo->getById($gameAccount['userId']);
         $gameAccount['user'] = $userResult;
         return $gameAccount;
     }
@@ -86,7 +82,8 @@ EOS;
      */
     private function loadGameAccountType(array $gameAccount)
     {
-        $gATResult = $this->gATRepo->getById($gameAccount['gameaccountTypeId']);
+        $gATRepo = new GameAccountTypeRepository($this->app, $this->connection);
+        $gATResult = $gATRepo->getById($gameAccount['gameaccountTypeId']);
         $gameAccount['gameaccountType'] = $gATResult;
         return $gameAccount;
     }

@@ -67,7 +67,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *          response="200",
          *          description="The Lobby with the specified ID and all its Users",
          *          @SWG\Schema(
-         *              ref="#/definitions/LobbyWithAllUsers"
+         *              ref="#/definitions/Lobby"
          *          )
          *      )
          * )

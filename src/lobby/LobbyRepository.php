@@ -17,12 +17,9 @@ class LobbyRepository
 {
     /** @var  Application\ */
     private $app;
+
     /** @var  Connection */
     private $connection;
-    /** @var  UserRepository */
-    private $userRepo;
-    /** @var  GameRepository */
-    private $gameRepo;
 
     /**
      * LobbyRepository constructor.
@@ -34,8 +31,6 @@ class LobbyRepository
     {
         $this->app = $app;
         $this->connection = $connection;
-        $this->userRepo = new UserRepository($app, $connection);
-        $this->gameRepo = new GameRepository($app, $connection);
     }
 
     /**
@@ -73,7 +68,8 @@ EOS;
      */
     private function loadUser(array $lobby)
     {
-        $userResult = $this->userRepo->getById($lobby['ownerId']);
+        $userRepo = new UserRepository($this->app, $this->connection);
+        $userResult = $userRepo->getById($lobby['ownerId']);
         $lobby['owner'] = $userResult;
         return $lobby;
     }
@@ -84,7 +80,8 @@ EOS;
      */
     private function loadGame(array $lobby)
     {
-        $gameResult = $this->gameRepo->getById($lobby['gameId']);
+        $gameRepo = new GameRepository($this->app, $this->connection);
+        $gameResult = $gameRepo->getById($lobby['gameId']);
         $lobby['game'] = $gameResult;
         return $lobby;
     }
@@ -193,21 +190,30 @@ EOS;
 
     /**
      * @param $lobbyId
-     * @return array
+     * @return Lobby
      */
     public function getByIdWithAllUsers($lobbyId)
     {
         $lobby = $this->getById($lobbyId);
+        $lobby = $this->loadUsers($lobby);
+        return $lobby;
+    }
+
+    /**
+     * @param Lobby $lobby
+     * @return Lobby
+     */
+    private function loadUsers(Lobby $lobby)
+    {
         $betRepo = new BetRepository($this->app, $this->connection);
-        $betsOfLobby = $betRepo->getByLobbyId($lobbyId);
+        $betsOfLobby = $betRepo->getByLobbyId($lobby->getId());
         $usersOfLobby = [];
         foreach ($betsOfLobby as $bet) {
             $userId = $bet->getUserId();
-            $usersOfLobby[] = $this->userRepo->getById($userId);
+            $userRepo = new UserRepository($this->app, $this->connection);
+            $usersOfLobby[] = $userRepo->getById($userId);
         }
-        $result = [];
-        $result['lobby'] = $lobby;
-        $result['users'] = $usersOfLobby;
-        return $result;
+        $lobby->setUsers($usersOfLobby);
+        return $lobby;
     }
 }
