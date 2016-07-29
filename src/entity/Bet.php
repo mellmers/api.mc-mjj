@@ -82,7 +82,7 @@ class Bet implements \JsonSerializable
             'userPath' => $this->userPath,
             'user' => $this->user,
             'lobbyId' => $this->lobbyId,
-            'lobby_path' => $this->lobbyPath,
+            'lobbyPath' => $this->lobbyPath,
             'lobby' => $this->lobby,
             'amount' => $this->amount,
             'team' => $this->team,
