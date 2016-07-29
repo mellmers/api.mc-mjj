@@ -19,3 +19,4 @@ coverage/
 # composer download
 vendor/
 
+swaggerUI/
