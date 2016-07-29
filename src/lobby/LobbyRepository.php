@@ -161,7 +161,7 @@ EOS;
             $date = new DateTime();
             $lobby->setCreatedAt($date->getTimestamp());
             $data = $lobby->jsonSerialize();
-            unset($data['owner_path'], $data['owner'], $data['game_path'], $data['game'], $data['starttime'], $data['endtime']);
+            unset($data['ownerPath'], $data['owner'], $data['gamePath'], $data['game'], $data['starttime'], $data['endtime']);
             foreach ($data as $key => $value) {
                 if (empty($value)) {
                     unset($data[$key]);
@@ -172,28 +172,6 @@ EOS;
 
             $result = $this->getById($lobby->getId());
         }
-        return $result;
-    }
-
-
-    /**
-     * @param Lobby $lobby
-     * @return Lobby
-     */
-    public function update(Lobby $lobby)
-    {
-        $data = $lobby->jsonSerialize();
-        unset($data['owner_path'], $data['owner'], $data['game_path'], $data['game'], $data['starttime'], $data['endtime']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
-            }
-        }
-
-        var_dump($lobby);
-        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
-        $result = $this->getById($lobby->getId());
-
         return $result;
     }
 
@@ -220,6 +198,27 @@ EOS;
             $lobby = $this->loadGame($lobby);
             $result = $lobby;
         }
+        return $result;
+    }
+
+    /**
+     * @param Lobby $lobby
+     * @return Lobby
+     */
+    public function update(Lobby $lobby)
+    {
+        $data = $lobby->jsonSerialize();
+        unset($data['ownerPath'], $data['owner'], $data['gamePath'], $data['game'], $data['starttime'], $data['endtime']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        var_dump($lobby);
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
+        $result = $this->getById($lobby->getId());
+
         return $result;
     }
 

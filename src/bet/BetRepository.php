@@ -154,7 +154,7 @@ EOS;
             $this->app->abort(400, 'A bet needs a lobbyId and a userId');
         } else {
             $data = $bet->jsonSerialize();
-            unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+            unset($data['userPath'], $data['user'], $data['lobbyPath'], $data['lobby']);
             foreach ($data as $key => $value) {
                 if (empty($value)) {
                     unset($data[$key]);
@@ -204,7 +204,7 @@ EOS;
     public function update(Bet $bet)
     {
         $data = $bet->jsonSerialize();
-        unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+        unset($data['userPath'], $data['user'], $data['lobbyPath'], $data['lobby']);
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($data[$key]);
@@ -234,7 +234,7 @@ EOS;
         try {
             $this->connection->executeQuery($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
         } catch (\Doctrine\DBAL\DBALException $e) {
-            $this->app->abort(400, "bet with lobbyid $lobbyId and userid $userId does not exist.");
+            $this->app->abort(400, "Bet with lobbyId $lobbyId and userId $userId does not exist.");
         }
         return $bet;
     }
