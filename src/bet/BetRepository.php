@@ -160,6 +160,8 @@ EOS;
             return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
         }
     }
+    
+    
 
     /**
      * @param $userId

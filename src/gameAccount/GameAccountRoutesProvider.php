@@ -124,6 +124,30 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          */
         $controllers->post('/', 'service.gameAccount:create');
 
+        /**
+         * @SWG\Patch(
+         *     description="Updates a Game Account",
+         *     tags={"gameAccount"},
+         *     path="/gameAccount/",
+         *     @SWG\Parameter(
+         *          name="gameAccount",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccount"
+         *          )
+         *      ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Game Account",
+         *          @SWG\Schema(
+         *              ref="#/definitions/GameAccount"
+         *          )
+         *     )
+         * )
+         *
+         */
+        $controllers->patch('/', 'service.gameAccount:update');
+
         return $controllers;
     }
 }

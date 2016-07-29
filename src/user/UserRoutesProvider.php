@@ -80,6 +80,30 @@ class UserRoutesProvider implements ControllerProviderInterface
          */
         $controllers->post('/', 'service.user:create');
 
+
+        /**
+         * @SWG\Patch(
+         *     description="Creates an user",
+         *     tags={"user"},
+         *     path="/user/",
+         *     @SWG\Parameter(
+         *          name="user",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created User",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *      )
+         * )
+         */
+        $controllers->patch('/', 'service.user:update');
+
         return $controllers;
     }
 }

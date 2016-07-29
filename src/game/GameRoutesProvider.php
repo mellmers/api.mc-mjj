@@ -82,6 +82,7 @@ class GameRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Post(
+         *     description="Creates a Game",
          *     tags={"game"},
          *     path="/game/",
          *     @SWG\Parameter(
@@ -99,6 +100,29 @@ class GameRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->post('/', 'service.game:create');
+
+
+        /**
+         * @SWG\Patch(
+         *     description="Updates a Game",
+         *     tags={"game"},
+         *     path="/game/",
+         *     @SWG\Parameter(
+         *          name="game",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Game"
+         *          )
+         *      ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Game",
+         *          @SWG\Schema(ref="#/definitions/Game"))
+         *     )
+         * )
+         */
+        $controllers->patch('/', 'service.game:update');
+
 
         return $controllers;
     }
