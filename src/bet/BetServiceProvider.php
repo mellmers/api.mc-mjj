@@ -10,8 +10,6 @@ class BetServiceProvider implements ServiceProviderInterface
     /** {@inheritdoc} */
     public function register(Application $app)
     {
-        echo $app['db'];
-        $app['repo.bet'] = $app->share(new BetRepository($app, $app['db']));
         $app['repo.bet'] = $app->share(function (Application $app) {
             return new BetRepository($app, $app['db']);
         });

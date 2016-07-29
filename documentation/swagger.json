@@ -437,6 +437,26 @@
                 }
             }
         },
+        "/lobby/withAllUsers/{lobbyId}": {
+            "get": {
+                "tags": [
+                    "lobby"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/lobbyId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Lobby with the specified ID and all its Users",
+                        "schema": {
+                            "$ref": "#/definitions/Lobby"
+                        }
+                    }
+                }
+            }
+        },
         "/lobby/byOwnerId/{userId}": {
             "get": {
                 "tags": [
@@ -665,6 +685,9 @@
                     "type": "string"
                 },
                 "endtime": {
+                    "type": "integer"
+                },
+                "users": {
                     "type": "integer"
                 }
             }
