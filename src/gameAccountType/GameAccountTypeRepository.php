@@ -102,6 +102,7 @@ EOS;
         if (count($gameAccountTypes) === 0) {
             $this->app->abort(400, "GameAccountType with id $id does not exist!");
         }
-        return GameAccountType::createFromArray($gameAccountTypes[0]);
+        else
+            return GameAccountType::createFromArray($gameAccountTypes[0]);
     }
 }

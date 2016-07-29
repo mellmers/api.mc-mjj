@@ -107,13 +107,15 @@ EOS;
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "User with id $userId has no GameAccounts.");
         }
-        $result = [];
-        foreach ($gameAccounts as $gameAccount) {
-            $gameAccount = $this->loadUser($gameAccount);
-            $gameAccount = $this->loadGameAccountType($gameAccount);
-            $result[] = GameAccount::createFromArray($gameAccount);
+        else {
+            $result = [];
+            foreach ($gameAccounts as $gameAccount) {
+                $gameAccount = $this->loadUser($gameAccount);
+                $gameAccount = $this->loadGameAccountType($gameAccount);
+                $result[] = GameAccount::createFromArray($gameAccount);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -132,13 +134,15 @@ EOS;
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "GameAccounts type id $gameAccountTypeId has no GameAccounts.");
         }
-        $result = [];
-        foreach ($gameAccounts as $gameAccount) {
-            $gameAccount = $this->loadUser($gameAccount);
-            $gameAccount = $this->loadGameAccountType($gameAccount);
-            $result[] = GameAccount::createFromArray($gameAccount);
+        else {
+            $result = [];
+            foreach ($gameAccounts as $gameAccount) {
+                $gameAccount = $this->loadUser($gameAccount);
+                $gameAccount = $this->loadGameAccountType($gameAccount);
+                $result[] = GameAccount::createFromArray($gameAccount);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -184,9 +188,11 @@ EOS;
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "GameAccount with id $userId and type $gameaccountTypeId does not exist.");
         }
-        $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
-        $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);
-        return GameAccount::createFromArray($gameAccounts[0]);
+        else {
+            $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
+            $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);
+            return GameAccount::createFromArray($gameAccounts[0]);
+        }
     }
 
 }

@@ -75,11 +75,13 @@ EOS;
         if (count($games) === 0) {
             $this->app->abort(400, 'No games with the genre: ' . $genre);
         }
-        $result = [];
-        foreach ($games as $game) {
-            $result[] = Game::createFromArray($game);
+        else {
+            $result = [];
+            foreach ($games as $game) {
+                $result[] = Game::createFromArray($game);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
@@ -125,7 +127,9 @@ EOS;
         if (count($games) === 0) {
             $this->app->abort(400, "Game with id $id does not exist!");
         }
-        $result[] = Game::createFromArray($games[0]);
-        return $result;
+        else {
+            $result[] = Game::createFromArray($games[0]);
+            return $result;
+        }
     }
 }

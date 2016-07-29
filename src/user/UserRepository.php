@@ -103,7 +103,7 @@ EOS;
         if (count($users) === 0) {
             $this->app->abort(400, "User with id $userId does not exist.");
         }
-
-        return User::createFromArray($users[0]);
+        else
+            return User::createFromArray($users[0]);
     }
 }
