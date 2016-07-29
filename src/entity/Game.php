@@ -16,7 +16,7 @@ class Game implements \JsonSerializable
     /**
      * @var string
      */
-    private $typ;
+    private $type;
     /**
      * @var string
      */
@@ -43,8 +43,8 @@ class Game implements \JsonSerializable
         if (array_key_exists('name', $row)) {
             $game->setName($row['name']);
         }
-        if (array_key_exists('typ', $row)) {
-            $game->setTyp($row['typ']);
+        if (array_key_exists('type', $row)) {
+            $game->setType($row['type']);
         }
         if (array_key_exists('icon', $row)) {
             $game->setIcon($row['icon']);
@@ -70,8 +70,9 @@ class Game implements \JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'typ' => $this->typ,
+            'type' => $this->type,
             'icon' => $this->icon,
+            'genre' => $this->genre,
             'rules' => $this->rules,
             'timelimit' => $this->timelimit,
         ];
@@ -112,17 +113,17 @@ class Game implements \JsonSerializable
     /**
      * @return string
      */
-    public function getTyp()
+    public function getType()
     {
-        return $this->typ;
+        return $this->type;
     }
 
     /**
-     * @param string $typ
+     * @param string $type
      */
-    public function setTyp($typ)
+    public function setType($type)
     {
-        $this->typ = $typ;
+        $this->type = $type;
     }
     
 

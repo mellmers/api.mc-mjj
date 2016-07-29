@@ -93,7 +93,7 @@ EOS;
 
         if (isEmpty($game->getName())) {
             $this->app->abort(400, 'A game need a name');
-        } else if(isEmpty($game->getTyp())) {
+        } else if(isEmpty($game->getType())) {
             $this->app->abort(400, 'A game need a type');
         } else if(isEmpty($game->getRules())) {
             $this->app->abort(400, 'A game need rules');

@@ -23,7 +23,7 @@ USE `project-x` ;
 CREATE TABLE IF NOT EXISTS `project-x`.`game` (
   `id` VARCHAR(255) NOT NULL COMMENT '',
   `name` VARCHAR(255) NOT NULL COMMENT '',
-  `typ` VARCHAR(255) NOT NULL COMMENT '',
+  `type` VARCHAR(255) NOT NULL COMMENT '',
   `icon` VARCHAR(255) NULL COMMENT '',
   `rules` TEXT NOT NULL COMMENT '',
   `genre` VARCHAR(255) NOT NULL COMMENT '',
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `project-x`.`lobby` (
   `id` VARCHAR(255) NOT NULL COMMENT '',
   `ownerId` VARCHAR(255) NOT NULL COMMENT '',
   `gameId` VARCHAR(255) NOT NULL COMMENT '',
-  `winnerteam` TINYINT UNSIGNED NULL COMMENT '',
+  `winnerTeam` TINYINT UNSIGNED NULL COMMENT '',
   `createdAt` INT UNSIGNED NOT NULL COMMENT '',
   `starttime` INT UNSIGNED NULL COMMENT '',
   `endtime` INT UNSIGNED NULL COMMENT '',
@@ -195,7 +195,7 @@ INSERT INTO `bet` (`userId`, `lobbyId`, `amount`, `team`) VALUES
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)
 /*!40000 ALTER TABLE `game` DISABLE KEYS */;
-INSERT INTO `game` (`id`, `name`, `typ`, `icon`, `rules`, `genre`, `timelimit`) VALUES
+INSERT INTO `game` (`id`, `name`, `type`, `icon`, `rules`, `genre`, `timelimit`) VALUES
 	('f12e4109-d5b1-49c4-afeb-6cfaa922a2ae', 'League of Legends', '5vs5', NULL, 'Create custom game invite all players', 'moba', '10800'),
 	('57800c4f-b55b-40c8-98f0-18233c236685', 'League of Legends', '1vs1', NULL, 'Create custom game and invite enemy', 'moba', '7200');
 /*!40000 ALTER TABLE `game` ENABLE KEYS */;
@@ -220,7 +220,7 @@ INSERT INTO `gameaccountType` (`id`, `name`, `icon`) VALUES
 
 -- Dumping data for table project-x.lobby: ~1 rows (approximately)
 /*!40000 ALTER TABLE `lobby` DISABLE KEYS */;
-INSERT INTO `lobby` (`id`, `ownerId`, `gameId`, `winnerteam`, `createdAt`, `starttime`, `endtime`) VALUES
+INSERT INTO `lobby` (`id`, `ownerId`, `gameId`, `winnerTeam`, `createdAt`, `starttime`, `endtime`) VALUES
 	('6379109b-6e6c-4353-b5f3-ea007e48bfe3', '1a91241e-2a8b-44b2-89fa-114d4879e2e9', 'f12e4109-d5b1-49c4-afeb-6cfaa922a2ae', NULL, 1469389720, NULL, NULL);
 /*!40000 ALTER TABLE `lobby` ENABLE KEYS */;
 
