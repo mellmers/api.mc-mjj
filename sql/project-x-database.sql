@@ -189,8 +189,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Dumping data for table project-x.bet: ~2 rows (approximately)
 /*!40000 ALTER TABLE `bet` DISABLE KEYS */;
 INSERT INTO `bet` (`userId`, `lobbyId`, `amount`, `team`) VALUES
-	('e46f9777eccf37189d5e3e7c4173b0e3', 1, 500, 0),
-	('8b2ca685515eb967ccf945070ed0207f', 1, 500, 1);
+	('e46f9777eccf37189d5e3e7c4173b0e3', '6602d1161f805becdc0ccb110c379ee5', 500, 0),
+	('8b2ca685515eb967ccf945070ed0207f', '6602d1161f805becdc0ccb110c379ee5', 500, 1);
 /*!40000 ALTER TABLE `bet` ENABLE KEYS */;
 
 -- Dumping data for table project-x.game: ~2 rows (approximately)
@@ -234,8 +234,8 @@ INSERT INTO `user` (`id`, `createdAt`, `email`, `username`, `trusted`, `password
 -- Dumping data for table project-x.user: ~2 rows (approximately)
 /*!40000 ALTER TABLE `screenshot` DISABLE KEYS */;
 INSERT INTO `screenshot` (`id`, `lobbyId`, `source`) VALUES
-	('3f7c652823db57cee604a66a127ef09f', 0, 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
-    ('6aaf999daf9853de66fd8ab641b3d372', 0, 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
+	('3f7c652823db57cee604a66a127ef09f', '6602d1161f805becdc0ccb110c379ee5', 'http://images.akamai.steamusercontent.com/ugc/362903713110000756/572369BEB6DA8B6832E704132D86B900B0CD1026/'),
+    ('6aaf999daf9853de66fd8ab641b3d372', '6602d1161f805becdc0ccb110c379ee5', 'http://images.akamai.steamusercontent.com/ugc/281847490916288370/EE7BFE30892DC177BF637A2306F31A7110664233/');
 /*!40000 ALTER TABLE `screenshot` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
