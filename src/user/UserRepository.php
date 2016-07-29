@@ -45,7 +45,6 @@ EOS;
         $users = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($users);
 
         foreach ($users as $user) {
             $result[] = User::createFromArray($user);
@@ -65,7 +64,7 @@ EOS;
     /**
      * @param User $user
      *
-     * @return User
+     * @return array
      */
     public function create(User $user)
     {
@@ -88,7 +87,7 @@ EOS;
     /**
      * @param $userId
      *
-     * @return User
+     * @return array
      */
     public function getById($userId)
     {
@@ -103,6 +102,8 @@ EOS;
             $this->app->abort(400, "User with id $userId does not exist.");
         }
 
-        return User::createFromArray($users[0]);
+        $result[] = User::createFromArray($users[0]);
+
+        return $result;
     }
 }

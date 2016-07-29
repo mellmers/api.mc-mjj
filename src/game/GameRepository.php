@@ -60,7 +60,8 @@ EOS;
     }
 
     /**
-     * @param $gameId
+     * @param $id
+     *
      * @return array
      */
     public function getById($id)
@@ -81,6 +82,7 @@ EOS;
 
     /**
      * @param $genre
+     *
      * @return array
      */
     public function getByGenre($genre)
