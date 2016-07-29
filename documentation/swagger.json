@@ -50,7 +50,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created Bet",
                         "schema": {
                             "$ref": "#/definitions/Bet"
@@ -206,7 +206,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created Game",
                         "schema": {
                             "$ref": "#/definitions/Game"
@@ -333,7 +333,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created Game Account",
                         "schema": {
                             "$ref": "#/definitions/GameAccount"
@@ -488,7 +488,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created GameAccountType",
                         "schema": {
                             "$ref": "#/definitions/GameAccountType"
@@ -581,7 +581,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created Lobby",
                         "schema": {
                             "$ref": "#/definitions/Lobby"
@@ -754,7 +754,7 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "The created User",
                         "schema": {
                             "$ref": "#/definitions/User"
@@ -949,8 +949,8 @@
                 "gameId": {
                     "type": "string"
                 },
-                "winnerteam": {
-                    "type": "string"
+                "winnerTeam": {
+                    "type": "tinyint"
                 },
                 "createdAt": {
                     "type": "boolean"

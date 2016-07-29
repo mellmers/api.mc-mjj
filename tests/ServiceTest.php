@@ -5,6 +5,7 @@ use Doctrine\DBAL\Connection;
 class ServiceTests extends PHPUnit_Framework_TestCase
 {
     private $noDataString = '{"data":[null]}';
+    private $emptyListString = '{"data":[]}';
 
     public function testBetService() {
         $connectionMock = $this->getMockBuilder(Connection::class)->disableOriginalConstructor()->getMock();
@@ -19,8 +20,8 @@ class ServiceTests extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($betService->getByUserId(1));
         $this->assertNotEmpty($betService->getByLobbyId(1));
 
-        $this->assertEquals($this->noDataString, $betService->getByUserId(-1)->getContent());
-        $this->assertEquals($this->noDataString, $betService->getByLobbyId(-1)->getContent());
+        $this->assertEquals($this->emptyListString, $betService->getByUserId(-1)->getContent());
+        $this->assertEquals($this->emptyListString, $betService->getByLobbyId(-1)->getContent());
     }
 
 
@@ -54,8 +55,8 @@ class ServiceTests extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($gameAccountService->getByUserId(1));
         $this->assertNotEmpty($gameAccountService->getByTypeId(1));
 
-        $this->assertEquals($this->noDataString, $gameAccountService->getByUserId(-1)->getContent());
-        $this->assertEquals($this->noDataString, $gameAccountService->getByTypeId(-1)->getContent());
+        $this->assertEquals($this->emptyListString, $gameAccountService->getByUserId(-1)->getContent());
+        $this->assertEquals($this->emptyListString, $gameAccountService->getByTypeId(-1)->getContent());
     }
 
 

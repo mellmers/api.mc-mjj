@@ -175,6 +175,26 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param Lobby $lobby
+     * @return Lobby
+     */
+    public function update(Lobby $lobby)
+    {
+        $data = $lobby->jsonSerialize();
+        unset($data['ownerPath'], $data['owner'], $data['gamePath'], $data['game'], $data['starttime'], $data['endtime']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
+
+        return $this->getById($lobby->getId());
+    }
+
     /**
      * @param $lobbyId
      * @return Lobby
@@ -198,27 +218,6 @@ EOS;
             $lobby = $this->loadGame($lobby);
             $result = $lobby;
         }
-        return $result;
-    }
-
-    /**
-     * @param Lobby $lobby
-     * @return Lobby
-     */
-    public function update(Lobby $lobby)
-    {
-        $data = $lobby->jsonSerialize();
-        unset($data['ownerPath'], $data['owner'], $data['gamePath'], $data['game'], $data['starttime'], $data['endtime']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
-            }
-        }
-
-        var_dump($lobby);
-        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $lobby->getId()]);
-        $result = $this->getById($lobby->getId());
-
         return $result;
     }
 
