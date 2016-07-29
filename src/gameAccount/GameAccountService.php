@@ -59,7 +59,7 @@ class GameAccountService
      */
     public function getByUserId($userId)
     {
-        $result['data'][] = $this->gameAccountRepository->getByUserId($userId);
+        $result['data'] = $this->gameAccountRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
@@ -72,7 +72,7 @@ class GameAccountService
      */
     public function getByTypeId($gameAccountTypeId)
     {
-        $result['data'][] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
+        $result['data'] = $this->gameAccountRepository->getByTypeId($gameAccountTypeId);
         return new JsonResponse($result);
     }
 

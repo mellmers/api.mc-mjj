@@ -49,7 +49,7 @@ EOS;
             $gameAccount = GameAccount::createFromArray($key);
             $gameAccount = $this->loadUser($gameAccount);
             $gameAccount = $this->loadGameAccountType($gameAccount);
-            $result = $gameAccount;
+            $result[] = $gameAccount;
         }
         return $result;
     }
@@ -88,7 +88,7 @@ EOS;
 
     /**
      * @param $userId
-     * @return GameAccount
+     * @return array
      */
     public function getByUserId($userId)
     {
@@ -98,7 +98,7 @@ FROM `{$this->getTableName()}` ga
 WHERE ga.userId = :userId
 EOS;
 
-        $result = null;
+        $result = [];
 
         $gameAccounts = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($gameAccounts) === 0) {
@@ -108,7 +108,7 @@ EOS;
                 $gameAccount = GameAccount::createFromArray($key);
                 $gameAccount = $this->loadUser($gameAccount);
                 $gameAccount = $this->loadGameAccountType($gameAccount);
-                $result = $gameAccount;
+                $result[] = $gameAccount;
             }
         }
         return $result;
@@ -116,7 +116,7 @@ EOS;
 
     /**
      * @param $gameAccountTypeId
-     * @return GameAccount
+     * @return array
      */
     public function getByTypeId($gameAccountTypeId)
     {
@@ -126,7 +126,7 @@ FROM `{$this->getTableName()}` ga
 WHERE ga.gameaccountTypeId = :gameAccountTypeId
 EOS;
 
-        $result = null;
+        $result = [];
 
         $gameAccounts = $this->connection->fetchAll($sql, ['gameAccountTypeId' => $gameAccountTypeId]);
         if (count($gameAccounts) === 0) {
@@ -136,7 +136,7 @@ EOS;
                 $gameAccount = GameAccount::createFromArray($key);
                 $gameAccount = $this->loadUser($gameAccount);
                 $gameAccount = $this->loadGameAccountType($gameAccount);
-                $result = $gameAccount;
+                $result[] = $gameAccount;
             }
         }
         return $result;
@@ -170,28 +170,6 @@ EOS;
         return $result;
     }
 
-
-    /**
-     * @param GameAccount $gameAccount
-     * @return GameAccount
-     */
-    public function update(GameAccount $gameAccount)
-    {
-        $result = [];
-        $data = $gameAccount->jsonSerialize();
-        unset($data['userPath'], $data['user'], $data['gameaccountTypePath'], $data['gameaccountType']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
-            }
-        }
-
-        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $gameAccount->getUserId(), "gameAccountTypeId" => $gameAccount->getGameAccountTypeId()]);
-
-        $result = $this->getByIdAndType($gameAccount->getUserId(), $gameAccount->getGameAccountTypeId());
-        return $result;
-    }
-
     /**
      * @param $userId
      * @param $gameaccountTypeId
@@ -216,6 +194,27 @@ EOS;
             $gameAccount = $this->loadGameAccountType($gameAccount);
             $result = $gameAccount;
         }
+        return $result;
+    }
+
+    /**
+     * @param GameAccount $gameAccount
+     * @return GameAccount
+     */
+    public function update(GameAccount $gameAccount)
+    {
+        $result = [];
+        $data = $gameAccount->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['gameaccountTypePath'], $data['gameaccountType']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $gameAccount->getUserId(), "gameAccountTypeId" => $gameAccount->getGameAccountTypeId()]);
+
+        $result = $this->getByIdAndType($gameAccount->getUserId(), $gameAccount->getGameAccountTypeId());
         return $result;
     }
 
