@@ -95,4 +95,18 @@ class GameAccountService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * GET /gameAccount/delete/{userId},{gameAccountTypeId}
+     *
+     * @param $userId
+     * @param $gameAccountTypeId
+     *
+     * @return JsonResponse
+     */
+    public function deleteGameAccount($userId, $gameAccountTypeId)
+    {
+        $result['data'] = $this->gameAccountRepository->deleteGameAccountType($userId, $gameAccountTypeId);
+        return new JsonResponse($result);
+    }
 }

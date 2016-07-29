@@ -121,6 +121,27 @@ class BetRoutesProvider implements ControllerProviderInterface
          */
         $controllers->post('/', 'service.bet:create');
 
+        /**
+         * @SWG\Get(
+         *     path="/bet/delete/{userId},{lobbyId}",
+         *     tags={"bet"},
+         *     @SWG\Parameter(
+         *          ref="#/parameters/userId"
+         *     ),
+         *     @SWG\Parameter(
+         *          ref="#/parameters/lobbyId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="Deletes the bet with the specified owner ID and lobby id",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Bet"
+         *          )
+         *     )
+         * )
+         */
+        $controllers->get('/delete/{userId},{lobbyId}', 'service.bet:deleteBet');
+
         return $controllers;
     }
 }

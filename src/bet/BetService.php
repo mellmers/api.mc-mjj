@@ -95,4 +95,18 @@ class BetService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * GET /bet/delete/{userId},{lobbyId}
+     *
+     * @param $userId
+     * @param $lobbyId
+     *
+     * @return JsonResponse
+     */
+    public function deleteBet($userId, $lobbyId)
+    {
+        $result['data'] = $this->betRepository->deleteBet($userId, $lobbyId);
+        return new JsonResponse($result);
+    }
 }

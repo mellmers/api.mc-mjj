@@ -56,7 +56,6 @@ class UserRoutesProvider implements ControllerProviderInterface
          */
         $controllers->get('/{userId}', 'service.user:getById');
 
-
         /**
          * @SWG\Post(
          *     description="Creates an user",
@@ -79,6 +78,24 @@ class UserRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->post('/', 'service.user:create');
+
+        /**
+         * @SWG\Get(
+         *     path="/user/delete/{userId}",
+         *     tags={"user"},
+         *     @SWG\Parameter(
+         *          ref="#/parameters/userId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The deleted User with the specified ID",
+         *          @SWG\Schema(
+         *              ref="#/definitions/User"
+         *          )
+         *     )
+         * )
+         */
+        $controllers->get('/delete/{userId}', 'service.user:deleteUser');
 
         return $controllers;
     }

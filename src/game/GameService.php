@@ -82,4 +82,17 @@ class GameService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * GET /game/delete/{gameId)
+     *
+     * @param $gameId
+     *
+     * @return JsonResponse
+     */
+    public function deleteGame($gameId)
+    {
+        $response['data'] = $this->gameRepository->deleteGame($gameId);
+        return new JsonResponse($response, 200);
+    }
 }

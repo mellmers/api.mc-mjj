@@ -14,7 +14,7 @@ use Silex\Application;
  */
 class BetRepository
 {
-    /** @var  Application\*/
+    /** @var  Application\ */
     private $app;
 
     /** @var  Connection */
@@ -181,5 +181,27 @@ EOS;
         $bets[0] = $this->loadUser($bets[0]);
         $bets[0] = $this->loadLobby($bets[0]);
         return Bet::createFromArray($bets[0]);
+    }
+
+    /**
+     * @param $userId
+     * @param $lobbyId
+     *
+     * @return Bet
+     */
+    public function deleteBet($userId, $lobbyId)
+    {
+        $bet = $this->getByIds($userId, $lobbyId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE userId = :userId AND lobbyId = :lobbyId
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['userId' => $userId, 'lobbyId' => $lobbyId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "bet with lobbyid $lobbyId and userid $userId does not exist.");
+        }
+        return $bet;
     }
 }

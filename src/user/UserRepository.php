@@ -43,7 +43,6 @@ EOS;
         $users = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($users);
 
         foreach ($users as $user) {
             $result[] = User::createFromArray($user);
@@ -68,15 +67,15 @@ EOS;
     public function create(User $user)
     {
         $userMail = $user->getEmail();
-        if(isset($userMail)) {
+        if (isset($userMail)) {
             $user->setId(md5($userMail));
         } else {
             $this->app->abort(400, 'A user needs a valid email address.');
         }
         $data = $user->jsonSerialize();
         unset($data['coins'], $data['trusted']);
-        foreach($data as $key => $value) {
-            if(empty($value)) {
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
                 unset($data[$key]);
             }
         }
@@ -94,9 +93,9 @@ EOS;
     public function getById($userId)
     {
         $sql = <<<EOS
-SELECT o.*
-FROM `{$this->getTableName()}` o
-WHERE o.id = :id
+SELECT u.*
+FROM `{$this->getTableName()}` u
+WHERE u.id = :id
 EOS;
 
         $users = $this->connection->fetchAll($sql, ['id' => $userId]);
@@ -105,5 +104,26 @@ EOS;
         }
 
         return User::createFromArray($users[0]);
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return User
+     */
+    public function deleteUser($userId)
+    {
+        $user = $this->getById($userId);
+        $sql = <<<EOS
+DELETE
+FROM `{$this->getTableName()}`
+WHERE id = :id
+EOS;
+        try {
+            $this->connection->executeQuery($sql, ['id' => $userId]);
+        } catch (\Doctrine\DBAL\DBALException $e) {
+            $this->app->abort(400, "User with id $userId does not exist.");
+        }
+        return $user;
     }
 }
