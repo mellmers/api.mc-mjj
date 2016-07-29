@@ -3,8 +3,8 @@
 namespace projectx\api\game;
 
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\Game;
-use Silex\Application;
 
 /**
  * Class GameRepository
@@ -75,29 +75,35 @@ EOS;
         if (count($games) === 0) {
             $this->app->abort(400, 'No games with the genre: ' . $genre);
         }
-        $result = [];
-        foreach ($games as $game) {
-            $result[] = Game::createFromArray($game);
+        else {
+            $result = [];
+            foreach ($games as $game) {
+                $result[] = Game::createFromArray($game);
+            }
+            return $result;
         }
-        return $result;
     }
 
     /**
      * @param Game $game
+     * @return array
      */
     public function create(Game $game)
     {
-        $name = $game->getName();
-        $typ = $game->getTyp();
-        $genre = $game->getGenre();
-        if (isset($name) && isset($typ) && isset($genre)) {
-            $game->setId(md5($name . $typ . $genre));
-        } else {
+        if (isEmpty($game->getName())) {
             $this->app->abort(400, 'A game need a name');
+        } else if(isEmpty($game->getTyp())) {
+            $this->app->abort(400, 'A game need a type');
+        } else if(isEmpty($game->getRules())) {
+            $this->app->abort(400, 'A game need rules');
+        }  else if(isEmpty($game->getGenre())) {
+            $this->app->abort(400, 'A game need a genre');
+        } else if(isEmpty($game->getTimelimit())) {
+            $this->app->abort(400, 'A game need a timelimit in seconds');
         }
 
+        $game->setId(Application::generateGUIDv4());
         $data = $game->jsonSerialize();
-        //unset($data['owner_path']);
         foreach ($data as $key => $value) {
             if (empty($value)) {
                 unset($data[$key]);
@@ -110,7 +116,7 @@ EOS;
     }
 
     /**
-     * @param $gameId
+     * @param $id
      * @return array
      */
     public function getById($id)
@@ -125,8 +131,10 @@ EOS;
         if (count($games) === 0) {
             $this->app->abort(400, "Game with id $id does not exist!");
         }
-        $result[] = Game::createFromArray($games[0]);
-        return $result;
+        else {
+            $result[] = Game::createFromArray($games[0]);
+            return $result;
+        }
     }
 
     /**

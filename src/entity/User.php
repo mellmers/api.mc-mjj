@@ -2,7 +2,6 @@
 
 namespace projectx\api\entity;
 
-use DateTime;
 use Swagger\Annotations as SWG;
 
 /**
@@ -56,9 +55,6 @@ class User implements \JsonSerializable
         }
         if (array_key_exists('createdAt', $row)) {
             $user->setCreatedAt($row['createdAt']);
-        } else {
-            $date = new DateTime();
-            $user->setCreatedAt($date->getTimestamp());
         }
         if (array_key_exists('email', $row)) {
             $user->setEmail($row['email']);

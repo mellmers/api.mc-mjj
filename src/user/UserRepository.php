@@ -2,9 +2,10 @@
 
 namespace projectx\api\user;
 
+use DateTime;
 use Doctrine\DBAL\Connection;
+use projectx\api\Application;
 use projectx\api\entity\User;
-use Silex\Application;
 
 /**
  * Class UserRepository
@@ -38,6 +39,7 @@ class UserRepository
         $sql = <<<EOS
 SELECT * 
 FROM `{$this->getTableName()}`
+ORDER BY createdAt
 EOS;
 
         $users = $this->connection->fetchAll($sql);
@@ -62,33 +64,41 @@ EOS;
     /**
      * @param User $user
      *
-     * @return User
+     * @return array
      */
     public function create(User $user)
     {
-        $userMail = $user->getEmail();
-        if (isset($userMail)) {
-            $user->setId(md5($userMail));
+        $result = [];
+
+        if(empty($user->getUsername())) {
+            $this->app->abort(400, 'A User needs a username');
+        } else if(empty($user->getEmail())) {
+            $this->app->abort(400, 'A User needs a email');
+        } else if(empty($user->getPassword())) {
+            $this->app->abort(400, 'A User needs a password');
         } else {
-            $this->app->abort(400, 'A user needs a valid email address.');
-        }
-        $data = $user->jsonSerialize();
-        unset($data['coins'], $data['trusted']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
+            $user->setId(Application::generateGUIDv4());
+            $date = new DateTime();
+            $user->setCreatedAt($date->getTimestamp());
+            $data = $user->jsonSerialize();
+            unset($data['coins'], $data['trusted']);
+            foreach($data as $key => $value) {
+                if(empty($value)) {
+                    unset($data[$key]);
+                }
             }
+
+            $this->connection->insert("`{$this->getTableName()}`", $data);
+
+            $result = $this->getById($user->getId());
         }
-
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-
-        return $this->getById($user->getId());
+        return $result;
     }
 
     /**
      * @param $userId
      *
-     * @return User
+     * @return array
      */
     public function getById($userId)
     {
@@ -98,12 +108,15 @@ FROM `{$this->getTableName()}` u
 WHERE u.id = :id
 EOS;
 
+        $result = [];
+
         $users = $this->connection->fetchAll($sql, ['id' => $userId]);
         if (count($users) === 0) {
             $this->app->abort(400, "User with id $userId does not exist.");
+        } else {
+            $result[] = User::createFromArray($users[0]);
         }
-
-        return User::createFromArray($users[0]);
+        return $result;
     }
 
     /**

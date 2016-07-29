@@ -115,7 +115,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
 
 
         /**
-         * @SWG\Post(         *
+         * @SWG\Post(
          *     description="Creates a Lobby",
          *     tags={"lobby"},
          *     path="/lobby/",
@@ -125,7 +125,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *          @SWG\Schema(
          *              ref="#/definitions/Lobby"
          *          )
-         *      )
+         *     ),
          *     @SWG\Response(
          *          response="200",
          *          description="The created Lobby",
@@ -156,6 +156,31 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * )
          */
         $controllers->get('/delete/{lobbyId}', 'service.lobby:deleteLobby');
+
+
+        /**
+         * @SWG\Patch(
+         *     description="Creates a Lobby",
+         *     tags={"lobby"},
+         *     path="/lobby/",
+         *     @SWG\Parameter(
+         *          name="lobby",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          )
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Lobby",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          )
+         *     )
+         * )
+         *
+         */
+        $controllers->patch('/', 'service.lobby:update');
 
         return $controllers;
     }
