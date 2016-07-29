@@ -5,7 +5,6 @@ namespace projectx\api\gameAccountType;
 use Doctrine\DBAL\Connection;
 use projectx\api\Application;
 use projectx\api\entity\GameAccountType;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameAccountTypeRepository
@@ -61,31 +60,34 @@ EOS;
     }
 
     /**
-     * @param JsonResponse
+     * @param GameAccountType $gameAccountType
+     * @return array
      */
     public function create(GameAccountType $gameAccountType)
     {
-        if (!isset($gameAccountType->getName())) {
+        $result = [];
+
+        if (empty($gameAccountType->getName())) {
             $this->app->abort(400, 'A gameaccounttype need a name');
-        }
-
-        $gameAccountType->setId(Application::generateGUIDv4());
-        $data = $gameAccountType->jsonSerialize();
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
+        } else {
+            $gameAccountType->setId(Application::generateGUIDv4());
+            $data = $gameAccountType->jsonSerialize();
+            foreach ($data as $key => $value) {
+                if (empty($value)) {
+                    unset($data[$key]);
+                }
             }
+
+            $this->connection->insert("`{$this->getTableName()}`", $data);
+
+            $result = $this->getById($gameAccountType->getId());
         }
-
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-
-        return $this->getById($gameAccountType->getId());
+        return $result;
     }
 
     /**
-     * @param $gameAccountTypeId"
-     *
-     * @return JsonResponse
+     * @param $id
+     * @return array
      */
     public function getById($id)
     {
@@ -95,12 +97,14 @@ FROM `{$this->getTableName()}` gat
 WHERE gat.id = :id
 EOS;
 
+        $result = [];
+
         $gameAccountTypes = $this->connection->fetchAll($sql, ['id' => $id]);
         if (count($gameAccountTypes) === 0) {
             $this->app->abort(400, "GameAccountType with id $id does not exist!");
+        } else {
+            $result[] = GameAccountType::createFromArray($gameAccountTypes[0]);
         }
-
-        $result[] = GameAccountType::createFromArray($gameAccountTypes[0]);
         return $result;
     }
 }

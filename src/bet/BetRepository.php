@@ -14,7 +14,7 @@ use projectx\api\user\UserRepository;
  */
 class BetRepository
 {
-    /** @var  Application*/
+    /** @var  Application */
     private $app;
     /** @var  Connection */
     private $connection;
@@ -66,7 +66,7 @@ EOS;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadUser(array $bet)
@@ -77,7 +77,7 @@ EOS;
     }
 
     /**
-     * @param array $betId
+     * @param array $bet
      * @return array
      */
     private function loadLobby(array $bet)
@@ -139,28 +139,25 @@ EOS;
 
     /**
      * @param Bet $bet
+     * @return Bet
      */
     public function create(Bet $bet)
-    {        //TODO Check if id gen is ok
-        $userId = $bet->getUserId();
-        $lobbyId = $bet->getLobbyId();
-        if (isset($userId) && isset($lobbyId)) {
-
+    {
+        if(empty($bet->getUserId()) && empty($bet->getLobbyId())) {
+            $this->app->abort(400, 'A bet needs a lobbyId and a userId');
         } else {
-            $this->app->abort(400, 'A bet needs a lobby id and a user id');
-        }
-
-        $data = $bet->jsonSerialize();
-        unset($data['user_path'], $data['user'], $data['lobby_path'], $data['lobby']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
+            $data = $bet->jsonSerialize();
+            unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+            foreach ($data as $key => $value) {
+                if (empty($value)) {
+                    unset($data[$key]);
+                }
             }
+
+            $this->connection->insert("`{$this->getTableName()}`", $data);
+
+            return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
         }
-
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-
-        return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
     }
 
     /**

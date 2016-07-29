@@ -84,19 +84,20 @@ EOS;
 
     /**
      * @param Game $game
+     * @return array
      */
     public function create(Game $game)
     {
-        if (!isset($game->getName())) {
+        if (isEmpty($game->getName())) {
             $this->app->abort(400, 'A game need a name');
-        } else if(!isset($game->getTyp())) {
+        } else if(isEmpty($game->getTyp())) {
             $this->app->abort(400, 'A game need a type');
-        } else if(!isset($game->getRules())) {
+        } else if(isEmpty($game->getRules())) {
             $this->app->abort(400, 'A game need rules');
-        }  else if(!isset($game->getGenre())) {
+        }  else if(isEmpty($game->getGenre())) {
             $this->app->abort(400, 'A game need a genre');
-        }  else if(!isset($game->getTimelimit())) {
-            $this->app->abort(400, 'A game need a timelimit');
+        } else if(isEmpty($game->getTimelimit())) {
+            $this->app->abort(400, 'A game need a timelimit in seconds');
         }
 
         $game->setId(Application::generateGUIDv4());
@@ -113,7 +114,7 @@ EOS;
     }
 
     /**
-     * @param $gameId
+     * @param $id
      * @return array
      */
     public function getById($id)

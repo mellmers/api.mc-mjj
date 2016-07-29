@@ -7,7 +7,6 @@ use projectx\api\Application;
 use projectx\api\entity\GameAccount;
 use projectx\api\gameAccountType\GameAccountTypeRepository;
 use projectx\api\user\UserRepository;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class GameAccountRepository
@@ -51,7 +50,6 @@ EOS;
         $gameAccounts = $this->connection->fetchAll($sql);
 
         $result = [];
-//        print_r($gameAccounts);
 
         foreach ($gameAccounts as $gameAccount) {
             $gameAccount = $this->loadUser($gameAccount);
@@ -103,15 +101,17 @@ FROM `{$this->getTableName()}` ga
 WHERE ga.user_id = :userId
 EOS;
 
+        $result = [];
+
         $gameAccounts = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "User with id $userId has no GameAccounts.");
-        }
-        $result = [];
-        foreach ($gameAccounts as $gameAccount) {
-            $gameAccount = $this->loadUser($gameAccount);
-            $gameAccount = $this->loadGameAccountType($gameAccount);
-            $result[] = GameAccount::createFromArray($gameAccount);
+        } else {
+            foreach ($gameAccounts as $gameAccount) {
+                $gameAccount = $this->loadUser($gameAccount);
+                $gameAccount = $this->loadGameAccountType($gameAccount);
+                $result[] = GameAccount::createFromArray($gameAccount);
+            }
         }
         return $result;
     }
@@ -128,49 +128,53 @@ FROM `{$this->getTableName()}` ga
 WHERE ga.gameaccount_type_id = :gameAccountTypeId
 EOS;
 
+        $result = [];
+
         $gameAccounts = $this->connection->fetchAll($sql, ['gameAccountTypeId' => $gameAccountTypeId]);
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "GameAccounts type id $gameAccountTypeId has no GameAccounts.");
-        }
-        $result = [];
-        foreach ($gameAccounts as $gameAccount) {
-            $gameAccount = $this->loadUser($gameAccount);
-            $gameAccount = $this->loadGameAccountType($gameAccount);
-            $result[] = GameAccount::createFromArray($gameAccount);
+        } else {
+            foreach ($gameAccounts as $gameAccount) {
+                $gameAccount = $this->loadUser($gameAccount);
+                $gameAccount = $this->loadGameAccountType($gameAccount);
+                $result[] = GameAccount::createFromArray($gameAccount);
+            }
         }
         return $result;
     }
 
     /**
      * @param GameAccount $gameAccount
+     * @return array
      */
     public function create(GameAccount $gameAccount)
     {
+        $result = [];
+
         $userId = $gameAccount->getUserId();
         $typeId = $gameAccount->getGameAccountTypeId();
-        if (isset($userId) && isset($typeId)) {
-
+        if (empty($userId) && empty($typeId)) {
+            $this->app->abort(400, 'A gameaccount needs a userId and a gameAccountTypeId');
         } else {
-            $this->app->abort(400, 'A gameaccount needs a user and a accounttye');
-        }
-
-        $data = $gameAccount->jsonSerialize();
-        unset($data['user_path'], $data['user'], $data['gameaccountType_path'], $data['gameaccountType']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
+            $data = $gameAccount->jsonSerialize();
+            unset($data['userPath'], $data['user'], $data['gameaccountTypePath'], $data['gameaccountType']);
+            foreach ($data as $key => $value) {
+                if (empty($value)) {
+                    unset($data[$key]);
+                }
             }
+
+            $this->connection->insert("`{$this->getTableName()}`", $data);
+
+            $result = $this->getByIdAndType($userId, $typeId);
         }
-
-        $this->connection->insert("`{$this->getTableName()}`", $data);
-
-        return $this->getByIdAndType($userId, $typeId);
+        return $result;
     }
 
     /**
      * @param $userId
-     * @param $gameAccountTypeId
-     * @return JsonResponse
+     * @param $gameaccountTypeId
+     * @return array
      */
     public function getByIdAndType($userId, $gameaccountTypeId)
     {
@@ -180,13 +184,17 @@ FROM `{$this->getTableName()}` ga
 WHERE ga.userId = :userId AND ga.gameaccountTypeId = :gameaccountTypeId
 EOS;
 
+        $result = [];
+
         $gameAccounts = $this->connection->fetchAll($sql, ['userId' => $userId, 'gameaccountTypeId' => $gameaccountTypeId]);
         if (count($gameAccounts) === 0) {
             $this->app->abort(400, "GameAccount with id $userId and type $gameaccountTypeId does not exist.");
+        } else {
+            $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
+            $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);
+            $result[] = GameAccount::createFromArray($gameAccounts[0]);
         }
-        $gameAccounts[0] = $this->loadUser($gameAccounts[0]);
-        $gameAccounts[0] = $this->loadGameAccountType($gameAccounts[0]);
-        return GameAccount::createFromArray($gameAccounts[0]);
+        return $result;
     }
 
 }
