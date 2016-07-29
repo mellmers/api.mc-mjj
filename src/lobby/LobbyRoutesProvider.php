@@ -27,8 +27,10 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Lobbies",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Lobby"
+         *              )
          *         )
          *     )
          * )
@@ -40,8 +42,16 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          * @SWG\Get(
          *     path="/lobby/{lobbyId}",
          *     tags={"lobby"},
-         *     @SWG\Parameter(ref="#/parameters/lobbyId"),
-         *     @SWG\Response(response="200", description="The Lobby with the specified ID", @SWG\Schema(ref="#/definitions/Lobby"))
+         *     @SWG\Parameter(
+         *          ref="#/parameters/lobbyId"
+         *     ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The Lobby with the specified ID",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          )
+         *      )
          * )
          */
         $controllers->get('/{lobbyId}', 'service.lobby:getById');
@@ -56,8 +66,10 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Lobbies of a User",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Lobby"
+         *              )
          *         )
          *     )
          * )
@@ -74,8 +86,10 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *         response="200",
          *         description="A List of all Lobbies of a Game",
          *         @SWG\Schema(
-         *          type="array",
-         *          @SWG\Items(ref="#/definitions/Lobby"))
+         *              type="array",
+         *              @SWG\Items(
+         *                  ref="#/definitions/Lobby"
+         *              )
          *         )
          *     )
          * )
@@ -88,8 +102,19 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     description="Creates a Lobby",
          *     tags={"lobby"},
          *     path="/lobby/",
-         *     @SWG\Parameter(name="lobby", in="body", @SWG\Schema(ref="#/definitions/Lobby")),
-         *     @SWG\Response(response="200", description="The created Lobby", @SWG\Schema(ref="#/definitions/Lobby"))
+         *     @SWG\Parameter(
+         *          name="lobby",
+         *          in="body",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          ),
+         *     @SWG\Response(
+         *          response="200",
+         *          description="The created Lobby",
+         *          @SWG\Schema(
+         *              ref="#/definitions/Lobby"
+         *          )
+         *     )
          * )
          *
          */
