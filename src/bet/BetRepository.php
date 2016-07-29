@@ -116,7 +116,7 @@ EOS;
 
     /**
      * @param $userId
-     * @return Bet
+     * @return array
      */
     public function getByUserId($userId)
     {
@@ -126,7 +126,7 @@ FROM `{$this->getTableName()}` b
 WHERE b.userId = :userId
 EOS;
 
-        $result = null;
+        $result = [];
 
         $bets = $this->connection->fetchAll($sql, ['userId' => $userId]);
         if (count($bets) === 0) {
@@ -136,7 +136,7 @@ EOS;
                 $bet = Bet::createFromArray($key);
                 $bet = $this->loadUser($bet);
                 $bet = $this->loadLobby($bet);
-                $result = $bet;
+                $result[] = $bet;
             }
         }
         return $result;
@@ -169,28 +169,6 @@ EOS;
     }
 
     /**
-     * @param Bet $bet
-     *
-     * @return Bet
-     */
-    public function update(Bet $bet)
-    {
-        $data = $bet->jsonSerialize();
-        unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                unset($data[$key]);
-            }
-        }
-
-        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $bet->getUserId(), "lobbyId" => $bet->getLobbyId()]);
-        $result = $this->getByIds($bet->getUserId(), $bet->getLobbyId());
-
-        return $result;
-    }
-
-
-    /**
      * @param $userId
      * @param $lobbyId
      * @return Bet
@@ -215,6 +193,27 @@ EOS;
             $bet = $this->loadLobby($bet);
             $result = $bet;
         }
+        return $result;
+    }
+
+    /**
+     * @param Bet $bet
+     *
+     * @return Bet
+     */
+    public function update(Bet $bet)
+    {
+        $data = $bet->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $bet->getUserId(), "lobbyId" => $bet->getLobbyId()]);
+        $result = $this->getByIds($bet->getUserId(), $bet->getLobbyId());
+
         return $result;
     }
 

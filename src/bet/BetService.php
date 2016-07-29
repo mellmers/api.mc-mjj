@@ -59,7 +59,7 @@ class BetService
      */
     public function getByLobbyId($lobbyId)
     {
-        $result['data'][] = $this->betRepository->getByLobbyId($lobbyId);
+        $result['data'] = $this->betRepository->getByLobbyId($lobbyId);
         return new JsonResponse($result);
     }
 
@@ -72,7 +72,7 @@ class BetService
      */
     public function getByUserId($userId)
     {
-        $result['data'][] = $this->betRepository->getByUserId($userId);
+        $result['data'] = $this->betRepository->getByUserId($userId);
         return new JsonResponse($result);
     }
 
