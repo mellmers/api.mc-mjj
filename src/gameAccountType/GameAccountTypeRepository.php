@@ -56,7 +56,7 @@ EOS;
      */
     public function getTableName()
     {
-        return 'gameaccounttype';
+        return 'gameaccountType';
     }
 
     /**
@@ -82,6 +82,26 @@ EOS;
 
             $result = $this->getById($gameAccountType->getId());
         }
+        return $result;
+    }
+
+
+    /**
+     * @param GameAccountType $gameAccountType
+     * @return GameAccountType
+     */
+    public function update(GameAccountType $gameAccountType)
+    {
+        $data = $gameAccountType->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $gameAccountType->getId()]);
+
+        $result = $this->getById($gameAccountType->getId());
         return $result;
     }
 

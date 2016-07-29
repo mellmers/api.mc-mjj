@@ -95,4 +95,25 @@ class BetService
 
         return new JsonResponse($response, 201);
     }
+
+
+    /**
+     * PATCH /bet
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $bet = Bet::createFromArray($postData);
+
+        $betFromDatabase = $this->betRepository->update($bet);
+
+        $response['data'] = $betFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
 }

@@ -95,4 +95,24 @@ class GameAccountService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * PATCH /gameAccount
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $gameAccount = GameAccount::createFromArray($postData);
+
+        $gameAccountFromDatabase = $this->gameAccountRepository->update($gameAccount);
+
+        $response['data'] = $gameAccountFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
 }

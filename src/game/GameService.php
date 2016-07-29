@@ -82,4 +82,24 @@ class GameService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * PATCH /game
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $game = Game::createFromArray($postData);
+
+        $gameFromDatabase = $this->gameRepository->update($game);
+
+        $response['data'] = $gameFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
 }

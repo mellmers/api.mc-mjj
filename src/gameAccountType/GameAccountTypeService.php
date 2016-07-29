@@ -69,4 +69,24 @@ class GameAccountTypeService
 
         return new JsonResponse($response, 201);
     }
+
+    /**
+     * PATCH /gameAccountType
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $postData = $request->request->all();
+
+        $gameAccountType = GameAccountType::createFromArray($postData);
+
+        $gameAccountTypeFromDatabase = $this->gameAccountTypeRepository->update($gameAccountType);
+
+        $response['data'] = $gameAccountTypeFromDatabase;
+
+        return new JsonResponse($response, 200);
+    }
 }

@@ -160,8 +160,28 @@ EOS;
             return $this->getByIds($bet->getUserId(), $bet->getLobbyId());
         }
     }
-    
-    
+
+
+    /**
+     * @param Bet $bet
+     *
+     * @return Bet
+     */
+    public function update(Bet $bet)
+    {
+        $data = $bet->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['lobby_path'], $data['lobby']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $bet->getUserId(), "lobbyId" => $bet->getLobbyId()]);
+        $result = $this->getByIds($bet->getUserId(), $bet->getLobbyId());
+
+        return $result;
+    }
 
     /**
      * @param $userId

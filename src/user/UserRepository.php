@@ -95,6 +95,27 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function update(User $user)
+    {
+        $data = $user->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $user->getId()]);
+        $result = $this->getById($user->getId());
+
+        return $result;
+    }
+
     /**
      * @param $userId
      *

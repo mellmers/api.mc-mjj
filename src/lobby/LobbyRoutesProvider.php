@@ -141,7 +141,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Patch(
-         *     description="Creates a Lobby",
+         *     description="Updates a Lobby",
          *     tags={"lobby"},
          *     path="/lobby/",
          *     @SWG\Parameter(
@@ -153,7 +153,7 @@ class LobbyRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="The created Lobby",
+         *          description="The updated Lobby",
          *          @SWG\Schema(
          *              ref="#/definitions/Lobby"
          *          )

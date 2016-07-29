@@ -116,6 +116,24 @@ EOS;
     }
 
     /**
+     * @param Game $game
+     * @return Game
+     */
+    public function update(Game $game)
+    {
+        $data = $game->jsonSerialize();
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["id" => $game->getId()]);
+
+        return $this->getById($game->getId());
+    }
+
+    /**
      * @param $id
      * @return array
      */

@@ -168,6 +168,28 @@ EOS;
         return $result;
     }
 
+
+    /**
+     * @param GameAccount $gameAccount
+     * @return GameAccount
+     */
+    public function update(GameAccount $gameAccount)
+    {
+        $result = [];
+        $data = $gameAccount->jsonSerialize();
+        unset($data['userPath'], $data['user'], $data['gameaccountTypePath'], $data['gameaccountType']);
+        foreach ($data as $key => $value) {
+            if (empty($value)) {
+                unset($data[$key]);
+            }
+        }
+
+        $this->connection->update("`{$this->getTableName()}`", $data, ["userId" => $gameAccount->getUserId(), "gameAccountTypeId" => $gameAccount->getGameAccountTypeId()]);
+
+        $result = $this->getByIdAndType($gameAccount->getUserId(), $gameAccount->getGameAccountTypeId());
+        return $result;
+    }
+
     /**
      * @param $userId
      * @param $gameaccountTypeId
