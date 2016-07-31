@@ -50,5 +50,5 @@ Die SwaggerUI liegt unter "localhost/swaggerUI/".
 
 ## Team Mitglieder
 - Thorben Werner - 383472
-- Moritz Ellmers - 
+- Moritz Ellmers - 378382
 - Jonas Oja - 386241
