@@ -1,59 +1,47 @@
 # API for Project-X @ HSBremen - REST-API
 
 ## Benötigte Software
-- [Git](https://git-scm.com/) (Quellcodeverwaltung)
-- [VirtualBox](https://www.virtualbox.org/) (Virtualisierungs Software)
-- [Vagrant](https://www.vagrantup.com/) (Automatisierte VM Konfiguration)
-- [XAMPP](https://www.apachefriends.org) oder lokale PHP Installation (für lokale Tests [geht auch ohne])
-- [Composer](https://getcomposer.org/) PHP Paketmanager (geht auch ohne, über die VM)
-- Einen Editor (vorzugsweise [Phpstorm](https://www.jetbrains.com/phpstorm/))
+- [Git](https://git-scm.com/)
+- [XAMPP](https://www.apachefriends.org)
+- [Composer](https://getcomposer.org/)
+- [Phpstorm](https://www.jetbrains.com/phpstorm/)
 
 ## Initiales Setup
-1. Klone dieses Repository `git clone git@github.com/mellmers/api.project-x.git`
-2. Wechsel in das Verzeichnis `cd api.project-x`
-3. Starte die VM mit `vagrant up`
-4. Warte bis die VM erstellt wurde, währenddessen folgendes, als neue Zeile, in die Datei `C:\Windows\System32\drivers\etc\hosts` bzw. `/etc/hosts/` eintragen (Als Administrator/root bearbeiten):  
-```
-192.168.56.222 api.project-x.vm
-```
-5. Wenn die VM fertig gebaut ist, sieht das in etwa so aus:  
-```
-       + Zwei Elefanten +++++++++++ Zwei Elefanten +
-       
-       + Viel Text +++++++++++++++++++++ Viel Text +
-       
- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- |  ____                _      _    _                    _  |
- | |  _ \ ___  __ _  __| |    / \  | |__   _____   _____| | |
- | | |_) / _ \/ _` |/ _` |   / _ \ | '_ \ / _ \ \ / / _ \ | |
- | |  _ <  __/ (_| | (_| |  / ___ \| |_) | (_) \ V /  __/_| |
- | |_| \_\___|\__,_|\__,_| /_/   \_\_.__/ \___/ \_/ \___(_) |
- |                                                          |
- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++       
-```
-6. Installiere die erforderlichen PHP Pakete: `composer install` (wenn lokale PHP Installation, sonst unter `/var/www/src` per SSH auf der VM)
-7. Browser öffnen und `http://api.project-x.vm/` eingeben.
-8. Das `api.project-x` Verzeichnis im Editor deiner Wahl öffnen.
+1. Xampp installieren
+2. MySQL bereitstellen
+3. Dieses Repo klonen
+4. Das gesamte Projekt bei Xampp bereitstellen. (einfach alles in htdocs/ kopieren)
+5. Composer install nicht vergessen
 
-## Vor jeder Session
-1. `vagrant up` (dauert jetzt nicht mehr so lange)
+## Datenbank
+Es wird ein Benutzer mit Namen 'project-x' und Passwort 'project-x' benötigt.
+Ein Skript zum Erstellen der Datenbank sowie einiger Testbeispiele findet sich im 'sql/' Ordner des Projektes.
+In Notfall kann dies im 'src/database/databaseProvider.php' geändert werden.
 
-## Nach jeder Session
-1. `vagrant halt` (fährt die VM runter)
+## Lokale Tests mit PHPUnit
+Sobald PHPUnit vorhanden ist, kann eine Run/Debug Config von Typ PHPUnit erstellt werden.
+Test scope ist der 'tests/' Ordner im root Level des Projekts.
 
-## Per SSH auf die VM
-Host: localhost
-Port: 2222
-User: vagrant
-Private-Key: `./puphpet/files/dot/ssh/id_rsa`
-Kein Password
+Für Code Coverage verwenden wir die Test Runner Option
+```
+-- whitelist src/
+```
+Ausserdem wird ein aktives xDebug Modul benötigt.
+Um zu testen, ob xDebug aktiv ist kann php -v ins Terminal eingegeben werden.
+Der Output sollte so aussehen.
+```
+PHP 7.0.9 (cli) (built: Jul 20 2016 17:12:28) ( NTS )
+Copyright (c) 1997-2016 The PHP Group
+Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
+    with Xdebug v2.4.0, Copyright (c) 2002-2016, by Derick Rethans
 
-### Was ist auf der VM installiert?
-- Ubuntu 14.04 LTS x64 (1 CPU, 512 MB RAM)
-- IP: 192.168.56.222
-- Offene Ports: TCP 9000 (xDebug) und TCP 3306 (MySQL)
-- vim, htop
-- nginx
-- PHP 5.6
-- Nodejs 5
-- MySQL 5.5 (user: project-x, pw: project-x)
+```
+Falls das nicht der Fall ist hilft diese Webseite:
+[xDebug Wizard](https://xdebug.org/wizard.php)
+
+## Swagger
+Eine fertige Swagger.json findet sich im 'documentation/' Ordner.
+Ausserdem wird in unserem Projekt auch SwaggerUI gehostet um das Testen der Api zu erleichtern.
+Der Pfad zur json sowie der basePath zum Testen ist für Xampp voreingestellt.
+
+Zum Testen auf einer Vagrant Maschine genügt lediglich der Name des Servers als 'basePath'(swaggerConfig.php | Zeile 5). (MO?)
