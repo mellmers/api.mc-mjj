@@ -49,6 +49,6 @@ Der Pfad zur JSON sowie der basePath zum Testen ist für Xampp voreingestellt un
 Die SwaggerUI liegt unter "localhost/swaggerUI/".
 
 ## Team Mitglieder
-- Thorben Werner - 
+- Thorben Werner - 383472
 - Moritz Ellmers - 
 - Jonas Oja - 386241
