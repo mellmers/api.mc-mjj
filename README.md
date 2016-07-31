@@ -1,4 +1,6 @@
 # API for Project-X @ HSBremen - REST-API
+Wir haben Vagrant nie auf allen drei Maschienen verlässlich zum laufen gebracht, daher sind wir auf Xampp umgestiegen.
+Diese Readme ist daher auf Xampp zugeschnitten.
 
 ## Benötigte Software
 - [Git](https://git-scm.com/)
@@ -43,5 +45,3 @@ Falls das nicht der Fall ist hilft diese Webseite:
 Eine fertige Swagger.json findet sich im 'documentation/' Ordner.
 Ausserdem wird in unserem Projekt auch SwaggerUI gehostet um das Testen der Api zu erleichtern.
 Der Pfad zur json sowie der basePath zum Testen ist für Xampp voreingestellt.
-
-Zum Testen auf einer Vagrant Maschine genügt lediglich der Name des Servers als 'basePath'(swaggerConfig.php | Zeile 5). (MO?)
