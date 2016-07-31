@@ -29,18 +29,6 @@ class Application extends Silex {
 
         $app['base_path'] = __DIR__;
 
-       /* $app->register(new SwaggerProvider(),
-            [
-                SwaggerServiceKey::SWAGGER_SERVICE_PATH => $app['base_path'],
-                SwaggerServiceKey::SWAGGER_API_DOC_PATH => '/docs/swagger.json',
-            ]);*/
-
-        /*$app->register(new SwaggerUIServiceProvider(),
-            [
-                'swaggerui.path' => '/docs/swagger',
-                'swaggerui.docs' => '/docs/swagger.json',
-            ]);*/
-
         // error handling calling with $app->abort($code, $message)
         $app->error(function (\Exception $e, $code) use ($app) {
             if($app['debug']) {
