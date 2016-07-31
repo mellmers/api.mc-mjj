@@ -46,7 +46,7 @@ Falls das nicht der Fall ist, hilft folgende Webseite:
 Eine fertige Swagger.json befindet sich im 'documentation/' Ordner.
 Außerdem wird in unserem Projekt SwaggerUI gehostet, um das Testen der Api zu erleichtern.
 Der Pfad zur JSON sowie der basePath zum Testen ist für Xampp voreingestellt und kann anderenfalls in der SwaggerConfig ('src/SwaggerConfig.php') geändert werden.
-Die SwaggerUI liegt unter "localhost/swaggerUI/"
+Die SwaggerUI liegt unter "localhost/swaggerUI/".
 
 ## Team Mitglieder
 - Thorben Werner - 
