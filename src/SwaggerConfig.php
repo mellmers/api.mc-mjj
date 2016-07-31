@@ -73,7 +73,7 @@
  *         @SWG\Property(property="createdAt", type="integer"),
  *         @SWG\Property(property="starttime",  type="integer"),
  *         @SWG\Property(property="endtime", type="integer"),
- *         @SWG\Property(property="users", type="array")
+ *         @SWG\Property(property="users", type="array", @SWG\Items(ref="#/definitions/User"))
  *     )
  * )
  *
@@ -91,7 +91,7 @@
  * @SWG\Parameter(name="userId", in="path", type="string", description="a user id used to find the game user")
  * @SWG\Parameter(name="gameAccountId", in="path", type="string", description="a gameAccount Id used to find the gameAccount object")
  * @SWG\Parameter(name="gameAccountTypeId", in="path", type="string", description="a gameAccountType Id used to find the gameAccountType object")
- * @SWG\Parameter(name="gameAccount", in="path", type="Gameaccount", description="a gameAccount used to find the gameAccount object")
+ * @SWG\Parameter(name="gameAccount", in="path", type="string", description="a gameAccount used to find the gameAccount object") Swagger kennt keinen 'object' type
  * @SWG\Parameter(name="betId", in="path", type="string", description="a bet id used to find the bet object")
  *
  * @SWG\Parameter(name="type", in="path", type="string", description="a type id used to find the right object")

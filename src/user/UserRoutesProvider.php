@@ -81,6 +81,7 @@ class UserRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
+         *     description="Deletes the User with the specified ID",
          *     path="/user/delete/{userId}",
          *     tags={"user"},
          *     @SWG\Parameter(
@@ -88,7 +89,7 @@ class UserRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="The deleted User with the specified ID",
+         *          description="The deleted User",
          *          @SWG\Schema(
          *              ref="#/definitions/User"
          *          )
@@ -100,7 +101,7 @@ class UserRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Patch(
-         *     description="Creates an user",
+         *     description="Updates an user",
          *     tags={"user"},
          *     path="/user/",
          *     @SWG\Parameter(
@@ -112,7 +113,7 @@ class UserRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="The created User",
+         *          description="The updated User",
          *          @SWG\Schema(
          *              ref="#/definitions/User"
          *          )

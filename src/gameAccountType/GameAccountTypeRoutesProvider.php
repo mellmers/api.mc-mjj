@@ -26,7 +26,7 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
          *     tags={"gameAccountType"},
          *     @SWG\Response(
          *         response="200",
-         *         description="A List of all Game Account Type",
+         *         description="A List of all Game Account types",
          *         @SWG\Schema(
          *              type="array",
          *              @SWG\Items(
@@ -81,11 +81,12 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
+         *     description="Deletes the GameAccountType with the specified ID",
          *     path="/gameAccountType/delete/{gameAccountTypeID}",
          *     tags={"gameAccountType"},
          *     @SWG\Response(
          *          response="200",
-         *          description="The GameAccountType with the specified ID",
+         *          description="The deleted GameAccountType",
          *          @SWG\Schema(
          *              ref="#/definitions/GameAccountType"
          *          )
@@ -96,6 +97,7 @@ class GameAccountTypeRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Patch(
+         *     description="Updates a Game Account type",
          *     tags={"gameAccountType"},
          *     path="/gameAccountType/",
          *     @SWG\Parameter(

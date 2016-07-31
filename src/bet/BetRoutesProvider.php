@@ -124,6 +124,7 @@ class BetRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
+         *     description="Deletes the bet with the specified owner ID and lobby id",
          *     path="/bet/delete/{userId},{lobbyId}",
          *     tags={"bet"},
          *     @SWG\Parameter(
@@ -134,7 +135,7 @@ class BetRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="Deletes the bet with the specified owner ID and lobby id",
+         *          description="The deleted bet",
          *          @SWG\Schema(
          *              ref="#/definitions/Bet"
          *          )
@@ -145,7 +146,7 @@ class BetRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Patch(
-         *     description="Updates an user",
+         *     description="Updates an Bet",
          *     tags={"bet"},
          *     path="/bet/",
          *     @SWG\Parameter(

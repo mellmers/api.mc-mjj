@@ -62,7 +62,7 @@
                 "tags": [
                     "bet"
                 ],
-                "description": "Updates an user",
+                "description": "Updates an Bet",
                 "parameters": [
                     {
                         "name": "bet",
@@ -156,6 +156,7 @@
                 "tags": [
                     "bet"
                 ],
+                "description": "Deletes the bet with the specified owner ID and lobby id",
                 "parameters": [
                     {
                         "$ref": "#/parameters/userId"
@@ -166,7 +167,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Deletes the bet with the specified owner ID and lobby id",
+                        "description": "The deleted bet",
                         "schema": {
                             "$ref": "#/definitions/Bet"
                         }
@@ -286,6 +287,7 @@
                 "tags": [
                     "game"
                 ],
+                "description": "Deletes the game with the specified ID",
                 "parameters": [
                     {
                         "$ref": "#/parameters/gameId"
@@ -293,7 +295,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The deleted game with the specified ID",
+                        "description": "The deleted game",
                         "schema": {
                             "$ref": "#/definitions/Game"
                         }
@@ -439,6 +441,7 @@
                 "tags": [
                     "gameAccount"
                 ],
+                "description": "Deletes the Game Account with the specified ID and Type",
                 "parameters": [
                     {
                         "$ref": "#/parameters/userId"
@@ -449,7 +452,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Deletes the Game Account with the specified ID and Type",
+                        "description": "The deleted Game Account",
                         "schema": {
                             "$ref": "#/definitions/GameAccount"
                         }
@@ -464,7 +467,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A List of all Game Account Type",
+                        "description": "A List of all Game Account types",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -478,6 +481,7 @@
                 "tags": [
                     "gameAccountType"
                 ],
+                "description": "Creates a GameAccountType",
                 "parameters": [
                     {
                         "name": "gameAccountType",
@@ -500,13 +504,10 @@
                 "tags": [
                     "gameAccountType"
                 ],
+                "description": "Updates a Game Account type",
                 "parameters": [
                     {
-                        "name": "gameAccountType",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/GameAccountType"
-                        }
+                        "$ref": "#/parameters/gameAccountTypeId"
                     }
                 ],
                 "responses": {
@@ -544,14 +545,10 @@
                 "tags": [
                     "gameAccountType"
                 ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/gameAccountTypeId"
-                    }
-                ],
+                "description": "Deletes the GameAccountType with the specified ID",
                 "responses": {
                     "200": {
-                        "description": "The GameAccountType with the specified ID",
+                        "description": "The deleted GameAccountType",
                         "schema": {
                             "$ref": "#/definitions/GameAccountType"
                         }
@@ -714,6 +711,7 @@
                 "tags": [
                     "lobby"
                 ],
+                "description": "Deletes the Lobby with the specified Id",
                 "parameters": [
                     {
                         "$ref": "#/parameters/lobbyId"
@@ -721,12 +719,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Deletes a Lobby wiht given id",
+                        "description": "The deleted Lobby",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Lobby"
-                            }
+                            "$ref": "#/definitions/Lobby"
                         }
                     }
                 }
@@ -776,7 +771,7 @@
                 "tags": [
                     "user"
                 ],
-                "description": "Creates an user",
+                "description": "Updates an user",
                 "parameters": [
                     {
                         "name": "user",
@@ -788,7 +783,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The created User",
+                        "description": "The updated User",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -821,6 +816,7 @@
                 "tags": [
                     "user"
                 ],
+                "description": "Deletes the User with the specified ID",
                 "parameters": [
                     {
                         "$ref": "#/parameters/userId"
@@ -828,7 +824,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The deleted User with the specified ID",
+                        "description": "The deleted User",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -877,7 +873,7 @@
                     "type": "integer"
                 },
                 "createdAt": {
-                    "type": "string"
+                    "type": "integer"
                 }
             }
         },
@@ -893,7 +889,7 @@
                     "type": "integer"
                 },
                 "team": {
-                    "type": "boolean"
+                    "type": "integer"
                 }
             }
         },
@@ -905,7 +901,7 @@
                 "name": {
                     "type": "string"
                 },
-                "typ": {
+                "type": {
                     "type": "string"
                 },
                 "icon": {
@@ -960,19 +956,22 @@
                     "type": "string"
                 },
                 "winnerTeam": {
-                    "type": "tinyint"
+                    "type": "integer"
                 },
                 "createdAt": {
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "starttime": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "endtime": {
                     "type": "integer"
                 },
                 "users": {
-                    "type": "integer"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/User"
+                    }
                 }
             }
         }
@@ -981,55 +980,55 @@
         "gameId": {
             "name": "gameId",
             "in": "path",
-            "description": "",
+            "description": "a Game id used to find the game object",
             "type": "string"
         },
         "lobbyId": {
             "name": "lobbyId",
             "in": "path",
-            "description": "",
+            "description": "a Lobby id used to find the game Lobby",
             "type": "string"
         },
         "userId": {
             "name": "userId",
             "in": "path",
-            "description": "",
+            "description": "a user id used to find the game user",
             "type": "string"
         },
-        "gameAccId": {
-            "name": "gameAccId",
+        "gameAccountId": {
+            "name": "gameAccountId",
             "in": "path",
-            "description": "",
+            "description": "a gameAccount Id used to find the gameAccount object",
             "type": "string"
         },
         "gameAccountTypeId": {
             "name": "gameAccountTypeId",
             "in": "path",
-            "description": "",
+            "description": "a gameAccountType Id used to find the gameAccountType object",
             "type": "string"
         },
         "gameAccount": {
             "name": "gameAccount",
             "in": "path",
-            "type": "integer",
-            "format": "int32"
+            "description": "a gameAccount used to find the gameAccount object",
+            "type": "string"
         },
         "betId": {
             "name": "betId",
             "in": "path",
-            "type": "integer",
-            "format": "int32"
+            "description": "a bet id used to find the bet object",
+            "type": "string"
         },
         "type": {
             "name": "type",
             "in": "path",
-            "description": "",
+            "description": "a type id used to find the right object",
             "type": "string"
         },
         "genre": {
             "name": "genre",
             "in": "path",
-            "description": "",
+            "description": "a genre string used to find the game object",
             "type": "string"
         }
     },
@@ -1052,11 +1051,11 @@
         },
         {
             "name": "lobby",
-            "description": "All about lobbys"
+            "description": "All about lobbies"
         },
         {
             "name": "user",
-            "description": "All about Users"
+            "description": "All about users"
         }
     ]
 }

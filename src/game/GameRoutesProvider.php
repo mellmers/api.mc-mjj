@@ -103,6 +103,7 @@ class GameRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
+         *     description="Deletes the game with the specified ID",
          *     path="/game/delete/{gameId}",
          *     tags={"game"},
          *     @SWG\Parameter(
@@ -110,7 +111,7 @@ class GameRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="The deleted game with the specified ID",
+         *          description="The deleted game",
          *          @SWG\Schema(
          *              ref="#/definitions/Game"
          *          )

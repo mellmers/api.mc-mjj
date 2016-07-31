@@ -112,26 +112,26 @@ class ServiceTests extends PHPUnit_Framework_TestCase
 
 
     //this mocks the database
-    public function connectionMockCallback($foo, $bar) {
-        if(count($bar) !== 0) {
-            foreach ($bar as $key => $value) {
+    public function connectionMockCallback($tablename, $idMap) {
+        if(count($idMap) !== 0) {
+            foreach ($idMap as $key => $value) {
                 if ($value === -1)
                     return [];
             }
         }
-        if(strpos($foo, 'bet') !== false)
+        if(strpos($tablename, 'bet') !== false)
             return [['userId' => '8b2ca685515eb967ccf945070ed0207f', 'lobbyId' => '8b2ca685515eb967ccf945070ed0207f', 'amount' => 0, 'team' => 0]];
-        if(strpos($foo, 'gameaccountType') !== false)
+        if(strpos($tablename, 'gameaccountType') !== false)
             return [['id' => '8b2ca685515eb967ccf945070ed0207f', 'name' => "gameAccountTypeName", 'icon' => 'someIcon']];
-        if(strpos($foo, 'gameaccount') !== false)
+        if(strpos($tablename, 'gameaccount') !== false)
             return [['userId' => '8b2ca685515eb967ccf945070ed0207f', 'userIdentifier' => "username", 'gameaccountTypeId' => '8b2ca685515eb967ccf945070ed0207f']];
-        if(strpos($foo, 'game') !== false)
+        if(strpos($tablename, 'game') !== false)
             return [['id' => '8b2ca685515eb967ccf945070ed0207f', 'name' => "someName", 'typ' => "sometype", 'icon' => "someIcon", 'rules' => 'someRules', 'genre' => "somegenre", 'timelimit' => 1000]];
-        if(strpos($foo, 'lobby') !== false)
+        if(strpos($tablename, 'lobby') !== false)
             return [['id' => '8b2ca685515eb967ccf945070ed0207f', 'ownerId' => '8b2ca685515eb967ccf945070ed0207f', 'gameId' => '8b2ca685515eb967ccf945070ed0207f', 'winnerteam' => 1, 'createdAt' => 0, 'starttime' => 0, 'endtime' => 0]];
-        if(strpos($foo, 'user') !== false)
+        if(strpos($tablename, 'user') !== false)
             return [['id' => '8b2ca685515eb967ccf945070ed0207f', 'email' => "someMail", 'username' => "username", 'trusted' => 1, 'password' => 'somePassWord', 'icon' => "someIcon", 'coins' => 0, 'createdAt' => 0]];
         else
-            var_dump($foo);
+            var_dump($tablename);
     }
 }

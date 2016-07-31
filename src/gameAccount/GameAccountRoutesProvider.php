@@ -126,6 +126,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
 
         /**
          * @SWG\Get(
+         *     description="Deletes the Game Account with the specified ID and Type",
          *     path="/gameAccount/delete/{userId},{gameAccountTypeId}",
          *     tags={"gameAccount"},
          *     @SWG\Parameter(
@@ -136,7 +137,7 @@ class GameAccountRoutesProvider implements ControllerProviderInterface
          *     ),
          *     @SWG\Response(
          *          response="200",
-         *          description="Deletes the Game Account with the specified ID and Type",
+         *          description="The deleted Game Account",
          *          @SWG\Schema(
          *              ref="#/definitions/GameAccount"
          *          )
