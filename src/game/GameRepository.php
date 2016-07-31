@@ -91,15 +91,15 @@ EOS;
     {
         $result = null;
 
-        if (isEmpty($game->getName())) {
+        if (empty($game->getName())) {
             $this->app->abort(400, 'A game need a name');
-        } else if(isEmpty($game->getType())) {
+        } else if(empty($game->getType())) {
             $this->app->abort(400, 'A game need a type');
-        } else if(isEmpty($game->getRules())) {
+        } else if(empty($game->getRules())) {
             $this->app->abort(400, 'A game need rules');
-        }  else if(isEmpty($game->getGenre())) {
+        }  else if(empty($game->getGenre())) {
             $this->app->abort(400, 'A game need a genre');
-        } else if (isEmpty($game->getTimelimit())) {
+        } else if (empty($game->getTimelimit())) {
             $this->app->abort(400, 'A game need a timelimit in seconds');
         } else {
             $game->setId(Application::generateGUIDv4());
