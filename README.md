@@ -11,7 +11,7 @@ Diese Anleitung bezieht sich daher auf die Installation mit Xampp.
 ## Initiales Setup
 1. Xampp installieren
 2. MySQL bereitstellen
-3. Dieses Repo klonen `git clone git@github.com:Basster/hs-bremen-web-api.git`
+3. Dieses Repo klonen `git clone git@github.com:mellmers/api.project-x.git`
 4. Das gesamte Projekt für Xampp bereitstellen. (einfach alles in htdocs/(WUNSCHVERZEICHNIS) kopieren)
 5. composer install im Stammverzeichnis ausführen
 
